@@ -1,3 +1,7 @@
 from django.db import models
-
-# Create your models here.
+from .badge import *
+from .noodle import *
+from .profile import *
+from .report import *
+from .review import *
+from .tag import *

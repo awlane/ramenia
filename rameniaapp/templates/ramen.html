@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block page %}
+<center>
+<h1>{{noodle.name}}</h1>
+{%for image_obj in noodle.noodleimage_set.all%}
+    <img src="{{ MEDIA_URL }}{{ image_obj.image.name }}" height="350px">
+{% endfor %}
+<h2>Data</h2>
+{%for key, value in noodle.metadata.items%}
+    <p> {{key}} : {{value}} </p>
+{% endfor %}
+<h2>Tags</h2>
+{%for tag in noodle.tags.all%}
+    <p> {{tag.name}} </p>
+{% endfor %}
+</center>
+{% endblock %}

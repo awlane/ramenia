@@ -24,11 +24,11 @@
             </li>
             {% if not user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="login">Login</a>
+                    <a class="nav-link" href="/app/login/?next={{request.path}}">Login</a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="logout">Logout</a>
+                    <a class="nav-link" href="/app/logout/">Logout</a>
                 </li>
             {% endif %}
         </ul>

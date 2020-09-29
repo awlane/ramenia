@@ -125,3 +125,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = Path(__file__).resolve().parent.parent / "django_images"
 MEDIA_URL = '/media/'
+LOGIN_REDIRECT_URL = '/app/'
+LOGOUT_REDIRECT_URL = '/app/'

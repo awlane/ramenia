@@ -32,6 +32,11 @@
         {% endfor %}
 
         <tr>
+            <td>Rating</td>
+            <td>{{avg_rating}} stars from {{noodle.review_set.all|length}} ratings</td>
+        </tr>
+
+        <tr>
             <td>Tags</td>
             <td>
             {% for tag in noodle.tags.all %}

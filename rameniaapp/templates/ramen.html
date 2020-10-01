@@ -2,16 +2,50 @@
 {% block page %}
 <center>
 <h1>{{noodle.name}}</h1>
+<p> Last edited on {{noodle.timestamp}} by {{noodle.editor.profile.name}} </p>
 {%for image_obj in noodle.noodleimage_set.all%}
     <img src="{{ MEDIA_URL }}{{ image_obj.image.name }}" height="350px">
 {% endfor %}
-<h2>Data</h2>
+<hr>
+<h3>Info</h3>
+<table bordercolor="black">
 {%for key, value in noodle.metadata.items%}
-    <p> {{key}} : {{value}} </p>
+    {% if not key == "Description" %}
+        <tr> 
+            <td bgcolor="grey">{{key}} </td>
+            <td>{{value}}</td>
+        </tr>
+    {% endif %}
 {% endfor %}
-<h2>Tags</h2>
+</table>
+<p></p>
+<p>{{noodle.metadata.Description}}</p>
+<hr>
+<p>Rating: {{avg_rating}}/5 ({{noodle.review_set.all|length}} ratings)</p>
+<hr>
+<h3>Tags</h3>
+
+<p>
 {%for tag in noodle.tags.all%}
-    <p> {{tag.name}} </p>
+    <button>{{tag.name}}</button>
+{% endfor %}
+</p>
+<hr>
+<h2>Reviews</h2>
+{% for review in noodle.review_set.all %}
+    <h4> {{ review.title }} </h4>
+    <small>
+    <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
+    <p style="color:gray">{{review.reviewer.profile.name}} </p>
+    <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
+    </small>
+    <p> {{ review.body }} </p>
+    {%for image_obj in review.reviewimage_set.all%}
+    {% comment %} </div>
+    </div> {% endcomment %}
+        <img src="{{ MEDIA_URL }}{{ image_obj.image.name }}" height="150px">
+    {% endfor %}
+    <hr>
 {% endfor %}
 </center>
 {% endblock %}

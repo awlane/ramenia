@@ -2,7 +2,7 @@
 {% block page %}
 <center>
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-auto">
             <img src="{{ MEDIA_URL }}{{ profile.profile_pic.name }}" height="150px">
         </div>
@@ -13,20 +13,10 @@
 </div>
 <hr>
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-auto">
             <h4> Description </h4>
             <p> {{profile.metadata.Description}} </p>
-        </div>
-        <div class="col-md-auto">
-            <h4>Badges</h4>
-            {% for badge in profile.badges.all %}
-                <img src="{{ MEDIA_URL }}{{ badge.image.name }}" height="100px" title="{{ badge.name }}">
-            {% endfor %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-auto">
             <h4> Stats </h4>
             <table class="table">
                 <thead>
@@ -45,8 +35,19 @@
                 </tbody>
             </table>
             <button disabled>Follow</button>
-        </div> 
+        </div>
+        <div class="col-md-auto">
+            <h4>Badges</h4>
+            {% for badge in profile.badges.all %}
+                <img src="{{ MEDIA_URL }}{{ badge.image.name }}" height="50px" title="{{ badge.name }}">
+            {% endfor %}
+        </div>
     </div>
+    {% comment %} <div class="row justify-content-center">
+        <div class="col-md-auto">
+            
+        </div> 
+    </div> {% endcomment %}
 </div>
 <div class="container">
 <hr>

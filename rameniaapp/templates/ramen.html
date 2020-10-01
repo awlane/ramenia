@@ -52,7 +52,7 @@
     <h4> {{ review.title }} </h4>
     <small>
     <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    <p style="color:gray">{{review.reviewer.profile.name}} </p>
+    <a style="color:gray" href="/app/profile/{{review.reviewer.profile.user.id}}">{{review.reviewer.profile.name}} </a>
     <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
     </small>
     <p> {{ review.body }} </p>

@@ -25,15 +25,18 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             {% if not user.is_authenticated %}
+                {% url 'login' as login_link%}
                 <li class="nav-item">
-                    <a class="nav-link" href="/app/login/?next={{request.path}}">Login</a>
+                    <a class="nav-link" href="{{login_link}}?next={{request.path}}">Login</a>
                 </li>
             {% else %}
+                {% url 'profile' user.profile.id as profile_link%}
                 <li class="nav-item">
-                    <a class="nav-link" href="/app/profile/{{user.id}}">My Profile</a>
+                    <a class="nav-link" href="{{profile_link}}">My Profile</a>
                 </li>
+                {% url 'logout' as logout_link%}
                 <li class="nav-item">
-                    <a class="nav-link" href="/app/logout/">Logout</a>
+                    <a class="nav-link" href={{logout_link}}>Logout</a>
                 </li>
             {% endif %}
         </ul>

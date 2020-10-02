@@ -8,16 +8,14 @@ Python 3, PostgreSQL
 The development Postgres database should have a db titled ramenia,
 with a user named ramenia with password ramen
 
-## Venv Setup
-If you're not running this code in a throwaway VM, it is recommended to
-use a venv to preserve your Python installation.
-
-Install the python3 virtualenv module via some means on your system
+## Venv setup
+Install python3 virtualenv module via some means on your system- this is
+not required but will ensure you don't flood your path with unneeded dependencies.
+This assumes you're using a Unix OS.
 
 `cd` into the ramenia directory
 `python3 -m venv ./venv`
 `. ./venv/bin/activate`
-`python3 -m pip install Django psycopg2 djangorestframework django-filter Pillow`
 
 To exit the virtual env, use `deactivate`
 

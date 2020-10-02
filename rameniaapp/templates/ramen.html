@@ -52,13 +52,12 @@
     <h4> {{ review.title }} </h4>
     <small>
     <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    <p style="color:gray">{{review.reviewer.profile.name}} </p>
+    {% url 'profile' review.reviewer.profile.id as reviewer_link%}
+    <a style="color:gray" href="{{reviewer_link}}">{{review.reviewer.profile.name}} </a>
     <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
     </small>
     <p> {{ review.body }} </p>
     {%for image_obj in review.reviewimage_set.all%}
-    {% comment %} </div>
-    </div> {% endcomment %}
         <img src="{{ MEDIA_URL }}{{ image_obj.image.name }}" height="150px">
     {% endfor %}
     <hr>

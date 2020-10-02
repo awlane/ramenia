@@ -7,7 +7,7 @@ class Report(models.Model):
                     ('IC', "Copyrighted or illegal content"), 
                     ('GS', "Disgusting or disturbing content")]
     STATUS_CHOICES = [('OP', "Open"), ('ED', "Resolved"), ('SP', "Spam")]
-    reporter = models.ForeignKey("rameniaapp.Profile", on_delete=models.CASCADE)
+    reporter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     type = models.CharField(max_length=2, choices=REPORT_TYPE_CHOICES)
     reason = models.CharField(max_length=2, choices=REASON_CHOICES)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES)

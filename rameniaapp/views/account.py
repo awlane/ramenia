@@ -10,6 +10,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from rameniaapp.forms import RegistrationForm
 from rameniaapp.models import Profile
+from django.contrib.auth import authenticate, login
 
 def register(request):
     BLANK_METADATA = {"Rated": 0, "Tried": 0, "Reviewed": 0, "Reputation": 0, \
@@ -23,6 +24,10 @@ def register(request):
                             profile_pic=request.FILES[file], \
                             user=user, metadata=BLANK_METADATA)
             profile.save()
+            #Backend param is not specified if this isn't done first
+            user = authenticate(username=form.cleaned_data["username"],\
+                                password=form.cleaned_data["password1"])
+            login(request, user)
             return HttpResponseRedirect('/app/')
     else:
         form = RegistrationForm()

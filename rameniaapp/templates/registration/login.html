@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
 {% block page %}
-
+<center>
+<h1> Login </h1>
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+    <h2> Error </h2>
+    <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
 <form method="post" action="{% url 'login' %}">
@@ -24,8 +26,8 @@
 </form>
 <hr>
 {% comment %} TODO: Implement registration form {% endcomment %}
-<p><a href="{% url 'index' %}">Register for account</a></p>
+<p><a href="{% url 'register' %}">Register for account</a></p>
 {% comment %} TODO: Implement password reset for users- backburner {% endcomment %}
 <p><a href="{% url 'index' %}">Reset password</a></p>
-
+</center>
 {% endblock %}

@@ -11,11 +11,4 @@ def view_noodle(request, noodle_id):
     template = loader.get_template('ramen.html')
     context = { "noodle" : noodle, "MEDIA_URL" : settings.MEDIA_URL,
                 "avg_rating" : avg_rating }
-    if len(noodle.edit_set.all()) > 0:
-        for edit in noodle.edit_set.all():
-            apply_change(edit)
-    from rameniaapp.models import Edit
-    if len(Edit.objects.filter(noodle=None)) > 0:
-        for edit in Edit.objects.filter(noodle=None):
-            apply_change(edit)
     return HttpResponse(template.render(context, request))

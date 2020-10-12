@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block page %}
+
+<div class="container">
+
+<h2>{{ listinfo.name }}</h2>
+<p> Created by <a href="{% url 'profile' profile.id %}">{{ listinfo.user.username }}</a>
+
+{% include "list_fragment.html" %}
+
+</div>
+{% endblock %}
+

@@ -2,10 +2,12 @@ from django.shortcuts import render, HttpResponse
 from django.template import loader
 from django.conf import settings
 from django.db.models import Avg
-from rameniaapp.models import Noodle, NoodleImage
+from rameniaapp.models import Noodle, NoodleImage, List, Profile
 
 def view_list(request, list_id):
-    noodles = Noodle.objects.all()
+    list = List.objects.get(pk=list_id)
+    profile = Profile.objects.get(user__pk=list.user.id)
+    noodles = list.noodles.all()
     images = []
     review_avgs = []
     
@@ -16,5 +18,8 @@ def view_list(request, list_id):
         review_avgs.append(avg_rating)
         
     template = loader.get_template('list.html')
-    context = { "noodles" : zip(noodles, images, review_avgs), "MEDIA_URL" : settings.MEDIA_URL }
+    context = { "listinfo" : list,
+                "profile" : profile,
+                "noodles" : zip(noodles, images, review_avgs),
+                "MEDIA_URL" : settings.MEDIA_URL }
     return HttpResponse(template.render(context, request))

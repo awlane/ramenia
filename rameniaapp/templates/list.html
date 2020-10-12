@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% block page %}
-{% for noodle, image in noodles %}
+{% for noodle, image, score in noodles %}
 
-<img src="{{MEDIA_URL}}{{ image.image.name }}" >
-<h1>Noodle!</h1>
+<div class="media">
+    <img class="img-fluid mr-3" style="height: 6em;" src="{{MEDIA_URL}}{{ image.image.name }}">
+    <div class="media-body">
+        <h5 class="mt-0">{{ noodle.name }}</h5>
+        Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
+        {% for tag in noodle.tags.all %}
+            <span class="badge badge-info">{{tag.name}}</span>
+        {% endfor %}
+    </div>
+</div>
 
 {% endfor %}
 {% endblock %}

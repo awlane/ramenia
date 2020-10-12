@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block page %}
+{% for noodle, image in noodles %}
+
+<img src="{{MEDIA_URL}}{{ image.image.name }}" >
+<h1>Noodle!</h1>
+
+{% endfor %}
+{% endblock %}
+

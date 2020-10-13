@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
 from rameniaapp.models import Noodle, List
-from rameniaapp.serializers import NoodleSerializer
+from rameniaapp.serializers import NoodleSerializer, ListSerializer
 
 @csrf_exempt
 def list_rest(request, list_id):
@@ -30,3 +30,10 @@ def list_mod_rest(request, list_id, noodle_id):
         # add the noodle to the list
         list.noodles.remove(noodle)
         return HttpResponse(status=200)
+
+@csrf_exempt
+def user_lists_rest(request, user_id):
+    lists = List.objects.filter(user__pk=user_id)
+
+    serializer = ListSerializer(lists, many=True)
+    return JsonResponse(serializer.data, safe=False)

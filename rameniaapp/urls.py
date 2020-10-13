@@ -10,5 +10,6 @@ urlpatterns = [
     path('list/<int:list_id>', views.view_list, name="list"),
 
     path('api/list/<int:list_id>', views.list_rest, name="list_rest"),
-    path('api/list/<int:list_id>/<int:noodle_id>', views.list_mod_rest, name="list_mod_rest")
+    path('api/list/<int:list_id>/<int:noodle_id>', views.list_mod_rest, name="list_mod_rest"),
+    path('api/user/<int:user_id>/lists', views.user_lists_rest, name="user_lists_rest"),
 ]

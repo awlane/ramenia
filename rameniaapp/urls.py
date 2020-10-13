@@ -9,7 +9,14 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('list/<int:list_id>', views.view_list, name="list"),
 
+    # REST API views
+
+    # get the noodles of list_id
     path('api/list/<int:list_id>', views.list_rest, name="list_rest"),
+    
+    # modify list_id. PUT adds noodle_id to the list, DELETE removes noodle_id from the list
     path('api/list/<int:list_id>/<int:noodle_id>', views.list_mod_rest, name="list_mod_rest"),
+
+    # returns a json list of user_id's lists
     path('api/user/<int:user_id>/lists', views.user_lists_rest, name="user_lists_rest"),
 ]

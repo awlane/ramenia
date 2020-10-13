@@ -3,6 +3,7 @@ from django.template import loader
 from django.conf import settings
 from django.db.models import Avg
 from rameniaapp.models import Noodle
+from .edit_util import apply_change
 
 def view_noodle(request, noodle_id):
     noodle = Noodle.objects.get(pk=noodle_id)

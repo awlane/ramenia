@@ -1,0 +1,21 @@
+{% for noodle, image, score in noodles %}
+
+<ul class="list-unstyled">
+<li class="media">
+    <a href="{% url 'noodle' noodle.id %}">
+        <img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="{{MEDIA_URL}}{{ image.image.name }}">
+    </a>
+    <div class="media-body">
+        <a href="{% url 'noodle' noodle.id %}">
+            <h5 class="mt-0">{{ noodle.name }}</h5>
+        </a>
+        Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
+        {% for tag in noodle.tags.all %}
+            <span class="badge badge-info">{{tag.name}}</span>
+        {% endfor %}
+    </div>
+</li>
+
+</ul>
+
+{% endfor %}

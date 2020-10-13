@@ -1,4 +1,34 @@
 {% extends "base.html" %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    $.ajax({
+        type: 'get',
+        url: "{% url 'user_lists_rest' user.id %}",
+        success: function(result) {
+            for (i in result){
+                var new_item = "<a class=\"listAddEntry dropdown-item\" data-list-id=\"" + result[i].id + "\">" + result[i].name + "</a>";
+                $("#listAddDropdown").append(new_item);
+                console.log(result[i]);
+            }
+        }
+    });
+
+    $(document).delegate('.listAddEntry','click',function(){
+        $.ajax({
+            type: 'put',
+            url: "/app/api/list/" + $(this).data("list-id") + "/" + "{{ noodle.id }}",
+            success: function(){
+                console.log("added ramen");
+                $("#actionsSection").append("<p>Added</p>");
+            }
+        });
+    }); 
+});
+</script>
+
+{% endblock %}
 {% block page %}
 <center>
 <h1>{{noodle.name}}</h1>
@@ -45,6 +75,17 @@
             </td>
     </tbody>
 </table>
+
+<h2>Actions</h2>
+<div id="actionsSection">
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" 
+            id="listsMenuButton" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false"
+            >Add to list</button>
+    <div id="listAddDropdown" class="dropdown-menu" aria-labelledby="listsMenuButton">
+    </div>
+</div>
+</div>
 
 <h2>Reviews</h2>
 

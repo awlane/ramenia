@@ -7,5 +7,8 @@ urlpatterns = [
     path('profile/<int:profile_id>', views.view_profile, name="profile"),
     path('', include('django.contrib.auth.urls')),
     path('register', views.register, name="register"),
-    path('list/<int:list_id>', views.view_list, name="list")
+    path('list/<int:list_id>', views.view_list, name="list"),
+
+    path('api/list/<int:list_id>', views.list_rest, name="list_rest"),
+    path('api/list/<int:list_id>/<int:noodle_id>', views.list_mod_rest, name="list_mod_rest")
 ]

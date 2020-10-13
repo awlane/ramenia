@@ -23,17 +23,5 @@ def ramen_create_view(request):
 
     context = {
         'form': form,
-        'add_ramen': add_ramen,
     }
     return HttpResponse(template.render(context, request))
-    
-          #  name = form.cleaned_data['name']
-          #  manufacturer = form.cleaned_data['manufacturer']
-            #description = form.cleaned_data['description']
-
-
-
-    #form = AddRamenForm()
-  #  return render(request, 'noodle.html', {'form': form})
-    #fields = ["name", "manufacturer", "description"]
-    

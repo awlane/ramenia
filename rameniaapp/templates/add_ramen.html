@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Ramen!</title>
+</head>
+<body>
+<form method="POST" action="{% url "add_ramen" %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">SEND</button>
+</form>
+</body>
+</html>
+{% for message in messages %}
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}

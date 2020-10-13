@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
+{% block page %}
+<center>
+<h1> Edit Profile </h1>
+
+<form enctype="multipart/form-data" method="post" action="{% url 'edit_profile' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.profile_name.label_tag }}</td>
+    <td>{{ form.profile_name }}</td>
+</tr>
+<tr>
+    <td>{{ form.profile_pic.label_tag }}</td>
+    <td>{{ form.profile_pic }}</td>
+</tr>
+<tr>
+    <td>{{ form.description.label_tag }}</td>
+    <td>{{ form.description }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Update Profile">
+</form>
+</center>
+<hr>
+{% endblock %}

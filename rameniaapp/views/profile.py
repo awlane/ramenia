@@ -8,3 +8,4 @@ def view_profile(request, profile_id):
     template = loader.get_template('profile.html')
     context = { "profile" : noodle, "MEDIA_URL" : settings.MEDIA_URL }
     return HttpResponse(template.render(context, request))
+    

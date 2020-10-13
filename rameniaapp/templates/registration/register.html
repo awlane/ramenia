@@ -8,7 +8,7 @@
     <p>{{ form.errors.username }}</p>
     <p>{{ form.errors.password2 }}</p>
 {% endif %}
-
+<p>Your password should be a mix of 8 letters and numbers and not contain your username or profile name</p>
 <form enctype="multipart/form-data" method="post" action="{% url 'register' %}">
 {% csrf_token %}
 <table>

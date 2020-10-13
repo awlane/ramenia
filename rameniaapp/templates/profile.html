@@ -25,13 +25,24 @@
                 </thead>
                 <tbody>
                 {%for key, value in profile.metadata.items%}
-                    {% if not key == "Description" %}
+                    {% if not key == "Description" and not key == "Reputation" %}
                         <tr> 
                             <td> {{key}} </td>
                             <td> {{value}}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
+                {% comment %} These numbers will be tweaked once functionality is added {% endcomment %}
+                    <tr>
+                        <td> Reputation </td>
+                        {% if profile.metadata.Reputation >= 1000 %}
+                            <td style="color:green;"> {{profile.metadata.Reputation}} </td>
+                        {% elif profile.metadata.Reputation < 100 %}
+                            <td style="color:red;"> {{profile.metadata.Reputation}} </td>
+                        {% else %}
+                            <td> {{profile.metadata.Reputation}} </td>
+                        {% endif %} 
+                    </tr>
                 </tbody>
             </table>
             <button disabled>Follow</button>

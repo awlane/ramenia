@@ -8,7 +8,7 @@ class Profile(models.Model):
     metadata = models.JSONField(null=True, blank=True)
     #TODO: Rather than modify user model from base, this can be used to store site configuration
     preferences = models.JSONField(null=True, blank=True)
-    profile_pic = models.ImageField(blank=True)
+    profile_pic = models.ImageField(blank=True, default="default.png")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #User can have no badges!
     badges = models.ManyToManyField("rameniaapp.Badge", blank=True)

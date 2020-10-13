@@ -19,11 +19,16 @@ def register(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            file = list(request.FILES.keys())[0]
-            profile = Profile(name=form.cleaned_data["profile_name"], \
-                            profile_pic=request.FILES[file], \
-                            user=user, metadata=BLANK_METADATA)
-            profile.save()
+            if request.FILES:
+                file = list(request.FILES.keys())[0]
+                profile = Profile(name=form.cleaned_data["profile_name"], \
+                                profile_pic=request.FILES[file], \
+                                user=user, metadata=BLANK_METADATA)
+                profile.save()
+            else:
+                profile = Profile(name=form.cleaned_data["profile_name"], \
+                                user=user, metadata=BLANK_METADATA)
+                profile.save()
             #Backend param is not specified if this isn't done first
             user = authenticate(username=form.cleaned_data["username"],\
                                 password=form.cleaned_data["password1"])

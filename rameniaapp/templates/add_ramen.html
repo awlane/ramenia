@@ -1,23 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add New Ramen!</title>
-</head>
-<body>
-<form method="POST" action="{% url "add_ramen" %}">
+{% extends "base.html" %}
+{% block page %}
+<center>
+    <h1> Add New Ramen </h1>
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" action="{% url 'ramen' %}">
     {% csrf_token %}
-    {{ form }}
-    <button type="submit">SEND</button>
+    <table>
+    <tr>
+        <td>{{ form.name.label_tag }}</td>
+    <td>{{ form.name }}</td>
+</tr>
+<tr>
+    <td>{{ form.manufacturer.label_tag }}</td>
+    <td>{{ form.manufacturer }}</td>
+</tr>
+<tr>
+    <td>{{ form.description.label_tag }}</td>
+    <td>{{ form.description }}</td>
+</tr>
+</table>
+<input type="submit" value="add">
+<input type="hidden" name="next" value="{{ next }}">
 </form>
-</body>
-</html>
-{% for message in messages %}
+{% endblock %}
 
-                    <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
 
-                        {{ message }}
 
-                    </div>
-            {% endfor %}
+
+

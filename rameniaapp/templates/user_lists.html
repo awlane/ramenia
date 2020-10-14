@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block head_aux %}
+
+{% endblock %}
+{% block page %}
+
+<div class="modal" tabindex="-1" role="dialog" id="addModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{% url 'user_lists' lists_user.id %}" method="post">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new noodle list</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="list_name">List Name:</label>
+                    <input id="list_name" class="form-control" type="text" name="list_name" maxlength="60" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<h1>{{lists_user.username}}'s Lists</h1>
+{% if is_my_lists %}
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">Create a new list</button>
+{% endif %}
+<hr />
+{% for list in lists %}
+<a href="{% url 'list' list.id %}"><h4>{{list.name}}</h4></a>
+<small class="text-muted">{{list.noodles.all|length}} entries</small>
+<hr />
+{% endfor %}
+
+</div>
+
+{% endblock %}

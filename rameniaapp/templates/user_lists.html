@@ -1,9 +1,30 @@
 {% extends "base.html" %}
 {% block head_aux %}
 
+<script>
+$(document).ready(function(){
+    $(".listRemove").click(function(event){
+        var $the_button = $(this);
+        $.ajax({
+            type: 'DELETE',
+            url: "/app/api/list/" + $the_button.data("list-id"),
+            statusCode: {
+                200: function(res){
+                    $the_button.html("Removed");
+                },
+                403: function(){
+                    $the_button.html("Error");
+                }
+            }
+        });
+    });
+});
+</script>
+
 {% endblock %}
 {% block page %}
 
+{% if is_my_lists %}
 <div class="modal" tabindex="-1" role="dialog" id="addModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -27,6 +48,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <div class="container">
 
@@ -38,6 +60,12 @@
 {% for list in lists %}
 <a href="{% url 'list' list.id %}"><h4>{{list.name}}</h4></a>
 <small class="text-muted">{{list.noodles.all|length}} entries</small>
+
+{% if is_my_lists %}
+<button type="button" data-list-id="{{list.id}}"
+        class="listRemove btn btn-danger btn-sm">Remove</button>
+{% endif %}
+
 <hr />
 {% endfor %}
 

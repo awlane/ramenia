@@ -7,11 +7,17 @@ from rameniaapp.serializers import NoodleSerializer, ListSerializer
 
 @csrf_exempt
 def list_rest(request, list_id):
+    list = List.objects.get(pk=list_id)
     if request.method == 'GET':
-        list = List.objects.get(pk=list_id)
         noodles = list.noodles.all()
         serializer = NoodleSerializer(noodles, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+    if request.method == 'DELETE':
+        if not request.user.is_authenticated or request.user.id != list.user.id:
+            return HttpResponse(status=403)
+        list.delete()
+        return HttpResponse(status=200)
 
 @csrf_exempt
 def list_mod_rest(request, list_id, noodle_id):

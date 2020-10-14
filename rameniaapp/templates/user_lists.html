@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 <div class="container">
 
-<h1>{{lists_user.username}}'s Lists</h1>
+<h1>{{lists_user.profile.name}}'s Lists</h1>
 {% if is_my_lists %}
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">Create a new list</button>
 {% endif %}

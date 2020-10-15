@@ -7,7 +7,7 @@ $(document).ready(function(){
         var $the_button = $(this);
         $.ajax({
             type: 'DELETE',
-            url: "/app/api/list/{{ listinfo.id }}/" + $(this).data("noodle-id"),
+            url: "/app/api/list/" + $(this).data("list-id"),
             statusCode: {
                 200: function(res){
                     $the_button.html("Removed");
@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 <div class="container">
 
-<h1>{{lists_user.username}}'s Lists</h1>
+<h1>{{lists_user.profile.name}}'s Lists</h1>
 {% if is_my_lists %}
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">Create a new list</button>
 {% endif %}
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
 {% if is_my_lists %}
 <button type="button" data-list-id="{{list.id}}"
-        class="listRemove btn btn-danger btn-sm">Remove</button>
+        class="listRemove btn btn-danger btn-sm">Remove List</button>
 {% endif %}
 
 <hr />

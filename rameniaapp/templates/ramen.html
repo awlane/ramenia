@@ -1,4 +1,36 @@
 {% extends "base.html" %}
+{% block head_aux %}
+
+{% if user.is_authenticated %}
+<script>
+$(document).ready(function(){
+    $.ajax({
+        type: 'get',
+        url: "{% url 'user_lists_rest' user.id %}",
+        success: function(result) {
+            for (i in result){
+                var new_item = "<a class=\"listAddEntry dropdown-item\" data-list-id=\"" + result[i].id + "\">" + result[i].name + "</a>";
+                $("#listAddDropdown").append(new_item);
+                console.log(result[i]);
+            }
+        }
+    });
+
+    $(document).delegate('.listAddEntry','click',function(){
+        $.ajax({
+            type: 'put',
+            url: "/app/api/list/" + $(this).data("list-id") + "/" + "{{ noodle.id }}",
+            success: function(){
+                console.log("added ramen");
+                $("#actionsSection").append("<p>Added</p>");
+            }
+        });
+    }); 
+});
+</script>
+{% endif %}
+
+{% endblock %}
 {% block page %}
 <center>
 <h1>{{noodle.name}}</h1>
@@ -46,13 +78,26 @@
     </tbody>
 </table>
 
+{% if user.is_authenticated %}
+<h2>Actions</h2>
+<div id="actionsSection">
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" 
+            id="listsMenuButton" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false"
+            >Add to list</button>
+    <div id="listAddDropdown" class="dropdown-menu" aria-labelledby="listsMenuButton">
+    </div>
+</div>
+</div>
+{% endif %}
+
 <h2>Reviews</h2>
 
 {% for review in noodle.review_set.all %}
     <h4> {{ review.title }} </h4>
     <small>
     <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    {% url 'profile' review.reviewer.profile.id as reviewer_link%}
+    {% url 'profile' review.reviewer.id as reviewer_link%}
     <a style="color:gray" href="{{reviewer_link}}">{{review.reviewer.profile.name}} </a>
     <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
     </small>

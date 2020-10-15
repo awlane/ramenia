@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    $(".entry-remove").click(function(event){
+        console.log("clicked");
+        var $the_button = $(this);
+        $.ajax({
+            type: 'DELETE',
+            url: "/app/api/list/{{ listinfo.id }}/" + $(this).data("noodle-id"),
+            statusCode: {
+                200: function(res){
+                    $the_button.html("Removed");
+                },
+                403: function(){
+                    $the_button.html("Error");
+                }
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}
+{% block page %}
+
+<div class="container">
+
+<h2>{{ listinfo.name }}</h2>
+<p> Created by <a href="{% url 'profile' listinfo.user.id %}">{{ listinfo.user.profile.name }}</a>
+
+{% for noodle, image, score in noodles %}
+
+<ul class="list-unstyled">
+<li class="media">
+    <a href="{% url 'noodle' noodle.id %}">
+        <img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="{{MEDIA_URL}}{{ image.image.name }}">
+    </a>
+    <div class="media-body">
+        <a href="{% url 'noodle' noodle.id %}">
+            <h5 class="mt-0">{{ noodle.name }}</h5>
+        </a>
+        Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
+        {% for tag in noodle.tags.all %}
+            <span class="badge badge-info">{{tag.name}}</span>
+        {% endfor %}
+
+        {% if user.is_authenticated and user.id == listinfo.user.id %}
+        <br />
+        <button type="button" data-noodle-id="{{noodle.id}}"
+                class="entry-remove btn btn-danger btn-sm">Remove</button>
+        {% endif %}
+    </div>
+</li>
+
+</ul>
+
+{% endfor %}
+
+</div>
+{% endblock %}
+

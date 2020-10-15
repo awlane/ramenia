@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    $("#searchString").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#searchButton").click();
+        }
+    });
+    $("#searchButton").click(function(event){
+        var $the_button = $(this);
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'search_rest' %}",
+
+            // params for search
+            data: $.param({
+                sstring: $("#searchString").val()
+            }),
+
+            success: function(response) {
+                // clear search results
+                $("#searchResults").html("");
+
+
+                response.forEach(function(obj){
+                    // find main image
+                    var main_img = obj.images[0].image
+                    obj.images.forEach(function(img){
+                        if (img.main) {
+                            main_img = img.image;
+                        }
+                    });
+
+                    // build result html
+                    var result_frag = [
+                    '<div class="media">',
+                        '<img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="',
+                            main_img,
+                        '">',
+                        '<div class="media-body">',
+                            '<a href="/app/noodle/' + obj.id + '">',
+                                '<h5 class="mt-0">' + obj.name + '</h5>',
+                            '</a>'
+                    ];
+                   
+                    // build tags html
+                    obj.tags.forEach(function(tag){
+                        result_frag = result_frag.concat([
+                            '<span class="badge badge-info">',
+                            tag.name,
+                            '</span>'
+                        ]);
+                    });
+                    
+                    result_frag = result_frag.concat([        
+                        '</div>',
+                    '</div>',
+                    '<hr />'
+                    ]);
+                    result_frag = $(result_frag.join(''));
+
+                    // append the result
+                    $("#searchResults").append(result_frag);
+                });
+            },
+        });
+    });
+});
+</script>
+
+{% endblock %}
+{% block page %}
+
+<div class="container">
+
+<div class="input-group mb-3">
+    <input type="text" id="searchString" class="form-control" placeholder="Search..." aria-label="Search">
+    <div class="input-group-append">
+        <button type="button" id="searchButton" class="btn btn-primary">Search</button>
+    </div>
+</div>
+<div id="searchResults">
+
+</div>
+</div>
+
+{% endblock %}

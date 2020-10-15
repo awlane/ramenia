@@ -28,7 +28,7 @@ $(document).ready(function(){
 <div class="container">
 
 <h2>{{ listinfo.name }}</h2>
-<p> Created by <a href="{% url 'profile' listinfo.user.id %}">{{ listinfo.user.username }}</a>
+<p> Created by <a href="{% url 'profile' listinfo.user.id %}">{{ listinfo.user.profile.name }}</a>
 
 {% for noodle, image, score in noodles %}
 

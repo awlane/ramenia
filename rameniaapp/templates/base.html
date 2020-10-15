@@ -37,6 +37,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{profile_link}}">My Profile</a>
                 </li>
+                {% url 'user_lists' user.id as lists_link%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{lists_link}}">My Lists</a>
+                </li>
                 {% url 'logout' as logout_link%}
                 <li class="nav-item">
                     <a class="nav-link" href={{logout_link}}>Logout</a>

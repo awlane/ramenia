@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('register', views.register, name="register"),
     path('list/<int:list_id>', views.view_list, name="list"),
+    path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
 
     # REST API views
 

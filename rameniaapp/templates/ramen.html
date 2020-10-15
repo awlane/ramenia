@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block head_aux %}
 
+{% if user.is_authenticated %}
 <script>
 $(document).ready(function(){
     $.ajax({
@@ -27,6 +28,7 @@ $(document).ready(function(){
     }); 
 });
 </script>
+{% endif %}
 
 {% endblock %}
 {% block page %}
@@ -76,6 +78,7 @@ $(document).ready(function(){
     </tbody>
 </table>
 
+{% if user.is_authenticated %}
 <h2>Actions</h2>
 <div id="actionsSection">
 <div class="dropdown">
@@ -86,6 +89,7 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+{% endif %}
 
 <h2>Reviews</h2>
 

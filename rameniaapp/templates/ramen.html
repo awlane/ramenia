@@ -97,7 +97,7 @@ $(document).ready(function(){
     <h4> {{ review.title }} </h4>
     <small>
     <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    {% url 'profile' review.reviewer.profile.id as reviewer_link%}
+    {% url 'profile' review.reviewer.id as reviewer_link%}
     <a style="color:gray" href="{{reviewer_link}}">{{review.reviewer.profile.name}} </a>
     <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
     </small>

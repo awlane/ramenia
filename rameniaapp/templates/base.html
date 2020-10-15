@@ -39,7 +39,7 @@
                     <a class="nav-link" href="{{register_link}}">Signup</a>
                 </li>
             {% else %}
-                {% url 'profile' user.profile.id as profile_link%}
+                {% url 'profile' user.id as profile_link%}
                 <li class="nav-item">
                     <a class="nav-link" href="{{profile_link}}">My Profile</a>
                 </li>

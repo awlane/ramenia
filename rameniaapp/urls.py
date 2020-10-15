@@ -9,6 +9,8 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('list/<int:list_id>', views.view_list, name="list"),
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
+    path('mod/reports', None, name="reports"),
+    path('mod/reports/<str:type>', None, name="report-type"),
 
     # REST API views
 

@@ -3,6 +3,11 @@
 
 <script>
 $(document).ready(function(){
+    $("#searchString").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#searchButton").click();
+        }
+    });
     $("#searchButton").click(function(event){
         var $the_button = $(this);
         $.ajax({

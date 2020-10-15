@@ -7,7 +7,7 @@ $(document).ready(function(){
         var $the_button = $(this);
         $.ajax({
             type: 'DELETE',
-            url: "/app/api/list/" + $the_button.data("list-id"),
+            url: "/app/api/list/" + $(this).data("list-id"),
             statusCode: {
                 200: function(res){
                     $the_button.html("Removed");

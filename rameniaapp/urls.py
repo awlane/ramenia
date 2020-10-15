@@ -9,6 +9,7 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('list/<int:list_id>', views.view_list, name="list"),
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
+    path('search', views.view_search, name="search"),
 
     # REST API views
 
@@ -20,4 +21,7 @@ urlpatterns = [
 
     # returns a json list of user_id's lists
     path('api/user/<int:user_id>/lists', views.user_lists_rest, name="user_lists_rest"),
+
+    # returns search results
+    path('api/search', views.search_rest, name="search_rest"),
 ]

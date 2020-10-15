@@ -36,7 +36,7 @@ def register(request):
 
 def edit_profile(request):
     if request.method == "POST":
-        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+        form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             file = list(request.FILES.keys())[0]

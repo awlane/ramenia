@@ -44,14 +44,18 @@ def edit_profile(request):
         form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
             profile = request.user.profile
-            profile.name = form.cleaned_data["profile_name"]
-            profile.metadata.description = form.cleaned_data["description"]
+            if form.cleaned_data["profile_name"]:
+                profile.name = form.cleaned_data["profile_name"]
+            if form.cleaned_data["description"]:
+                profile.metadata["Description"] = form.cleaned_data["description"]
             if request.FILES:
                 file = list(request.FILES.keys())[0]
                 profile.profile_pic = request.FILES[file]
             profile.save()
         return HttpResponseRedirect('/app/')
-    else: 
-        form = EditProfileForm()
+    else:
+        initial = {'profile_name' : request.user.profile.name,\
+                    'description' : request.user.profile.metadata["Description"]}
+        form = EditProfileForm(initial=initial)
     return render(request, 'registration/edit_profile.html', {"form": form})    
 

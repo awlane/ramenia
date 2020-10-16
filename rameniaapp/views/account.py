@@ -1,15 +1,5 @@
-# from django.shortcuts import render, HttpResponseRedirect
-# from django.contrib.auth.forms import AuthenticationForm
-# def login(request):
-#     if request.method == "POST:
-#         form = AuthenticationForm(request.POST)
-#         if form.is_valid():
-#             return HttpResponseRedirect('/app/')
-#     else:
-#         form = 
 from django.shortcuts import render, HttpResponseRedirect
 from rameniaapp.forms import RegistrationForm, EditProfileForm
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from rameniaapp.models import Profile
 from django.contrib.auth import authenticate, login
 
@@ -38,24 +28,3 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'registration/register.html', {"form": form})
-
-def edit_profile(request):
-    if request.method == "POST":
-        form = EditProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            profile = request.user.profile
-            if form.cleaned_data["profile_name"]:
-                profile.name = form.cleaned_data["profile_name"]
-            if form.cleaned_data["description"]:
-                profile.metadata["Description"] = form.cleaned_data["description"]
-            if request.FILES:
-                file = list(request.FILES.keys())[0]
-                profile.profile_pic = request.FILES[file]
-            profile.save()
-        return HttpResponseRedirect('/app/')
-    else:
-        initial = {'profile_name' : request.user.profile.name,\
-                    'description' : request.user.profile.metadata["Description"]}
-        form = EditProfileForm(initial=initial)
-    return render(request, 'registration/edit_profile.html', {"form": form})    
-

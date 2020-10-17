@@ -22,52 +22,56 @@ $(document).ready(function(){
             success: function(response) {
                 // clear search results
                 $("#searchResults").html("");
+                console.log(response)
+                if (response == []) {
+                    response.forEach(function(obj){
+                        // find main image
+                        var main_img = obj.images[0].image
+                        obj.images.forEach(function(img){
+                            if (img.main) {
+                                main_img = img.image;
+                            }
+                        });
 
-
-                response.forEach(function(obj){
-                    // find main image
-                    var main_img = obj.images[0].image
-                    obj.images.forEach(function(img){
-                        if (img.main) {
-                            main_img = img.image;
-                        }
-                    });
-
-                    // build result html
-                    var result_frag = [
-                    '<div class="media">',
-                        '<img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="',
-                            main_img,
-                        '">',
-                        '<div class="media-body">',
-                            '<a href="/app/noodle/' + obj.id + '">',
-                                '<h5 class="mt-0">' + obj.name + '</h5>',
-                            '</a>'
-                    ];
-                   
-                    // build tags html
-                    obj.tags.forEach(function(tag){
-                        result_frag = result_frag.concat([
-                            '<span class="badge badge-info">',
-                            tag.name,
-                            '</span>'
-                        ]);
-                    });
+                        // build result html
+                        var result_frag = [
+                        '<div class="media">',
+                            '<img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="',
+                                main_img,
+                            '">',
+                            '<div class="media-body">',
+                                '<a href="/app/noodle/' + obj.id + '">',
+                                    '<h5 class="mt-0">' + obj.name + '</h5>',
+                                '</a>'
+                        ];
                     
-                    result_frag = result_frag.concat([        
+                        // build tags html
+                        obj.tags.forEach(function(tag){
+                            result_frag = result_frag.concat([
+                                '<span class="badge badge-info">',
+                                tag.name,
+                                '</span>'
+                            ]);
+                        });
+                        
+                        result_frag = result_frag.concat([        
+                            '</div>',
                         '</div>',
-                    '</div>',
-                    '<hr />'
-                    ]);
-                    result_frag = $(result_frag.join(''));
+                        '<hr />'
+                        ]);
+                        result_frag = $(result_frag.join(''));
 
-                    // append the result
-                    $("#searchResults").append(result_frag);
-                });
-            },
-        });
+                        // append the result
+                        $("#searchResults").append(result_frag);
+                    });
+                } else {
+                    $("#searchResults").append("<center><p>No results</p></center>");
+                }
+            }
+        })
     });
 });
+
 </script>
 
 {% endblock %}

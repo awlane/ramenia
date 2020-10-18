@@ -23,6 +23,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
+
+            {% url 'search' as search_link%}
+            <li class="nav-item">
+                <a class="nav-link" href="{{search_link}}">Search</a>
+            </li>
+
             {% if not user.is_authenticated %}
                 {% url 'login' as login_link%}
                 <li class="nav-item">
@@ -37,6 +43,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{profile_link}}">My Profile</a>
                 </li>
+                {% url 'edit_profile' as edit_profile_link%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{edit_profile_link}}">Edit Profile</a>
                 {% url 'user_lists' user.id as lists_link%}
                 <li class="nav-item">
                     <a class="nav-link" href="{{lists_link}}">My Lists</a>

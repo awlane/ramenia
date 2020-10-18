@@ -43,7 +43,9 @@ $(document).ready(function(){
         </a>
         Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
         {% for tag in noodle.tags.all %}
+            <a href="{% url 'search' %}?tags={{tag.name}}">
             <span class="badge badge-info">{{tag.name}}</span>
+            </a>
         {% endfor %}
 
         {% if user.is_authenticated and user.id == listinfo.user.id %}

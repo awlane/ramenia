@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    
+    // Read a page's GET URL variables and return them as an associative array.
+    // Courtesy of https://stackoverflow.com/a/4656873/1088933
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function doSearch() {
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'search_rest' %}",
+
+            // params for search
+            data: $.param({
+                sstring: $("#searchString").val(),
+                tags: $("#tagString").val(),
+            }),
+
+            success: function(response) {
+                // clear search results
+                $("#searchResults").html("");
+                
+                // no results
+                if (response.length == 0) {
+                    $("#searchResults").html("<small>No results</small>");
+                }
+
+                response.forEach(function(obj){
+                    // find main image
+                    var main_img = obj.images[0].image
+                    obj.images.forEach(function(img){
+                        if (img.main) {
+                            main_img = img.image;
+                        }
+                    });
+
+                    // build result html
+                    var result_frag = [
+                    '<div class="media">',
+                        '<img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="',
+                            main_img,
+                        '">',
+                        '<div class="media-body">',
+                            '<a href="/app/noodle/' + obj.id + '">',
+                                '<h5 class="mt-0">' + obj.name + '</h5>',
+                            '</a>'
+                    ];
+                   
+                    // build tags html
+                    obj.tags.forEach(function(tag){
+                        result_frag = result_frag.concat([
+                            '<a href="/app/search?tags=',
+                            tag.name,
+                            '">',
+                            '<span class="badge badge-info">',
+                            tag.name,
+                            '</span></a>'
+                        ]);
+                    });
+                    
+                    result_frag = result_frag.concat([        
+                        '</div>',
+                    '</div>',
+                    '<hr />'
+                    ]);
+                    result_frag = $(result_frag.join(''));
+
+                    // append the result
+                    $("#searchResults").append(result_frag);
+                });
+            },
+        });
+    }
+
+    $("#searchString").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#searchButton").click();
+        }
+    });
+    $("#tagString").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#searchButton").click();
+        }
+    });
+
+    $("#searchButton").click(function(event){
+        var $the_button = $(this);
+        doSearch();
+    });
+
+    var urlVars = getUrlVars();
+    $("#searchString").val(urlVars.sstring);
+    $("#tagString").val(urlVars.tags);
+    doSearch();
+});
+</script>
+
+{% endblock %}
+{% block page %}
+
+<div class="container">
+
+<div class="input-group mb-3">
+    <input type="text" id="searchString" class="form-control" placeholder="Search..." aria-label="Search">
+    <div class="input-group-append">
+        <button type="button" id="searchButton" class="btn btn-primary">Search</button>
+    </div>
+</div>
+<input type="text" id="tagString" class="form-control" placeholder="Tags (optional, comma separated)" aria-label="Tags">
+<div id="searchResults">
+
+</div>
+</div>
+
+{% endblock %}

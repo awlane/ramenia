@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block page %}
+<center>
+<h1>Reported {{ item_type }}</h1>
+<ul class="list-group">
+<li class="list-group-item">
+    {% for report in reports %}
+        <p> Report #{{ report.id }}:
+        {% if report.type == "RV" %}
+            {% url 'review' report.review.id as review_link %}
+            <a href={{review_link}}>{{ report.review.title }}</a>
+        {% elif report.type == "ND" %}
+            {% url 'noodle' report.noodle.id as noodle_link %}
+            <a href={{noodle_link}}>{{ report.noodle.name }}</a>
+        {% elif report.type == "PF" %}
+            {% url 'profile' report.profile.user.id as profile_link %}
+            <a href={{profile_link}}>{{ report.profile.name }}</a>
+        {% endif %}
+        </p>
+        <span class="badge badge-primary badge-pill">{{ report.get_reason_display }}</span>
+        <span class="badge badge-primary badge-pill">{{ report.get_status_display }}</span>
+    </li>
+    {% endfor %}
+</ul>
+</center>
+{% comment %} {% for report in reports %}
+<ul class="list-unstyled">
+<li class="media">
+    <a href="{% url 'noodle' noodle.id %}">
+        <img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="{{MEDIA_URL}}{{ image.image.name }}">
+    </a>
+    <div class="media-body">
+        <a href="{% url 'noodle' noodle.id %}">
+            <h5 class="mt-0">{{ noodle.name }}</h5>
+        </a>
+        Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
+        {% for tag in noodle.tags.all %}
+            <span class="badge badge-info">{{tag.name}}</span>
+        {% endfor %}
+
+        {% if user.is_authenticated and user.id == listinfo.user.id %}
+        <br />
+        <button type="button" data-noodle-id="{{noodle.id}}"
+                class="entry-remove btn btn-danger btn-sm">Remove</button>
+        {% endif %}
+    </div>
+</li>
+</ul>
+{% endfor %} {% endcomment %}
+
+{% endblock %}

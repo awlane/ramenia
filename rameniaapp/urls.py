@@ -10,6 +10,13 @@ urlpatterns = [
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
+    path('mod/reports', views.view_reports_disam, name="reports"),
+    path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
+    path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),
+    path('mod/reports/review/', views.ReviewReportList.as_view(), name="review_reports"),
+    path('mod/reports/review/<int:item_id>', views.ReviewReportList.as_view(), name="reports_by_review"),
+    path('mod/reports/profile/', views.ProfileReportList.as_view(), name="profile_reports"),
+    path('mod/reports/profile/<int:item_id>', views.ProfileReportList.as_view(), name="reports_by_profile"),
     path('search', views.view_search, name="search"),
 
     # REST API views

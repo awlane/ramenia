@@ -49,6 +49,7 @@ def search_rest(request):
     if request.method == "GET":
         search_type = request.GET.get("type", "noodle")
         search_string = request.GET.get("sstring", None)
+        search_tags = request.GET.get("tags", None)
         sort_param = request.GET.get("sortby", "name")
         sort_dir = request.GET.get("sortdir", "asc")
         page = request.GET.get("page", 0)
@@ -58,6 +59,12 @@ def search_rest(request):
             noodles = Noodle.objects.filter(name__icontains=search_string)
         else:
             noodles = Noodle.objects.all()
+
+        if search_tags:
+            tags = search_tags.split(',')
+            for tag in tags:
+                noodles = noodles.filter(tags__name__iexact=tag.strip())
+
             
         serializer = NoodleSerializer(noodles, many=True)
         return JsonResponse(serializer.data, safe=False)

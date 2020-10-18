@@ -1,11 +1,8 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, HttpResponse
 from django.template import loader
 from django.conf import settings
 from django.db.models import Avg
 from rameniaapp.models import Noodle, NoodleImage, List, Profile
-from rameniaapp.forms import ListCreateForm
-from django.contrib.auth.models import User
-from django.urls import reverse
 
 def view_list(request, list_id):
     list = List.objects.get(pk=list_id)

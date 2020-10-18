@@ -32,10 +32,10 @@ $(document).ready(function(){
 
 {% endblock %}
 {% block page %}
-<center>
+<div class="container">
 <h1>{{noodle.name}}</h1>
 
-<div id="carouselControls" class="carousel slide" data-ride="carousel">
+<div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
         {%for image_obj in noodle.noodleimage_set.all%}
         <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
@@ -72,7 +72,9 @@ $(document).ready(function(){
             <td>Tags</td>
             <td>
             {% for tag in noodle.tags.all %}
-                <span class="badge badge-info">{{tag.name}}</span>
+                <a href="{% url 'search' %}?tags={{tag.name}}">
+                    <span class="badge badge-info">{{tag.name}}</span>
+                </a>
             {% endfor %}
             </td>
     </tbody>
@@ -89,6 +91,7 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+<hr />
 {% endif %}
 
 <h2>Reviews</h2>
@@ -108,7 +111,7 @@ $(document).ready(function(){
     <hr>
 {% endfor %}
 
-</center>
+</div>
 
 {% endblock %}
 

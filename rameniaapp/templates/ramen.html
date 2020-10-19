@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block head_aux %}
 
+{% if user.is_authenticated %}
 <script>
 $(document).ready(function(){
     $.ajax({
@@ -27,13 +28,14 @@ $(document).ready(function(){
     }); 
 });
 </script>
+{% endif %}
 
 {% endblock %}
 {% block page %}
-<center>
+<div class="container">
 <h1>{{noodle.name}}</h1>
 
-<div id="carouselControls" class="carousel slide" data-ride="carousel">
+<div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
         {%for image_obj in noodle.noodleimage_set.all%}
         <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
@@ -42,11 +44,11 @@ $(document).ready(function(){
         {% endfor %}
     </div>
     <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" ario-hidden="true"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" ario-hidden="true"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
@@ -70,12 +72,15 @@ $(document).ready(function(){
             <td>Tags</td>
             <td>
             {% for tag in noodle.tags.all %}
-                <span class="badge badge-info">{{tag.name}}</span>
+                <a href="{% url 'search' %}?tags={{tag.name}}">
+                    <span class="badge badge-info">{{tag.name}}</span>
+                </a>
             {% endfor %}
             </td>
     </tbody>
 </table>
 
+{% if user.is_authenticated %}
 <h2>Actions</h2>
 <div id="actionsSection">
 <div class="dropdown">
@@ -86,6 +91,8 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+<hr />
+{% endif %}
 
 <h2>Reviews</h2>
 
@@ -93,7 +100,7 @@ $(document).ready(function(){
     <h4> {{ review.title }} </h4>
     <small>
     <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    {% url 'profile' review.reviewer.profile.id as reviewer_link%}
+    {% url 'profile' review.reviewer.id as reviewer_link%}
     <a style="color:gray" href="{{reviewer_link}}">{{review.reviewer.profile.name}} </a>
     <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
     </small>
@@ -104,7 +111,7 @@ $(document).ready(function(){
     <hr>
 {% endfor %}
 
-</center>
+</div>
 
 {% endblock %}
 

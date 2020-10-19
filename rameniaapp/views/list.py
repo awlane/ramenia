@@ -23,3 +23,19 @@ def view_list(request, list_id):
                 "noodles" : zip(noodles, images, review_avgs),
                 "MEDIA_URL" : settings.MEDIA_URL }
     return HttpResponse(template.render(context, request))
+
+def view_user_lists(request, user_id):
+    user = User.objects.get(pk=user_id)
+    lists = List.objects.filter(user__pk=user_id).all()
+    is_my_lists = (request.user.is_authenticated and request.user.id == user.id)
+
+    if request.method == "POST":
+        form = ListCreateForm(request.POST)
+        if form.is_valid and is_my_lists:
+            new_list = List.objects.create(name=form.data['list_name'], user=user)
+            new_list.save()
+            return HttpResponseRedirect(reverse("user_lists", args=[user_id]))
+
+    template = loader.get_template('user_lists.html')
+    context = { "lists" : lists, "lists_user" : user, "is_my_lists" : is_my_lists }
+    return HttpResponse(template.render(context, request))

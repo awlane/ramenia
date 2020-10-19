@@ -52,6 +52,8 @@
             {% for badge in profile.badges.all %}
                 <img src="{{ MEDIA_URL }}{{ badge.image.name }}" height="50px" title="{{ badge.name }}">
             {% endfor %}
+            <hr />
+            <h4><a href="{% url 'user_lists' profile.user.id %}">View Lists</a></h4>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 from django.urls import path, include
+
 from . import views
 
 urlpatterns = [
@@ -9,6 +10,7 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('list/<int:list_id>', views.view_list, name="list"),
     path('ramen', views.ramen_create_view, name="ramen"),
+    
     
 
 

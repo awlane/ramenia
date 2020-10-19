@@ -6,4 +6,5 @@ from rameniaapp.models import Tag
 class AddRamenForm(forms.ModelForm):
     class Meta:
         model = Ramen
-        fields = ["name", "manufacturer", "description"]
+        fields = ["name", "manufacturer", "description","ramen_image"]
+        

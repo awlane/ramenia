@@ -8,3 +8,4 @@ app = apps.get_app_config('rameniaapp')
 
 for name, model in app.models.items():
     admin.site.register(model)
+   

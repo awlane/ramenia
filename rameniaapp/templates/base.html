@@ -41,6 +41,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href={{logout_link}}>Logout</a>
                 </li>
+
+                {% url 'ramen' as ramen_link%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ramen_link}}">Add New Ramen</a>
+                </li>
             {% endif %}
         </ul>
     </div>

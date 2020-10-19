@@ -2,6 +2,8 @@
 {% block page %}
 <center>
     <h1> Add New Ramen </h1>
+<br>
+<br>
     {% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -17,13 +19,15 @@
     {% endfor %}
 {% endif %}
 
-<form method="post" action="{% url 'ramen' %}">
+<form enctype="multipart/form-data" method="post" action="{% url 'ramen' %}">
     {% csrf_token %}
+
     <table>
     <tr>
         <td>{{ form.name.label_tag }}</td>
     <td>{{ form.name }}</td>
 </tr>
+
 <tr>
     <td>{{ form.manufacturer.label_tag }}</td>
     <td>{{ form.manufacturer }}</td>
@@ -32,10 +36,16 @@
     <td>{{ form.description.label_tag }}</td>
     <td>{{ form.description }}</td>
 </tr>
+<tr>
+    <td>{{ form.ramen_image.label_tag }}</td>
+    <td>{{ form.ramen_image }}</td>
+</tr>
 </table>
-<input type="submit" value="add">
+<br>
+<input type="submit" value="Add Entry">
 <input type="hidden" name="next" value="{{ next }}">
 </form>
+</center>
 {% endblock %}
 
 

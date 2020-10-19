@@ -8,16 +8,17 @@ def ramen_create_view(request):
     form = AddRamenForm()
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-        # Create a form instance and populate it with data from the request
-        form = AddRamenForm(request.POST or None)
+        # Create a form instance and populate it with data from the request of the user
+        form = AddRamenForm(request.POST or None, request.FILES)
         # Check if the form is valid:
         if form.is_valid():
+          # Helps with clean format
             name = form.cleaned_data["name"]
             manufacturer = form.cleaned_data["manufacturer"]
             description = form.cleaned_data["description"]
             form.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('index')
+            form = AddRamenForm()
   #  else:
   #      form = Add_Ramen_Form()
     #    description.error(request,"Input could not be saved")
@@ -29,3 +30,5 @@ def ramen_create_view(request):
     }
     return HttpResponse(template.render(context, request))
     #return render(request, "add_ramen.html",{"form":form})
+
+  

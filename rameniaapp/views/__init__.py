@@ -6,7 +6,5 @@ from .add_ramen import *
 from .edit_util import *
 from .list import *
 from .rest import *
-from .review import *
-
 from .report import *
 from .search import *

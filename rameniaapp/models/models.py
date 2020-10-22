@@ -5,6 +5,5 @@ from .profile import *
 from .report import *
 from .review import *
 from .tag import *
-from .add_ramen import *
 from .edit import *
 from .list import *

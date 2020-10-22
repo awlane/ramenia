@@ -1,4 +1,36 @@
 {% extends "base.html" %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    $("#follow-profile").click(function(event){
+        console.log("clicked");
+        var $the_button = $(this);
+        $.ajax({
+            {% if following %}
+            type: 'DELETE',
+            {% else %}
+            type: 'POST',
+            {% endif %}
+            url: "{% url 'follow_profile' profile.user.id %}", 
+            statusCode: {
+                200: function(res){
+                    {% if following %}
+                    $the_button.html("Unfollowed");
+                    {% else %}
+                    $the_button.html("Following");
+                    {% endif %}
+                },
+                403: function(){
+                    $the_button.html("Error");
+                }
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}
 {% block page %}
 <center>
 <div class="container">
@@ -45,7 +77,11 @@
                     </tr>
                 </tbody>
             </table>
-            <button disabled>Follow</button>
+            {% if following %}
+            <button id="follow-profile" class = "btn btn-primary" data-method="DELETE">Unfollow</button>
+            {% else %}
+            <button id="follow-profile" class = "btn btn-primary" data-method="POST">Follow</button>
+            {% endif %}
         </div>
         <div class="col-md-auto">
             <h4>Badges</h4>

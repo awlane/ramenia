@@ -21,6 +21,9 @@ def ramen_create_view(request):
               "Manufacturer": form.cleaned_data["manufacturer"], \
               "Released": form.cleaned_data["released"], "Line": form.cleaned_data["line"] }
         edit = Edit(editor = user, change = metadata)
+        if request.FILES:
+                file = list(request.FILES.keys())[0]
+                edit.image = request.FILES[file] 
         edit.save()
         apply_change(edit) 
         # form.save()

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block page %}
 <center>
-    <h1> Add New Ramen </h1>
+    <h1> Add New Noodle </h1>
 <br>
 <br>
     {% if form.errors %}
@@ -37,10 +37,6 @@
     <td>{{ form.description }}</td>
 </tr>
 <tr>
-    <td>{{ form.image.label_tag }}</td>
-    <td>{{ form.image }}</td>
-</tr>
-<tr>
     <td>{{ form.flavor.label_tag }}</td>
     <td>{{ form.flavor }}</td>
 </tr>
@@ -51,6 +47,10 @@
 <tr>
     <td>{{ form.line.label_tag }}</td>
     <td>{{ form.line }}</td>
+</tr>
+<tr>
+    <td>{{ form.image.label_tag }}</td>
+    <td>{{ form.image }}</td>
 </tr>
 </table>
 <br>

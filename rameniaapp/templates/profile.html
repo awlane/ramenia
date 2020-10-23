@@ -62,5 +62,8 @@
     <h3>Feed</h3>
     <p> Nothing to see here! </p>
 </div>
+<hr>
+{% url 'profile_report' profile.id as report_link%}
+<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
 </center>
 {% endblock %}

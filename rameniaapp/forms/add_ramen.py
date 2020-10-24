@@ -1,6 +1,7 @@
 from django import forms
 from rameniaapp.models import Edit
 from .edit import EditForm
+from rameniaapp.models import Tag
 
 class RamenForm(forms.Form):
     name = forms.CharField(max_length=50)
@@ -9,8 +10,4 @@ class RamenForm(forms.Form):
     flavor = forms.CharField(max_length=50)
     released = forms.CharField(max_length=50)
     line = forms.CharField(max_length=50)
-    image = forms.ImageField(required = False)
-    
-    class Meta(EditForm.Meta):
-        fields = EditForm.Meta.fields + ("name",)
-
+    image = forms.ImageField(required = True)

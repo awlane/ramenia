@@ -11,6 +11,7 @@ urlpatterns = [
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
     path('ramen', views.ramen_create_view, name="ramen"),
+    path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
     
     
 

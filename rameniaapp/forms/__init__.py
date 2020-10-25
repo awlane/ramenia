@@ -5,3 +5,5 @@ from .create_list import *
 from .search import *
 from .edit import *
 from .edit_ramen import *
+from .review_ramen import *
+from .review import *

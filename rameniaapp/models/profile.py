@@ -12,3 +12,4 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #User can have no badges!
     badges = models.ManyToManyField("rameniaapp.Badge", blank=True)
+    following = models.ManyToManyField("self",related_name="followers", symmetrical=False ,blank=True)

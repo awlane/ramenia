@@ -19,7 +19,8 @@ def ramen_create_view(request):
             metadata = { "Name": form.cleaned_data["name"], "Description": form.cleaned_data["description"], \
                         "Flavor": form.cleaned_data["flavor"], \
                         "Manufacturer": form.cleaned_data["manufacturer"], \
-                        "Released": form.cleaned_data["released"], "Line": form.cleaned_data["line"] }
+                        "Released": form.cleaned_data["released"], "Line": form.cleaned_data["line"], \
+                        "Tags": form.cleaned_data["tags"] }
             edit = Edit(editor = user, change = metadata)
             if request.FILES:
                             file = list(request.FILES.keys())[0]

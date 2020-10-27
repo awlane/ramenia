@@ -6,6 +6,7 @@ urlpatterns = [
     path('noodle/<int:noodle_id>', views.view_noodle, name="noodle"),
     path('user/<int:user_id>', views.view_profile, name="profile"),
     path('user/<int:user_id>/follow', views.follow_profile, name ="follow_profile"),
+    path('user/<int:user_id>/following', views.view_following, name ="following"),
     path('', include('django.contrib.auth.urls')),
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),

@@ -7,3 +7,4 @@ from .list import *
 from .rest import *
 from .report import *
 from .search import *
+from .following import *

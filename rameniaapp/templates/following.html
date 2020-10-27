@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block page %}
+
+<div class="container">
+    
+<h1> {{profile.name}}'s following list </h1>
+
+<ul class="list-unstyled"></ul>
+{% for i in following %}
+   
+    <li class="media">
+        <a href="{% url 'profile' i.user.id %}">
+            <img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="{{ MEDIA_URL }}{{ i.profile_pic.name }}">
+        </a>
+        <div class="media-body">
+            <a href="{% url 'profile' i.user.id %}">
+                <h5 class="mt-0">{{ i.name }}</h5>
+            </a>
+        </div>
+    </li>
+
+{% endfor %}
+
+
+</ul>
+</div>
+
+{% endblock %}

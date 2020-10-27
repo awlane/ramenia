@@ -91,6 +91,8 @@ $(document).ready(function(){
             {% endfor %}
             <hr />
             <h4><a href="{% url 'user_lists' profile.user.id %}">View Lists</a></h4>
+            <h4><a href="{% url 'following' profile.user.id %}">Following</a></h4>
+            <h4><a href="{% url 'following' profile.user.id %}">Followers</a></h4>
         </div>
     </div>
 </div>

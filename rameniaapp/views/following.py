@@ -11,3 +11,10 @@ def view_following (request, user_id):
     template = loader.get_template('following.html')
     context = { "following" : following , "profile" : user.profile, "MEDIA_URL" : settings.MEDIA_URL }
     return HttpResponse(template.render(context, request))
+
+def view_followers (request, user_id):
+    user = User.objects.get(pk=user_id)
+    followers = user.profile.followers.all()
+    template = loader.get_template('following.html')
+    context = { "followers" : followers , "profile" : user.profile, "MEDIA_URL" : settings.MEDIA_URL }
+    return HttpResponse(template.render(context, request))

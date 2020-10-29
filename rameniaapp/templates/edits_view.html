@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block page %}
 {% load lookup %}
+{% load tag_handler %}
 <center>
 <h1>Pending Edits and Uploads</h1>
 <ul class="list-group">
@@ -28,19 +29,48 @@
                 <th scope="col">Change</th>
             </thead>
             <tbody>
+            {% comment %} #TODO: This could use REST magic so we're not having to do this for all edits {% endcomment %}
             {% for key, value in edit.change.items %}
                 <tr>
-                    <td> <b> {{key}} </b> </td>
                     {% if edit.noodle %}
-                        {% if key == "Title" %}
-                            <td> {{ edit.noodle.metadata|lookup:"Title" }} </td>
+                        {% if key == "Name" %}
+                            {% with title=edit.noodle.name %}
+                            {% if not title == value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ name }} </td>
+                                <td> {{value}} </td>
+                            {% endif %}
+                            {% endwith %}
+                        {% elif key == "Tags" %}
+                            {% with tags=edit.noodle.tags|tag_value_list %}
+                            {% if not tags|list_equality:value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ tags|list2string }} </td>
+                                <td> {{ value|list2string }} </td>
+                            {% endif %}
+                            {% endwith %}
                         {% else %}
-                            <td> {{ edit.noodle.metadata|lookup:key }} </td>
+                            {% with noodle_value=edit.noodle.metadata|lookup:key %}
+                            {% if not value == noodle_value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ noodle_value }} </td>
+                                <td> {{value}} </td>
+                            {% endif %}
+                            {% endwith %}
                         {% endif %}
+                    {% else %}
+                        <td> <b> {{key}} </b> </td>
+                        <td> {{value}} </td>
                     {% endif %}
-                    <td> {{value}} </td>
+                    
                 </tr>
             {% endfor %}
+            {% if edit.image %}
+                <tr>
+                    <td><b>Image</b></td>
+                    <td><img src="{{ MEDIA_URL }}{{ edit.image.name }}" height="50px"></td>
+                </tr>
+            {% endif%}
             </tbody>
         </table>
         <button type="button" class="btn btn-success" disabled>Approve</button>

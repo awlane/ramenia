@@ -3,6 +3,7 @@ from .noodle import *
 from .profile import *
 from .account import *
 from .edit_util import *
+from .edit_queue import *
 from .list import *
 from .rest import *
 from .report import *

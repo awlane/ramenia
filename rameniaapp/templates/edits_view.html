@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block page %}
+{% load lookup %}
+<center>
+<h1>Pending Edits and Uploads</h1>
+<ul class="list-group">
+    {% for edit in edits %}
+    <li class="list-group-item">
+        <h3> Edit (ID: {{ edit.id }}):
+        {% if edit.noodle %}
+            {% url 'noodle' edit.noodle.id as noodle_link %}
+            <a href={{noodle_link}}>{{ edit.noodle.name }}</a>
+        {% else %}
+            {% if edit.change.Title %}
+                Add new "{{ edit.change.Title }}"
+            {% else %}
+                Add new untitled noodle
+            {% endif %}
+        {% endif %}
+        </h3>
+        <h4>Changes</h4>
+        <table class="table table-bordered">
+            <thead>
+                <th scope="col">Field</th>
+                {% if edit.noodle %}
+                    <th scope="col">Original</th>
+                {% endif %}
+                <th scope="col">Change</th>
+            </thead>
+            <tbody>
+            {% for key, value in edit.change.items %}
+                <tr>
+                    <td> <b> {{key}} </b> </td>
+                    {% if edit.noodle %}
+                        {% if key == "Title" %}
+                            <td> {{ edit.noodle.metadata|lookup:"Title" }} </td>
+                        {% else %}
+                            <td> {{ edit.noodle.metadata|lookup:key }} </td>
+                        {% endif %}
+                    {% endif %}
+                    <td> {{value}} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-success" disabled>Approve</button>
+        <button type="button" class="btn btn-danger" disabled>Reject</button>
+    </li>
+    {% endfor %}
+</ul>
+</center>
+{% endblock %}

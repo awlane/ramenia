@@ -7,6 +7,7 @@ from .edit_util import apply_change
 
 def view_noodle(request, noodle_id):
     noodle = Noodle.objects.get(pk=noodle_id)
+   # reviews = Review.objects.filter(pk=noodle_id)
     avg_rating = noodle.review_set.all().aggregate(Avg('rating'))["rating__avg"]
     template = loader.get_template('ramen.html')
     context = { "noodle" : noodle, "MEDIA_URL" : settings.MEDIA_URL,

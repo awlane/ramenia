@@ -15,11 +15,10 @@ class EditsList(ListView):
 
     def get_queryset(self):
         if "noodle_id" in self.kwargs:
-            if not self.kwargs["noodle_id"] == None:
-                noodle = get_object_or_404(Noodle, pk=self.kwargs["noodle_id"])
-                return Edit.objects.filter(noodle=noodle)
-            else:
-                return Edit.objects.filter(noodle=None)
+            noodle = get_object_or_404(Noodle, pk=self.kwargs["noodle_id"])
+            return Edit.objects.filter(noodle=noodle)
+        elif "new" in self.kwargs:
+            return Edit.objects.filter(noodle=None)
         elif "user_id" in self.kwargs:
             user = get_object_or_404(User, pk=self.kwargs["user_id"])
             return Edit.objects.filter(editor=user)

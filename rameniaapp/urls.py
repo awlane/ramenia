@@ -1,4 +1,5 @@
 from django.urls import path, include
+
 from . import views
 
 urlpatterns = [
@@ -10,6 +11,11 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
+    path('ramen', views.ramen_create_view, name="ramen"),
+    path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
+    
+    
+
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
     path('mod/edits', views.EditsList.as_view(), name="all_edits"),
     path('mod/edits/noodle/<int:noodle_id>', views.EditsList.as_view(), name="edits_by_noodle"),
@@ -37,3 +43,5 @@ urlpatterns = [
     # returns search results
     path('api/search', views.search_rest, name="search_rest"),
 ]
+
+

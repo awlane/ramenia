@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block page %}
+<center>
+    <h1> Edit Noodle </h1>
+<br>
+<br>
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form enctype="multipart/form-data" method="post" action="{% url 'edit_ramen' noodle.id %}">
+    {% csrf_token %}
+
+    <table>
+    <tr>
+        <td>{{ form.name.label_tag }}</td>
+    <td>{{ form.name }}</td>
+</tr>
+
+<tr>
+    <td>{{ form.manufacturer.label_tag }}</td>
+    <td>{{ form.manufacturer }}</td>
+</tr>
+<tr>
+    <td>{{ form.description.label_tag }}</td>
+    <td>{{ form.description }}</td>
+</tr>
+<tr>
+    <td>{{ form.flavor.label_tag }}</td>
+    <td>{{ form.flavor }}</td>
+</tr>
+<tr>
+    <td>{{ form.released.label_tag }}</td>
+    <td>{{ form.released }}</td>
+</tr>
+<tr>
+    <td>{{ form.line.label_tag }}</td>
+    <td>{{ form.line }}</td>
+</tr>
+<tr>
+    <td>{{ form.image.label_tag }}</td>
+    <td>{{ form.image }}</td>
+</tr>
+<tr>
+    <td>{{ form.tags.label_tag }}</td>
+    <td>{{ form.tags }}</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Submit Edit">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+</center>
+{% endblock %}
+
+
+
+
+

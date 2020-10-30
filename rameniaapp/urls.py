@@ -15,6 +15,7 @@ urlpatterns = [
     path('list/<int:list_id>', views.view_list, name="list"),
     path('ramen', views.ramen_create_view, name="ramen"),
     path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
+    path('noodle/<int:noodle_id>/review', views.ramen_review_view, name="review_ramen"),
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
     path('mod/edits', views.EditsList.as_view(), name="all_edits"),
     path('mod/edits/noodle/new', views.EditsList.as_view(), {'new' : True}, name="new_noodles"),

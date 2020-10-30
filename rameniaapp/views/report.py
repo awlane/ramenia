@@ -2,13 +2,75 @@ from django.shortcuts import render, HttpResponse
 from django.template import loader
 from django.conf import settings
 from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report, Review, Profile, Noodle
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #TODO: Needs permissions added once that is set up
+
+class ReportForm(CreateView, LoginRequiredMixin):
+    template_name = "report_form.html"
+    model = Report
+    success_url = "/app"
+    fields = ["reason"]
+    url_path = "/app"
+
+    def form_valid(self, form):
+        form.instance.reporter = self.request.user
+        form.instance.status = 'OP'
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["id"] = self.kwargs["id"]
+        context["url_path"] = self.url_path
+        return context
+
+class NoodleReportForm(ReportForm):
+    model = NoodleReport
+    url_path = "noodle_report"
+
+    def form_valid(self, form):
+        form.instance.noodle = Noodle.objects.get(pk=self.kwargs["id"])
+        form.instance.type = 'ND'
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["name"] = Noodle.objects.get(pk=self.kwargs["id"]).name
+        return context
+
+class ReviewReportForm(ReportForm):
+    model = ReviewReport
+    url_path = "review_report"
+
+    def form_valid(self, form):
+        form.instance.review = Review.objects.get(pk=self.kwargs["id"])
+        form.instance.type = 'RV'
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["name"] = Review.objects.get(pk=self.kwargs["id"]).title
+        return context
+
+class ProfileReportForm(ReportForm):
+    model = ProfileReport
+    url_path = "profile_report"
+
+    def form_valid(self, form):
+        form.instance.profile = Profile.objects.get(pk=self.kwargs["id"])
+        form.instance.type = 'PF'
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["name"] = Profile.objects.get(pk=self.kwargs["id"]).name
+        return context
+
 class ReportList(ListView):
     model = Report
     context_object_name = "reports"
-    template_name = "report.html"
+    template_name = "report_view.html"
     item_type = ""
 
     def get_queryset(self):

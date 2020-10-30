@@ -5,7 +5,9 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('noodle/<int:noodle_id>', views.view_noodle, name="noodle"),
+    path('noodle/<int:id>/report', views.NoodleReportForm.as_view(), name="noodle_report"), 
     path('user/<int:user_id>', views.view_profile, name="profile"),
+    path('user/<int:id>/report', views.ProfileReportForm.as_view(), name="profile_report"), 
     path('user/<int:user_id>/follow', views.follow_profile, name ="follow_profile"),
     path('', include('django.contrib.auth.urls')),
     path('register', views.register, name="register"),
@@ -18,6 +20,7 @@ urlpatterns = [
 
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
     path('mod/reports', views.view_reports_disam, name="reports"),
+    #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
     path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),
     path('mod/reports/review/', views.ReviewReportList.as_view(), name="review_reports"),

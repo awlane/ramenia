@@ -1,4 +1,5 @@
 from django.urls import path, include
+
 from . import views
 
 urlpatterns = [
@@ -7,10 +8,16 @@ urlpatterns = [
     path('noodle/<int:id>/report', views.NoodleReportForm.as_view(), name="noodle_report"), 
     path('user/<int:user_id>', views.view_profile, name="profile"),
     path('user/<int:id>/report', views.ProfileReportForm.as_view(), name="profile_report"), 
+    path('user/<int:user_id>/follow', views.follow_profile, name ="follow_profile"),
     path('', include('django.contrib.auth.urls')),
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
+    path('ramen', views.ramen_create_view, name="ramen"),
+    path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
+    
+    
+
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
     path('mod/reports', views.view_reports_disam, name="reports"),
     #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
@@ -36,3 +43,5 @@ urlpatterns = [
     # returns search results
     path('api/search', views.search_rest, name="search_rest"),
 ]
+
+

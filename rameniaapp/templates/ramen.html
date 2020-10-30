@@ -95,6 +95,8 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+{% url 'noodle_report' noodle.id as report_link%}
+<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
 <hr />
 {% endif %}
 

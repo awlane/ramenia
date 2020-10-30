@@ -3,12 +3,14 @@ from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
 from rameniaapp.forms import EditProfileForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 def view_profile(request, user_id):
     profile = User.objects.get(pk=user_id).profile
     template = loader.get_template('profile.html')
-    context = { "profile" : profile, "MEDIA_URL" : settings.MEDIA_URL }
+    following = request.user.profile in profile.followers.all()
+    context = { "profile" : profile, "MEDIA_URL" : settings.MEDIA_URL, "following": following}
     return HttpResponse(template.render(context, request))
 
 def edit_profile(request):
@@ -28,3 +30,14 @@ def edit_profile(request):
                     'description' : request.user.profile.metadata["Description"]}
         form = EditProfileForm(initial=initial)
     return render(request, 'registration/edit_profile.html', {"form": form})
+
+@csrf_exempt
+def follow_profile(request, user_id):
+    if request.method == "POST":
+        profile = User.objects.get(pk=user_id).profile
+        profile.followers.add(request.user.profile)
+        return HttpResponse(status=200)
+    elif request.method == "DELETE":
+        profile = User.objects.get(pk=user_id).profile
+        profile.followers.remove(request.user.profile)
+        return HttpResponse(status=200)

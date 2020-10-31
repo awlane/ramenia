@@ -7,12 +7,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 #TODO: Needs permissions added once that is set up
 
-class ReportForm(CreateView, LoginRequiredMixin):
+class ReportForm(LoginRequiredMixin, CreateView):
     template_name = "report_form.html"
     model = Report
     success_url = "/app"
     fields = ["reason"]
     url_path = "/app"
+    login_url="/app/login"
 
     def form_valid(self, form):
         form.instance.reporter = self.request.user
@@ -67,11 +68,12 @@ class ProfileReportForm(ReportForm):
         context["name"] = Profile.objects.get(pk=self.kwargs["id"]).name
         return context
 
-class ReportList(ListView):
+class ReportList(LoginRequiredMixin, ListView):
     model = Report
     context_object_name = "reports"
     template_name = "report_view.html"
     item_type = ""
+    login_url="/app/login"
 
     def get_queryset(self):
         if "item_id" in self.kwargs:

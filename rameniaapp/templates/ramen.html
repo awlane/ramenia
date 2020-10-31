@@ -139,8 +139,12 @@ $(document).ready(function(){
         <td>{{ form.image }}</td>
     </tr>
     </table>
-    
-    <input type="submit" value="Add Review">
+    {% if request.user.is_authenticated %}
+        <input type="submit" value="Add Review">
+    {% else %}
+        {% url 'login' as login_link%}
+        <a class="btn btn-primary" href="{{login_link}}?next={{request.path}}" role="button">Login to Review</a>
+    {% endif %}
     </form>
 
 

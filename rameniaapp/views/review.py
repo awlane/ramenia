@@ -3,12 +3,14 @@ from django.template import loader
 from django.conf import settings
 from rameniaapp.forms import ReviewForm
 from rameniaapp.models import Review, ReviewImage, Noodle
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 def ramen_review_view(request,noodle_id):
     form = ReviewForm()
+    noodle = Noodle.objects.get(pk=noodle_id)
     # If this is a POST request then process the Form data
     if request.user.is_authenticated:
-        noodle = Noodle.objects.get(pk=noodle_id)
         if request.method == "POST":
            # Create a form instance and populate it with data from the request of the user
             form = ReviewForm(request.POST or None)
@@ -25,15 +27,12 @@ def ramen_review_view(request,noodle_id):
                 data.noodle = noodle
                 data.save()
                 if request.FILES:
-                            file = list(request.FILES.keys())[0]
-                            image = request.FILES[file]
-                            review_image = ReviewImage(image = image, review = data, uploader = request.user)
-                            review_image.save()
+                    file = list(request.FILES.keys())[0]
+                    image = request.FILES[file]
+                    review_image = ReviewImage(image = image, review = data, uploader = request.user)
+                    review_image.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/app')
-   #else:
+    else:
      #   form = Review_Form()
-    template = loader.get_template('ramen.html')
-    context = {"noodle" : noodle
-    }
-    return HttpResponse(template.render(context, request))
+        return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))

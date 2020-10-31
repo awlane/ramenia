@@ -4,7 +4,9 @@ from django.conf import settings
 from rameniaapp.forms import EditNoodleForm
 from rameniaapp.models import Noodle, NoodleImage, Edit, Tag
 from .edit_util import apply_change
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/app/login")
 def ramen_edit_view(request, noodle_id):
     noodle = Noodle.objects.get(pk=noodle_id)
     # If this is a POST request then process the Form data

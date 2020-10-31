@@ -8,10 +8,11 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class EditsList(ListView):
+class EditsList(LoginRequiredMixin, ListView):
     model = Edit
     context_object_name = "edits"
     template_name = "edits_view.html"
+    login_url="/app/login"
 
     def get_queryset(self):
         if "noodle_id" in self.kwargs:

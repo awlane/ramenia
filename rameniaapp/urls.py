@@ -4,7 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('noodle/add', views.ramen_create_view, name="add_noodle"),
     path('noodle/<int:noodle_id>', views.view_noodle, name="noodle"),
+    path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
+    path('noodle/<int:noodle_id>/review', views.ramen_review_view, name="review_ramen"),
     path('noodle/<int:id>/report', views.NoodleReportForm.as_view(), name="noodle_report"), 
     path('user/<int:user_id>', views.view_profile, name="profile"),
     path('user/<int:id>/report', views.ProfileReportForm.as_view(), name="profile_report"), 
@@ -13,9 +16,6 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
-    path('ramen', views.ramen_create_view, name="ramen"),
-    path('noodle/<int:noodle_id>/edit', views.ramen_edit_view, name="edit_ramen"),
-    path('noodle/<int:noodle_id>/review', views.ramen_review_view, name="review_ramen"),
     path('user/<int:user_id>/lists', views.view_user_lists, name="user_lists"),
     path('mod/edits', views.EditsList.as_view(), name="all_edits"),
     path('mod/edits/noodle/new', views.EditsList.as_view(), {'new' : True}, name="new_noodles"),

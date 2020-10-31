@@ -78,10 +78,15 @@ $(document).ready(function(){
                     </tr>
                 </tbody>
             </table>
-            {% if following %}
-            <button id="follow-profile" class = "btn btn-primary" data-method="DELETE">Unfollow</button>
+            {%if request.user.is_authenticated%}
+                {% if following %}
+                <button id="follow-profile" class = "btn btn-primary" data-method="DELETE">Unfollow</button>
+                {% else %}
+                <button id="follow-profile" class = "btn btn-primary" data-method="POST">Follow</button>
+                {% endif %}
             {% else %}
-            <button id="follow-profile" class = "btn btn-primary" data-method="POST">Follow</button>
+                {% url 'login' as login_link%}
+                <a class="btn btn-primary" href="{{login_link}}?next={{request.path}}" role="button">Login to Follow</a>
             {% endif %}
         </div>
         <div class="col-md-auto">

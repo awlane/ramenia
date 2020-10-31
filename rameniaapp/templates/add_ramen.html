@@ -19,7 +19,7 @@
     {% endfor %}
 {% endif %}
 
-<form enctype="multipart/form-data" method="post" action="{% url 'ramen' %}">
+<form enctype="multipart/form-data" method="post" action="{% url 'add_noodle' %}">
     {% csrf_token %}
 
     <table>

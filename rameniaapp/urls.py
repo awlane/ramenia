@@ -21,7 +21,9 @@ urlpatterns = [
     path('mod/edits/noodle/new', views.EditsList.as_view(), {'new' : True}, name="new_noodles"),
     path('mod/edits/noodle/<int:noodle_id>', views.EditsList.as_view(), name="edits_by_noodle"),
     path('mod/edits/user/<int:user_id>', views.EditsList.as_view(), name="edits_by_user"),
-    path('mod/reports', views.view_reports_disam, name="reports"),
+    path('mod/edits/approve/<int:edit_id>', views.apply_edit, name="approve_edit"),
+    path('mod/edits/reject/<int:edit_id>', views.reject_edit, name="reject_edit"),
+    path('mod', views.view_mod_page, name="moderator"),
     #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
     path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),

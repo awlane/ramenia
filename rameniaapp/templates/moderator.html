@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block page %}
-<p> This should have links to the kinds of reports! </p>
+<h4> Edits </h4>
+{% url 'all_edits' as edits_page%}
+<p><a href={{edits_page}}>View All Edits</a></p>
+{% url 'new_noodles' as new_page%}
+<p><a href={{new_page}}>View New Submissions Only</a></p>
+
+<h4> Reports </h4>
 {% url 'review_reports' as review_reports %}
 {% url 'profile_reports' as profile_reports %}
 {% url 'noodle_reports' as noodle_reports %}

@@ -37,7 +37,7 @@
                             {% with title=edit.noodle.name %}
                             {% if not title == value %}
                                 <td> <b> {{key}} </b> </td>
-                                <td> {{ name }} </td>
+                                <td> {{ title }} </td>
                                 <td> {{value}} </td>
                             {% endif %}
                             {% endwith %}
@@ -73,8 +73,16 @@
             {% endif%}
             </tbody>
         </table>
-        <button type="button" class="btn btn-success" disabled>Approve</button>
-        <button type="button" class="btn btn-danger" disabled>Reject</button>
+        {% url 'approve_edit' edit.id as approve_link %}
+        <form name="approve_edit" method="post" action="{{ approve_link }}">
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Approve">
+        </form>
+        {% url 'reject_edit' edit.id as reject_link %}
+        <form name="reject_edit" method="post" action="{{ reject_link }}">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Reject">
+        </form>
     </li>
     {% endfor %}
 </ul>

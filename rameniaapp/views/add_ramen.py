@@ -28,7 +28,7 @@ def ramen_create_view(request):
                             file = list(request.FILES.keys())[0]
                             edit.image = request.FILES[file]
             edit.save()
-            apply_change(edit)
+            #apply_change(edit)
             # form.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/app/')

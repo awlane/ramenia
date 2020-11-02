@@ -119,6 +119,3 @@ class ProfileReportList(ReportList):
         '''Returns a tuple containing the key name and item'''
         profile = Profile.objects.get(id=id)
         return ("profile", profile)
-
-def view_reports_disam(request):
-    return render(request, 'report_disam.html')

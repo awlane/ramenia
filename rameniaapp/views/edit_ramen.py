@@ -28,7 +28,7 @@ def ramen_edit_view(request, noodle_id):
                 file = list(request.FILES.keys())[0]
                 edit.image = request.FILES[file]
             edit.save()
-            apply_change(edit)
+            #apply_change(edit)
         return HttpResponseRedirect('/app/')
     else:
         tags = ",".join(noodle.tags.values_list("name", flat=True))

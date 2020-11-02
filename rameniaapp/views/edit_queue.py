@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
 from rameniaapp.models import Noodle, Edit
@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .edit_util import apply_change
+from django.contrib.auth.decorators import login_required
 
 
 class EditsList(LoginRequiredMixin, ListView):
@@ -30,3 +32,21 @@ class EditsList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["MEDIA_URL"] = settings.MEDIA_URL
         return context
+
+@login_required(login_url="/app/login")
+def apply_edit(request, edit_id):
+    if request.method == "POST":
+        edit = Edit.objects.get(pk=edit_id)
+        apply_change(edit)
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect("/app/mod/edits")
+
+
+@login_required(login_url="/app/login")
+def reject_edit(request, edit_id):
+    if request.method == "POST":
+        edit = Edit.objects.get(pk=edit_id).delete()
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect("/app/mod/edits")

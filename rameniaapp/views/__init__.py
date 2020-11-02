@@ -9,6 +9,7 @@ from .list import *
 from .rest import *
 from .report import *
 from .search import *
+from .following import *
 from .edit_ramen import *
 from .review import *
 from .moderation import *

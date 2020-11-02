@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
+{% block page %}
+<center>
+<h1> Report "{{ name }}" </h1>
+{% if form.errors %}
+    <h2 style="color:red;"> Error </h2>
+{% endif %}
+
+<form method="post" action="{% url url_path id %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.reason.label_tag }}</td>
+    <td>{{ form.reason }}</td>
+</tr>
+</table>
+<input type="submit" value="Create Report">
+</form>
+<hr>
+</center>
+{% endblock %}

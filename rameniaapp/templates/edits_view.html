@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block page %}
+{% load lookup %}
+{% load tag_handler %}
+<center>
+<h1>Pending Edits and Uploads</h1>
+<ul class="list-group">
+    {% for edit in edits %}
+    <li class="list-group-item">
+        <h3> Edit (ID: {{ edit.id }}):
+        {% if edit.noodle %}
+            {% url 'noodle' edit.noodle.id as noodle_link %}
+            <a href={{noodle_link}}>{{ edit.noodle.name }}</a>
+        {% else %}
+            {% if edit.change.Title %}
+                Add new "{{ edit.change.Title }}"
+            {% else %}
+                Add new untitled noodle
+            {% endif %}
+        {% endif %}
+        </h3>
+        <h4>Changes</h4>
+        <table class="table table-bordered">
+            <thead>
+                <th scope="col">Field</th>
+                {% if edit.noodle %}
+                    <th scope="col">Original</th>
+                {% endif %}
+                <th scope="col">Change</th>
+            </thead>
+            <tbody>
+            {% comment %} #TODO: This could use REST magic so we're not having to do this for all edits {% endcomment %}
+            {% for key, value in edit.change.items %}
+                <tr>
+                    {% if edit.noodle %}
+                        {% if key == "Name" %}
+                            {% with title=edit.noodle.name %}
+                            {% if not title == value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ title }} </td>
+                                <td> {{value}} </td>
+                            {% endif %}
+                            {% endwith %}
+                        {% elif key == "Tags" %}
+                            {% with tags=edit.noodle.tags|tag_value_list %}
+                            {% if not tags|list_equality:value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ tags|list2string }} </td>
+                                <td> {{ value|list2string }} </td>
+                            {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            {% with noodle_value=edit.noodle.metadata|lookup:key %}
+                            {% if not value == noodle_value %}
+                                <td> <b> {{key}} </b> </td>
+                                <td> {{ noodle_value }} </td>
+                                <td> {{value}} </td>
+                            {% endif %}
+                            {% endwith %}
+                        {% endif %}
+                    {% else %}
+                        <td> <b> {{key}} </b> </td>
+                        <td> {{value}} </td>
+                    {% endif %}
+                    
+                </tr>
+            {% endfor %}
+            {% if edit.image %}
+                <tr>
+                    <td><b>Image</b></td>
+                    <td><img src="{{ MEDIA_URL }}{{ edit.image.name }}" height="50px"></td>
+                </tr>
+            {% endif%}
+            </tbody>
+        </table>
+        {% url 'approve_edit' edit.id as approve_link %}
+        <form name="approve_edit" method="post" action="{{ approve_link }}">
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Approve">
+        </form>
+        {% url 'reject_edit' edit.id as reject_link %}
+        <form name="reject_edit" method="post" action="{{ reject_link }}">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Reject">
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+</center>
+{% endblock %}

@@ -3,8 +3,8 @@
 <center>
 <h1>Reported {{ item_type }}</h1>
 <ul class="list-group">
-<li class="list-group-item">
     {% for report in reports %}
+    <li class="list-group-item">
         <p> Report #{{ report.id }}:
         {% if report.type == "RV" %}
             {% url 'review' report.review.id as review_link %}

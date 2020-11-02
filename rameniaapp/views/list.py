@@ -3,6 +3,7 @@ from django.template import loader
 from django.conf import settings
 from django.db.models import Avg
 from rameniaapp.models import Noodle, NoodleImage, List, Profile
+from django.contrib.auth.models import User
 
 def view_list(request, list_id):
     list = List.objects.get(pk=list_id)
@@ -27,7 +28,9 @@ def view_list(request, list_id):
 def view_user_lists(request, user_id):
     user = User.objects.get(pk=user_id)
     lists = List.objects.filter(user__pk=user_id).all()
-    is_my_lists = (request.user.is_authenticated and request.user.id == user.id)
+    is_my_lists = False
+    if request.user.is_authenticated:
+        is_my_lists = (request.user.is_authenticated and request.user.id == user.id)
 
     if request.method == "POST":
         form = ListCreateForm(request.POST)

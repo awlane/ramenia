@@ -1,6 +1,10 @@
 # ramenia
 Top Ramen group project for U of Memphis Capstone
 
+## SPRINT 6 NOTE
+If you encounter issues running migrations up to 0020..., please run
+`python3 manage.py migrate rameniaapp 0020_auto_20201030_2328 --fake`.
+
 ## Required Software
 Python 3, PostgreSQL
 

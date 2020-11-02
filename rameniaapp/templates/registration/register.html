@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 {% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
+{% block head_aux %}
+
+<script>
+$(document).ready(function(){
+    $("#id_password1").change(function(event){
+        var text = $("#id_password1").val();
+        console.log(text)
+        if (text.length < 8) {
+            $("#pwError").html("Password too short");
+        } else if (!/[a-zA-Z]+/.test(text)) {
+            $("#pwError").html("Password must contain at least 1 letter");
+        } else if (!/[0-9]+/.test(text)) {
+            $("#pwError").html("Password must contain at least 1 number");
+        } else {
+            $("#pwError").html("");
+        }
+    });
+    $("#id_password2").change(function(event){
+        var text = $("#id_password1").val();
+        var text2 = $("#id_password2").val();
+        if (text.localeCompare(text2)) {
+            $("#pwError2").html("Passwords do not match");
+        } else {
+            $("#pwError2").html("");
+        }
+    });
+});
+</script>
+
+{% endblock %}
 {% block page %}
 <center>
 <h1> Register for account </h1>
@@ -21,8 +51,16 @@
     <td>{{ form.password1 }}</td>
 </tr>
 <tr>
+    <td></td>
+    <td><p id="pwError" style="color:red;"></p></td>
+</tr>
+<tr>
     <td>{{ form.password2.label_tag }}</td>
     <td>{{ form.password2 }}</td>
+</tr>
+<tr>
+    <td></td>
+    <td><p id="pwError2" style="color:red;"></p></td>
 </tr>
 <tr>
     <td>{{ form.profile_name.label_tag }}</td>

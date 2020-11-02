@@ -35,6 +35,11 @@ $(document).ready(function(){
 <div class="container">
 <h1>{{noodle.name}}</h1>
 
+<h3>
+    {% url 'edit_ramen' noodle.id as edit_link %}
+    <a href="{{edit_link}}">Edit Noodle</a>
+</h3>
+
 <div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
         {%for image_obj in noodle.noodleimage_set.all%}
@@ -52,7 +57,6 @@ $(document).ready(function(){
         <span class="sr-only">Next</span>
     </a>
 </div>
-
 <h2>Information</h2>
 <table class="table">
     <tbody>
@@ -91,6 +95,8 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+{% url 'noodle_report' noodle.id as report_link%}
+<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
 <hr />
 {% endif %}
 
@@ -110,6 +116,37 @@ $(document).ready(function(){
     {% endfor %}
     <hr>
 {% endfor %}
+
+<h4>Add Review</h4>
+
+<form enctype="multipart/form-data" method="post" action="{% url 'review_ramen' noodle.id %}">
+    {% csrf_token %}
+    <table>
+    <tr>
+        <td>{{ form.title.label_tag }}</td>
+        <td>{{ form.title }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.body.label_tag }}</td>
+        <td>{{ form.body }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.rating.label_tag }}</td>
+        <td>{{ form.rating }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.image.label_tag }}</td>
+        <td>{{ form.image }}</td>
+    </tr>
+    </table>
+    {% if request.user.is_authenticated %}
+        <input type="submit" value="Add Review">
+    {% else %}
+        {% url 'login' as login_link%}
+        <a class="btn btn-primary" href="{{login_link}}?next={{request.path}}" role="button">Login to Review</a>
+    {% endif %}
+    </form>
+
 
 </div>
 

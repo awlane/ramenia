@@ -13,15 +13,6 @@ def add_noodle(edit):
     noodle.save()
     return noodle
 
-def update_tags(edit, noodle):
-    '''Adds/removes tags from noodle object'''
-    if "add_tags" in edit.change:
-        add_tags = edit.change["add_tags"]
-        noodle.tags.add(*add_tags)
-    if "remove_tags" in edit.change:
-        remove_tags = edit.change["remove_tags"]
-        noodle.tags.remove(*remove_tags)
-
 def edit_noodle(edit):
     '''Applies edits to noodle object'''
     noodle = edit.noodle
@@ -74,6 +65,31 @@ def set_as_main(edit, image):
             main_image.save()
         image.main = True
         image.save()
+
+def update_tags(edit, noodle):
+    current_tags = set(noodle.tags.values_list("name", flat=True))
+    new_tags = set(edit.change["Tags"])
+    tag_dict = Tag.objects.in_bulk(field_name='name')
+    add_tag_list = []
+    remove_tag_list = []
+    for tag in new_tags - current_tags:
+        if tag in tag_dict:
+            add_tag_list.append(tag_dict[tag])
+        else:
+            new_tag = Tag(name=tag)
+            new_tag.save()
+            add_tag_list.append(new_tag.pk)
+    for tag in current_tags - new_tags:
+        if tag in tag_dict:
+            remove_tag_list.append(tag_dict[tag])
+    save_tags(noodle, add_tag_list, remove_tag_list)
+    
+    
+def save_tags(noodle, add_tags, remove_tags):
+    '''Adds/removes tags from noodle object'''
+    noodle.tags.add(*add_tags)
+    noodle.tags.remove(*remove_tags)
+    noodle.save()
 
 def apply_change(edit):
     '''Apply an edit in the expected format to a noodle'''

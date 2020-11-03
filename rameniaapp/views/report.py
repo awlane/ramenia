@@ -1,6 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
+from django.contrib.auth.models import User
 from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report, Review, Profile, Noodle
 from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -119,3 +120,31 @@ class ProfileReportList(ReportList):
         '''Returns a tuple containing the key name and item'''
         profile = Profile.objects.get(id=id)
         return ("profile", profile)
+
+@login_required(login_url="/app/login")
+def ban_user(request, report_id, user_id)
+    if request.method == "POST":
+        user = User.objects.get(pk=user_id).delete()
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect(request.path)
+
+
+@login_required(login_url="/app/login")
+def update_report_status(request, report_id, status):
+    if request.method == "POST":
+        if report.status in Report.STATUS_CHOICES:
+            report = Report.objects.get(pk=report_id)
+            report.status = status
+            report.save()
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect(request.path)
+
+@login_required(login_url="/app/login")
+def ignore_report(request, report_id):
+    if request.method == "POST":
+        report = Report.objects.get(pk=report_id).delete()
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect(request.path)

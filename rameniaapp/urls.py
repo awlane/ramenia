@@ -26,6 +26,11 @@ urlpatterns = [
     path('mod/edits/reject/<int:edit_id>', views.reject_edit, name="reject_edit"),
     path('mod', views.view_mod_page, name="moderator"),
     #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
+    path('mod/reports/<int:report_id>/ignore', views.ignore_report, name="ignore_report"),
+    path('mod/reports/<int:report_id>/status/<str:status>', views.update_report_status, name="update_report_status"),
+    path('mod/reports/<int:report_id>/ban/<int:user_id>', views.ban_user, name="ban_user"),
+    path('mod/reports/<int:report_id>/edit/', views.ignore_report, name="report_edit"),
+
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
     path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),
     path('mod/reports/review/', views.ReviewReportList.as_view(), name="review_reports"),

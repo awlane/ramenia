@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .edit_util import apply_change
 from django.contrib.auth.decorators import login_required
-
+from rameniaapp.actionhookutils import dispatch_hook
 
 class EditsList(LoginRequiredMixin, ListView):
     model = Edit
@@ -38,6 +38,7 @@ def apply_edit(request, edit_id):
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id)
         apply_change(edit)
+        dispatch_hook(edit.editor, "noodle-edited")
         return HttpResponseRedirect(request.path)
     else:
         return HttpResponseRedirect("/app/mod/edits")

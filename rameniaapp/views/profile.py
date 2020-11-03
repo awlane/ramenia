@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from rameniaapp.forms import EditProfileForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from rameniaapp.actionhookutils import dispatch_hook
 
 def view_profile(request, user_id):
     profile = User.objects.get(pk=user_id).profile
@@ -40,8 +41,10 @@ def follow_profile(request, user_id):
     if request.method == "POST":
         profile = User.objects.get(pk=user_id).profile
         profile.followers.add(request.user.profile)
+        dispatch_hook(request.user, "user-followed")
         return HttpResponse(status=200)
     elif request.method == "DELETE":
         profile = User.objects.get(pk=user_id).profile
         profile.followers.remove(request.user.profile)
+        dispatch_hook(request.user, "user-unfollowed")
         return HttpResponse(status=200)

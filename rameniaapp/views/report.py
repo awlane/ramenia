@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report, Review, Profile, Noodle
 from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 #TODO: Needs permissions added once that is set up
 
@@ -109,7 +110,7 @@ class ReviewReportList(ReportList):
 
     def get_item(self, id):
         '''Returns a tuple containing the key name and item'''
-        review = review.objects.get(id=id)
+        review = Review.objects.get(id=id)
         return ("review", review)
 
 class ProfileReportList(ReportList):
@@ -122,24 +123,24 @@ class ProfileReportList(ReportList):
         return ("profile", profile)
 
 @login_required(login_url="/app/login")
-def ban_user(request, report_id, user_id)
+def ban_user(request, user_id):
     if request.method == "POST":
         user = User.objects.get(pk=user_id).delete()
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect("/app/mod")
     else:
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect("/app/mod")
 
 
 @login_required(login_url="/app/login")
 def update_report_status(request, report_id, status):
     if request.method == "POST":
-        if report.status in Report.STATUS_CHOICES:
+        if status in dict(Report.STATUS_CHOICES):
             report = Report.objects.get(pk=report_id)
             report.status = status
             report.save()
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect("/app/mod")
     else:
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect("/app/mod")
 
 @login_required(login_url="/app/login")
 def ignore_report(request, report_id):

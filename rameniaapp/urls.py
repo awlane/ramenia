@@ -28,7 +28,7 @@ urlpatterns = [
     #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
     path('mod/reports/<int:report_id>/ignore', views.ignore_report, name="ignore_report"),
     path('mod/reports/<int:report_id>/status/<str:status>', views.update_report_status, name="update_report_status"),
-    path('mod/reports/<int:report_id>/ban/<int:user_id>', views.ban_user, name="ban_user"),
+    path('mod/reports/ban/<int:user_id>', views.ban_user, name="ban_user"),
     path('mod/reports/<int:report_id>/edit/', views.ignore_report, name="report_edit"),
 
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),

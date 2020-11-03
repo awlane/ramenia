@@ -19,6 +19,36 @@
         </p>
         <span class="badge badge-primary badge-pill">{{ report.get_reason_display }}</span>
         <span class="badge badge-primary badge-pill">{{ report.get_status_display }}</span>
+        {% url 'ignore_report' report.id as ignore_link %}
+        <form name="ignore_edit" method="post" action="{{ ignore_link }}">
+            {% csrf_token %}
+            <input class="btn btn-warning" type="submit" value="Ignore">
+        </form>
+
+        {% url 'update_report_status' report.id 'ED' as resolved_link %}
+        <form name="resolve_report" method="post" action="{{ resolved_link }}">
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Resolve">
+        </form>
+         {% if report.type == "RV" %}
+            {% url 'ban_user' report.review.reviewer.id as ban_link %}
+            <form name="ban_creator" method="post" action="{{ ban_link }}">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
+            </form>
+        {% elif report.type == "ND" %}
+            {% url 'ban_user' report.noodle.editor.id as ban_link %}
+            <form name="ban_creator" method="post" action="{{ ban_link }}">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
+            </form>
+        {% elif report.type == "PF" %}
+            {% url 'ban_user' report.profile.user.id as ban_link %}
+            <form name="ban_creator" method="post" action="{{ ban_link }}">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
+            </form>
+        {% endif %}        
     </li>
     {% endfor %}
 </ul>

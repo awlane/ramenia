@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
 from django.db.models import Avg
 from rameniaapp.models import Noodle, NoodleImage, List, Profile
 from django.contrib.auth.models import User
+from rameniaapp.forms import ListCreateForm
 from rameniaapp.actionhookutils import dispatch_hook
 
 def view_list(request, list_id):
@@ -38,7 +39,7 @@ def view_user_lists(request, user_id):
         if form.is_valid and is_my_lists:
             new_list = List.objects.create(name=form.data['list_name'], user=user)
             new_list.save()
-            dispatch_hook(user, "list-added")
+            dispatch_hook(user, "list-added", count=lists.count())
 
             return HttpResponseRedirect(reverse("user_lists", args=[user_id]))
 

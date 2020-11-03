@@ -33,6 +33,7 @@ def ramen_review_view(request,noodle_id):
                     review_image = ReviewImage(image = image, review = data, uploader = request.user)
                     review_image.save()
                 if not previous_review:
-                    dispatch_hook(request.user, "review-created")
+                    request.user.profile.increment_meta_val("Reviewed", 1)
+                    dispatch_hook(request.user, "review-created", count=request.user.profile.get_meta_val("Reviewed"))
 
     return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))

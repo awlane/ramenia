@@ -38,7 +38,10 @@ def apply_edit(request, edit_id):
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id)
         apply_change(edit)
-        dispatch_hook(edit.editor, "noodle-edited")
+
+        # call hook
+        edit.editor.profile.increment_meta_val("Noodle Edits", 1)
+        dispatch_hook(edit.editor, "noodle-edited", count=edit.editor.profile.metadata["Noodle Edits"])
         return HttpResponseRedirect(request.path)
     else:
         return HttpResponseRedirect("/app/mod/edits")

@@ -16,17 +16,17 @@ def dispatch_hook(user, hook_name, **kwargs):
         for key, value in kwargs.items():
             keyname = key + "-eq"
             if keyname in hook.params and hook.params[keyname] == value:
-                dispatch_hook(hook.params[keyname])
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lt"
             if keyname in hook.params and hook.params[keyname] < value:
-                dispatch_hook(hook.params[keyname])
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-gt"
             if keyname in hook.params and hook.params[keyname] > value:
-                dispatch_hook(hook.params[keyname])
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lte"
             if keyname in hook.params and hook.params[keyname] <= value:
-                dispatch_hook(hook.params[keyname])
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-gte"
             if keyname in hook.params and hook.params[keyname] >= value:
-                dispatch_hook(hook.params[keyname])
+                dispatch_hook(user, hook.params[keyname + "-hook"])
     

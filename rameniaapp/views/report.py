@@ -1,9 +1,12 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
+from django.contrib.auth.models import User
 from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report, Review, Profile, Noodle
 from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from rameniaapp.actionhookutils import dispatch_hook
 
 #TODO: Needs permissions added once that is set up
 
@@ -108,7 +111,7 @@ class ReviewReportList(ReportList):
 
     def get_item(self, id):
         '''Returns a tuple containing the key name and item'''
-        review = review.objects.get(id=id)
+        review = Review.objects.get(id=id)
         return ("review", review)
 
 class ProfileReportList(ReportList):
@@ -119,3 +122,74 @@ class ProfileReportList(ReportList):
         '''Returns a tuple containing the key name and item'''
         profile = Profile.objects.get(id=id)
         return ("profile", profile)
+
+@login_required(login_url="/app/login")
+def ban_user(request, user_id):
+    if request.method == "POST":
+        user = User.objects.get(pk=user_id).delete()
+        return HttpResponseRedirect("/app/mod")
+    else:
+        return HttpResponseRedirect("/app/mod")
+
+@login_required(login_url="/app/login")
+def delete_content(request, report_id):
+    if request.method == "POST":
+        report = Report.objects.get(pk=report_id)
+        reporter = report.reporter
+        creator = None
+        if report.type == "RV":
+            report = ReviewReport.objects.get(pk=report_id)
+            creator = report.review.reviewer
+            report.review.delete()
+        elif report.type == "ND":
+            report = NoodleReport.objects.get(pk=report_id)
+            creator = report.noodle.editor
+            report.noodle.delete()
+        elif report.type == "PF":
+            report = ProfileReport.objects.get(pk=report_id)
+            report.profile.name = "AnonymousUser"
+            report.profile.profile_pic = Profile._meta.get_field('profile_pic').default
+            report.profile.metadata["Description"] = ""
+            report.profile.save()
+            creator = report.profile.user
+            report.delete()
+        dispatch_hook(reporter, "good-report")
+        dispatch_hook(creator, "bad-content")
+        return HttpResponseRedirect("/app/mod")
+    else:
+        return HttpResponseRedirect("/app/mod")
+
+@login_required(login_url="/app/login")
+def update_report_status(request, report_id, status):
+    if request.method == "POST":
+        if status in dict(Report.STATUS_CHOICES):
+            report = Report.objects.get(pk=report_id)
+            report.status = status
+            report.save()
+            creator = None
+            if report.type == "RV":
+                report = ReviewReport.objects.get(pk=report_id)
+                creator = report.review.reviewer
+            elif report.type == "ND":
+                report = NoodleReport.objects.get(pk=report_id)
+                creator = report.noodle.editor
+            elif report.type == "PF":
+                report = ProfileReport.objects.get(pk=report_id)
+                creator = report.profile.user
+            if status == "ED":
+                dispatch_hook(report.reporter, "good-report")
+                dispatch_hook(creator, "bad-content")
+            if status == "SP":
+                dispatch_hook(report.reporter, "bad-report")
+        return HttpResponseRedirect("/app/mod")
+    else:
+        return HttpResponseRedirect("/app/mod")
+
+@login_required(login_url="/app/login")
+def ignore_report(request, report_id):
+    if request.method == "POST":
+        dispatch_hook(report.reporter, "bad-report")
+        report = Report.objects.get(pk=report_id).delete()
+        return HttpResponseRedirect(request.path)
+    else:
+        return HttpResponseRedirect(request.path)

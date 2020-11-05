@@ -30,6 +30,7 @@ urlpatterns = [
     path('mod/reports/<int:report_id>/status/<str:status>', views.update_report_status, name="update_report_status"),
     path('mod/reports/ban/<int:user_id>', views.ban_user, name="ban_user"),
     path('mod/reports/<int:report_id>/edit/', views.ignore_report, name="report_edit"),
+    path('mod/reports/<int:report_id>/delete_content/', views.delete_content, name="delete_content"),
 
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
     path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),

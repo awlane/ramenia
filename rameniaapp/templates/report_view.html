@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block page %}
+{% load get_creator %}
 <center>
 <h1>Reported {{ item_type }}</h1>
 <ul class="list-group">
@@ -7,7 +8,7 @@
     <li class="list-group-item">
         <p> Report #{{ report.id }}:
         {% if report.type == "RV" %}
-            {% url 'review' report.review.id as review_link %}
+            {% url 'noodle' report.review.noodle.id as review_link %}
             <a href={{review_link}}>{{ report.review.title }}</a>
         {% elif report.type == "ND" %}
             {% url 'noodle' report.noodle.id as noodle_link %}
@@ -19,63 +20,64 @@
         </p>
         <span class="badge badge-primary badge-pill">{{ report.get_reason_display }}</span>
         <span class="badge badge-primary badge-pill">{{ report.get_status_display }}</span>
-        {% url 'ignore_report' report.id as ignore_link %}
-        <form name="ignore_edit" method="post" action="{{ ignore_link }}">
-            {% csrf_token %}
-            <input class="btn btn-warning" type="submit" value="Ignore">
-        </form>
+        {% comment %} TODO: Why are you like this bootstrap {% endcomment %}
+        <div class="container-fluid">
+            <div class="col-xs-1">
+                {% url 'update_report_status' report.id 'ED' as resolved_link %}
+                <form name="resolve_report" method="post" action="{{ resolved_link }}">
+                    {% csrf_token %}
+                    <input class="btn btn-success" type="submit" value="Mark Resolved">
+                </form>
+            </div>
+                        
+            {% if report.type == "ND" %}
+                <div class="col-xs-1">
+                    {% url 'edit_ramen' report.noodle.id as edit_link %}
+                    <form name="edit_link" method="post" action="{{ edit_link }}">
+                        {% csrf_token %}
+                        <input class="btn btn-success" type="submit" value="Edit Noodle">
+                    </form>
+                </div>
+            {% endif %}
 
-        {% url 'update_report_status' report.id 'ED' as resolved_link %}
-        <form name="resolve_report" method="post" action="{{ resolved_link }}">
-            {% csrf_token %}
-            <input class="btn btn-success" type="submit" value="Resolve">
-        </form>
-         {% if report.type == "RV" %}
-            {% url 'ban_user' report.review.reviewer.id as ban_link %}
-            <form name="ban_creator" method="post" action="{{ ban_link }}">
-                {% csrf_token %}
-                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
-            </form>
-        {% elif report.type == "ND" %}
-            {% url 'ban_user' report.noodle.editor.id as ban_link %}
-            <form name="ban_creator" method="post" action="{{ ban_link }}">
-                {% csrf_token %}
-                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
-            </form>
-        {% elif report.type == "PF" %}
-            {% url 'ban_user' report.profile.user.id as ban_link %}
-            <form name="ban_creator" method="post" action="{{ ban_link }}">
-                {% csrf_token %}
-                <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
-            </form>
-        {% endif %}        
+            <div class="col-xs-1">
+                {% url 'update_report_status' report.id 'SP' as spam_link %}
+                <form name="spam_report" method="post" action="{{ spam_link }}">
+                    {% csrf_token %}
+                    <input class="btn btn-success" type="submit" value="Mark Spam">
+                </form>
+            </div>
+
+            <div class="col-xs-1">
+                {% url 'ignore_report' report.id as ignore_link %}
+                <form name="ignore_edit" method="post" action="{{ ignore_link }}">
+                    {% csrf_token %}
+                    <input class="btn btn-warning" type="submit" value="Ignore (Delete Report)">
+                </form>
+            </div>
+            
+
+            {% if report|get_creator %}
+                <div class="col-xs-1">
+                    {% url 'ban_user' report|get_creator as ban_link %}
+                    <form name="ban_creator" method="post" action="{{ ban_link }}">
+                        {% csrf_token %}
+                        <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="col-xs-1">
+                {% url 'delete_content' report.id as delete_link %}
+                <form name="delete_content" method="post" action="{{ delete_link }}">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Delete Content">
+                </form>
+            </div>
+        </div> 
     </li>
     {% endfor %}
 </ul>
 </center>
-{% comment %} {% for report in reports %}
-<ul class="list-unstyled">
-<li class="media">
-    <a href="{% url 'noodle' noodle.id %}">
-        <img class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="{{MEDIA_URL}}{{ image.image.name }}">
-    </a>
-    <div class="media-body">
-        <a href="{% url 'noodle' noodle.id %}">
-            <h5 class="mt-0">{{ noodle.name }}</h5>
-        </a>
-        Rating: {{ score }}/5 from {{noodle.review_set.all|length}} ratings <br />
-        {% for tag in noodle.tags.all %}
-            <span class="badge badge-info">{{tag.name}}</span>
-        {% endfor %}
-
-        {% if user.is_authenticated and user.id == listinfo.user.id %}
-        <br />
-        <button type="button" data-noodle-id="{{noodle.id}}"
-                class="entry-remove btn btn-danger btn-sm">Remove</button>
-        {% endif %}
-    </div>
-</li>
-</ul>
-{% endfor %} {% endcomment %}
 
 {% endblock %}

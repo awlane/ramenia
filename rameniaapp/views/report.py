@@ -130,6 +130,26 @@ def ban_user(request, user_id):
     else:
         return HttpResponseRedirect("/app/mod")
 
+@login_required(login_url="/app/login")
+def delete_content(request, report_id):
+    if request.method == "POST":
+        report = Report.objects.get(pk=report_id)
+        if report.type == "RV":
+            report = ReviewReport.objects.get(pk=report_id)
+            report.review.delete()
+        elif report.type == "ND":
+            report = NoodleReport.objects.get(pk=report_id)
+            report.noodle.delete()
+        elif report.type == "PF":
+            report = ProfileReport.objects.get(pk=report_id)
+            report.profile.name = "AnonymousUser"
+            report.profile.profile_pic = Profile._meta.get_field('profile_pic').default
+            report.profile.metadata["Description"] = ""
+            report.profile.save()
+            report.delete()
+        return HttpResponseRedirect("/app/mod")
+    else:
+        return HttpResponseRedirect("/app/mod")
 
 @login_required(login_url="/app/login")
 def update_report_status(request, report_id, status):

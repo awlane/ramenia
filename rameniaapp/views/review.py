@@ -5,6 +5,7 @@ from rameniaapp.forms import ReviewForm
 from rameniaapp.models import Review, ReviewImage, Noodle
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from rameniaapp.actionhookutils import dispatch_hook
 
 def ramen_review_view(request,noodle_id):
     form = ReviewForm()
@@ -31,8 +32,8 @@ def ramen_review_view(request,noodle_id):
                     image = request.FILES[file]
                     review_image = ReviewImage(image = image, review = data, uploader = request.user)
                     review_image.save()
-            # redirect to a new URL:
-            return HttpResponseRedirect('/app')
-    else:
-     #   form = Review_Form()
-        return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))
+                if not previous_review:
+                    request.user.profile.increment_meta_val("Reviewed", 1)
+                    dispatch_hook(request.user, "review-created", count=request.user.profile.get_meta_val("Reviewed"))
+
+    return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))

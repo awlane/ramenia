@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 
 def register(request):
     BLANK_METADATA = {"Rated": 0, "Tried": 0, "Reviewed": 0, "Reputation": 0, \
-    "Description": "", "Entries Made": 0}
+    "Description": "", "Entries Made": 0, "Noodle Edits": 0}
     if request.method == "POST":
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():

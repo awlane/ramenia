@@ -13,3 +13,17 @@ class Profile(models.Model):
     #User can have no badges!
     badges = models.ManyToManyField("rameniaapp.Badge", blank=True)
     following = models.ManyToManyField("self",related_name="followers", symmetrical=False ,blank=True)
+
+    def get_meta_val(self, key, alternative=None):
+        if key in self.metadata:
+            return self.metadata[key]
+        else:
+            return alternative
+
+    def set_meta_val(self, key, val):
+        self.metadata[key] = val
+        self.save()
+    
+    def increment_meta_val(self, key, amount=1):
+        old_val = self.get_meta_val(key, 0)
+        self.set_meta_val(key, old_val + amount)

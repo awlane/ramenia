@@ -6,6 +6,7 @@ from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report,
 from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from rameniaapp.actionhookutils import dispatch_hook
 
 #TODO: Needs permissions added once that is set up
 
@@ -134,11 +135,15 @@ def ban_user(request, user_id):
 def delete_content(request, report_id):
     if request.method == "POST":
         report = Report.objects.get(pk=report_id)
+        reporter = report.reporter
+        creator = None
         if report.type == "RV":
             report = ReviewReport.objects.get(pk=report_id)
+            creator = report.review.reviewer
             report.review.delete()
         elif report.type == "ND":
             report = NoodleReport.objects.get(pk=report_id)
+            creator = report.noodle.editor
             report.noodle.delete()
         elif report.type == "PF":
             report = ProfileReport.objects.get(pk=report_id)
@@ -146,7 +151,10 @@ def delete_content(request, report_id):
             report.profile.profile_pic = Profile._meta.get_field('profile_pic').default
             report.profile.metadata["Description"] = ""
             report.profile.save()
+            creator = report.profile.user
             report.delete()
+        dispatch_hook(reporter, "good-report")
+        dispatch_hook(creator, "bad-content")
         return HttpResponseRedirect("/app/mod")
     else:
         return HttpResponseRedirect("/app/mod")
@@ -158,6 +166,21 @@ def update_report_status(request, report_id, status):
             report = Report.objects.get(pk=report_id)
             report.status = status
             report.save()
+            creator = None
+            if report.type == "RV":
+                report = ReviewReport.objects.get(pk=report_id)
+                creator = report.review.reviewer
+            elif report.type == "ND":
+                report = NoodleReport.objects.get(pk=report_id)
+                creator = report.noodle.editor
+            elif report.type == "PF":
+                report = ProfileReport.objects.get(pk=report_id)
+                creator = report.profile.user
+            if status == "ED":
+                dispatch_hook(report.reporter, "good-report")
+                dispatch_hook(creator, "bad-content")
+            if status == "SP":
+                dispatch_hook(report.reporter, "bad-report")
         return HttpResponseRedirect("/app/mod")
     else:
         return HttpResponseRedirect("/app/mod")
@@ -165,6 +188,7 @@ def update_report_status(request, report_id, status):
 @login_required(login_url="/app/login")
 def ignore_report(request, report_id):
     if request.method == "POST":
+        dispatch_hook(report.reporter, "bad-report")
         report = Report.objects.get(pk=report_id).delete()
         return HttpResponseRedirect(request.path)
     else:

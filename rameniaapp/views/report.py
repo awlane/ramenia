@@ -7,6 +7,7 @@ from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from rameniaapp.actionhookutils import dispatch_hook
+from django.forms.widgets import Select
 
 #TODO: Needs permissions added once that is set up
 
@@ -17,6 +18,11 @@ class ReportForm(LoginRequiredMixin, CreateView):
     fields = ["reason"]
     url_path = "/app"
     login_url="/app/login"
+
+    def get_form(self, form_class=None):
+        form = super(ReportForm, self).get_form(form_class)
+        form.fields['reason'].widget.attrs.update({'class':'form-control'})
+        return form
 
     def form_valid(self, form):
         form.instance.reporter = self.request.user

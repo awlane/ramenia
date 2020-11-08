@@ -6,7 +6,9 @@ from rameniaapp.models import ReviewReport, ProfileReport, NoodleReport, Report,
 from django.views.generic import ListView, FormView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from rameniaapp.decorators import user_is_moderator
 from rameniaapp.actionhookutils import dispatch_hook
+from rameniaapp.utils import UserIsModeratorMixin
 
 #TODO: Needs permissions added once that is set up
 
@@ -71,7 +73,7 @@ class ProfileReportForm(ReportForm):
         context["name"] = Profile.objects.get(pk=self.kwargs["id"]).name
         return context
 
-class ReportList(LoginRequiredMixin, ListView):
+class ReportList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
     model = Report
     context_object_name = "reports"
     template_name = "report_view.html"
@@ -124,6 +126,7 @@ class ProfileReportList(ReportList):
         return ("profile", profile)
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def ban_user(request, user_id):
     if request.method == "POST":
         user = User.objects.get(pk=user_id).delete()
@@ -132,6 +135,7 @@ def ban_user(request, user_id):
         return HttpResponseRedirect("/app/mod")
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def delete_content(request, report_id):
     if request.method == "POST":
         report = Report.objects.get(pk=report_id)
@@ -154,12 +158,14 @@ def delete_content(request, report_id):
             creator = report.profile.user
             report.delete()
         dispatch_hook(reporter, "good-report")
-        dispatch_hook(creator, "bad-content")
+        if creator:
+            dispatch_hook(creator, "bad-content")
         return HttpResponseRedirect("/app/mod")
     else:
         return HttpResponseRedirect("/app/mod")
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def update_report_status(request, report_id, status):
     if request.method == "POST":
         if status in dict(Report.STATUS_CHOICES):
@@ -186,6 +192,7 @@ def update_report_status(request, report_id, status):
         return HttpResponseRedirect("/app/mod")
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def ignore_report(request, report_id):
     if request.method == "POST":
         dispatch_hook(report.reporter, "bad-report")

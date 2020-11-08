@@ -9,8 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .edit_util import apply_change
 from django.contrib.auth.decorators import login_required
 from rameniaapp.actionhookutils import dispatch_hook
+from rameniaapp.decorators import user_is_moderator
+from rameniaapp.utils import UserIsModeratorMixin
 
-class EditsList(LoginRequiredMixin, ListView):
+class EditsList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
     model = Edit
     context_object_name = "edits"
     template_name = "edits_view.html"
@@ -34,6 +36,7 @@ class EditsList(LoginRequiredMixin, ListView):
         return context
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def apply_edit(request, edit_id):
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id)
@@ -52,6 +55,7 @@ def apply_edit(request, edit_id):
 
 
 @login_required(login_url="/app/login")
+@user_is_moderator
 def reject_edit(request, edit_id):
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id).delete()

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, Textarea
 from rameniaapp.models import Edit
 from rameniaapp.models import Tag
 
@@ -15,13 +15,13 @@ class TagsField(forms.Field):
         super().validate(value)
 
 class NoodleForm(forms.Form):
-    name = forms.CharField(max_length=50)
-    manufacturer = forms.CharField(max_length=50)
-    description = forms.CharField(max_length=200)
-    flavor = forms.CharField(max_length=50)
-    released = forms.CharField(max_length=50)
-    line = forms.CharField(max_length=50)
-    tags = TagsField(widget=TextInput, required=False)
+    name = forms.CharField(max_length=50, widget=TextInput(attrs={'class':'form-control'}))
+    manufacturer = forms.CharField(max_length=50, widget=TextInput(attrs={'class':'form-control'}))
+    description = forms.CharField(max_length=200, widget=Textarea(attrs={'class':'form-control'}))
+    flavor = forms.CharField(max_length=50, widget=TextInput(attrs={'class':'form-control'}))
+    released = forms.CharField(max_length=50, widget=TextInput(attrs={'class':'form-control'}))
+    line = forms.CharField(max_length=50, widget=TextInput(attrs={'class':'form-control'}))
+    tags = TagsField(required=False, widget=TextInput(attrs={'class':'form-control'}))
 
 class AddNoodleForm(NoodleForm):
     image = forms.ImageField(required = False)

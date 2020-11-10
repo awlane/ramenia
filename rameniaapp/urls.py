@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.contrib.auth.views import LoginView
+from rameniaapp.forms import PrettyAuthenticationForm
 
 from . import views
 
@@ -14,6 +16,7 @@ urlpatterns = [
     path('user/<int:user_id>/follow', views.follow_profile, name ="follow_profile"),
     path('user/<int:user_id>/following', views.view_following, name ="following"),
     path('', include('django.contrib.auth.urls')),
+    path('login', LoginView.as_view(template_name='registration/login.html', authentication_form=PrettyAuthenticationForm), name="login"),
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),

@@ -33,6 +33,7 @@ urlpatterns = [
     path('mod/reports/profile/', views.ProfileReportList.as_view(), name="profile_reports"),
     path('mod/reports/profile/<int:item_id>', views.ProfileReportList.as_view(), name="reports_by_profile"),
     path('search', views.view_search, name="search"),
+    path('notifications', views.view_notifications, name="notifications"),
 
     # REST API views
 

@@ -40,10 +40,13 @@ def add_image(edit, noodle):
         noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor)
         noodle_image.image = ImageFile(temp_image, temp_image.name)
         noodle_image.save()
+        default_img = NoodleImage.objects.filter(noodle=edit.noodle, is_default=True)[0]
+        if default_img:
+            default_img.delete()
         return noodle_image
     else:
         if not edit.noodle:
-            noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor)
+            noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor, is_default=True)
             noodle_image.save()
             return noodle_image
         return None

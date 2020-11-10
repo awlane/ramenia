@@ -16,4 +16,5 @@ class NoodleImage(models.Model):
     main = models.BooleanField(default=False)
     noodle = models.ForeignKey(Noodle, on_delete=models.CASCADE)
     timestamp = models.DateField(auto_now_add=True)
+    is_default = models.BooleanField(default=False)
     uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)

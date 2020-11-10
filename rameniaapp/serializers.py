@@ -1,4 +1,4 @@
-from rameniaapp.models import Noodle, List, Tag, NoodleImage
+from rameniaapp.models import Noodle, List, Tag, NoodleImage, Review
 from rest_framework import serializers
 
 class TagSerializer(serializers.ModelSerializer):
@@ -19,6 +19,13 @@ class NoodleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Noodle
         fields = ['id', 'name', 'metadata', 'tags', 'images']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    noodle = NoodleSerializer(required=True)
+
+    class Meta:
+        model = Review
+        fields = ['title', 'reviewer', 'noodle', 'rating', 'body']
 
 class ListSerializer(serializers.ModelSerializer):
     class Meta:

@@ -2,8 +2,9 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-from rameniaapp.models import Noodle, List
-from rameniaapp.serializers import NoodleSerializer, ListSerializer
+from rameniaapp.models import Noodle, List, Review
+from django.contrib.auth.models import User
+from rameniaapp.serializers import NoodleSerializer, ListSerializer, ReviewSerializer
 
 @csrf_exempt
 def list_rest(request, list_id):
@@ -68,3 +69,14 @@ def search_rest(request):
             
         serializer = NoodleSerializer(noodles, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def notifications_rest(request, page):
+    following = request.user.profile.following.all()
+    users = User.objects.filter(profile__in=following)
+    # get new reviews
+    reviews = Review.objects.filter(reviewer__in=users)
+
+    serializer = ReviewSerializer(reviews, many=True)
+    return JsonResponse(serializer.data, safe=False)
+    

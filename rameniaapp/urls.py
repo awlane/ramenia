@@ -47,6 +47,9 @@ urlpatterns = [
 
     # returns search results
     path('api/search', views.search_rest, name="search_rest"),
+
+    # returns notification results
+    path('api/notifications/<int:page>', views.notifications_rest, name="notifications_rest")
 ]
 
 

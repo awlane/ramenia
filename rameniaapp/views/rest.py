@@ -75,7 +75,7 @@ def notifications_rest(request, page):
     following = request.user.profile.following.all()
     users = User.objects.filter(profile__in=following)
     # get new reviews
-    reviews = Review.objects.filter(reviewer__in=users)
+    reviews = Review.objects.filter(reviewer__in=users).order_by('-created')
 
     serializer = ReviewSerializer(reviews, many=True)
     return JsonResponse(serializer.data, safe=False)

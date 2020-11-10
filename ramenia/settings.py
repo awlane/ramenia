@@ -127,3 +127,13 @@ MEDIA_ROOT = Path(__file__).resolve().parent.parent / "django_images"
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/app/'
 LOGOUT_REDIRECT_URL = '/app/'
+
+# Based off code from https://docs.djangoproject.com/en/3.1/ref/contrib/messages/
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.INFO: 'alert-light',
+    messages.DEBUG: 'alert-secondary',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger'
+}

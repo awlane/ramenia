@@ -12,7 +12,7 @@ class Noodle(models.Model):
     editor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
 class NoodleImage(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(default="noodles.png")
     main = models.BooleanField(default=False)
     noodle = models.ForeignKey(Noodle, on_delete=models.CASCADE)
     timestamp = models.DateField(auto_now_add=True)

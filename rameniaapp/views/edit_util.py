@@ -42,6 +42,10 @@ def add_image(edit, noodle):
         noodle_image.save()
         return noodle_image
     else:
+        if not edit.noodle:
+            noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor)
+            noodle_image.save()
+            return noodle_image
         return None
 
 def remove_image(edit):

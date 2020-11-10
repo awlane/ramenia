@@ -24,7 +24,7 @@ class NoodleForm(forms.Form):
     tags = TagsField(widget=TextInput, required=False)
 
 class AddNoodleForm(NoodleForm):
-    image = forms.ImageField(required = True)
+    image = forms.ImageField(required = False)
 
 class EditNoodleForm(NoodleForm):
     image = forms.ImageField(required = False)

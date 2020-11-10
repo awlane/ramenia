@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.contrib.auth.views import LoginView
+from rameniaapp.forms import PrettyAuthenticationForm
 
 from . import views
 
@@ -14,6 +16,7 @@ urlpatterns = [
     path('user/<int:user_id>/follow', views.follow_profile, name ="follow_profile"),
     path('user/<int:user_id>/following', views.view_following, name ="following"),
     path('', include('django.contrib.auth.urls')),
+    path('login', LoginView.as_view(template_name='registration/login.html', authentication_form=PrettyAuthenticationForm), name="login"),
     path('register', views.register, name="register"),
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('list/<int:list_id>', views.view_list, name="list"),
@@ -26,6 +29,12 @@ urlpatterns = [
     path('mod/edits/reject/<int:edit_id>', views.reject_edit, name="reject_edit"),
     path('mod', views.view_mod_page, name="moderator"),
     #TODO RENAME THESE SO IT'S LESS EASILY TYPOED
+    path('mod/reports/<int:report_id>/ignore', views.ignore_report, name="ignore_report"),
+    path('mod/reports/<int:report_id>/status/<str:status>', views.update_report_status, name="update_report_status"),
+    path('mod/reports/ban/<int:user_id>', views.ban_user, name="ban_user"),
+    path('mod/reports/<int:report_id>/edit/', views.ignore_report, name="report_edit"),
+    path('mod/reports/<int:report_id>/delete_content/', views.delete_content, name="delete_content"),
+
     path('mod/reports/noodle/', views.NoodleReportList.as_view(), name="noodle_reports"),
     path('mod/reports/noodle/<int:item_id>', views.NoodleReportList.as_view(), name="reports_by_noodle"),
     path('mod/reports/review/', views.ReviewReportList.as_view(), name="review_reports"),

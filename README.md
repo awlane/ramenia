@@ -50,3 +50,6 @@ run `refresh_db.sb` on any Unix OS or follow along with the commands as necessar
 
 ## Media
 All uploaded media will be put in the django_images folder.
+
+## License Notes
+Uses the Darkly Bootswatch theme under an MIT license.

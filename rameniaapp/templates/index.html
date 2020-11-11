@@ -2,15 +2,92 @@
 {% load static %}
 {% block head_aux %}
 <link rel="stylesheet" href="{% static "home.css" %}">
+
+{% if user.is_authenticated %}
+
+<script>
+$(document).ready(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/app/api/notifications/1",
+            statusCode: {
+                200: function(res){
+                    console.log("got results");
+                    if (res.length == 0) {
+                        $("#error-text").removeClass("d-none");
+                        $("#error-text").html("You have no notifications");
+                    } else {
+                        $("#error-text").addClass("d-none");
+                        $("#resultList").html("");
+                        
+                        var itemTemplate = $("#itemTemplate").html();
+                        res.forEach(function(item){
+                            var main_img = item.noodle.images[0].image
+                            item.noodle.images.forEach(function(img){
+                                if (img.main) {
+                                    main_img = img.image;
+                                }
+                            });
+                            var $item = $(itemTemplate);
+                            $item.find("img[data-template='itemImg']").attr("src",main_img);
+                            $item.find("a[data-template='noodleTitle']").text(item.noodle.name);
+                            $item.find("a[data-template='noodleTitle']").attr("href", "/app/noodle/" + item.noodle.id);
+                            $item.find("a[data-template='reviewer']").text(item.reviewer.profile.name);
+                            $item.find("a[data-template='reviewer']").attr("href", "/app/user/" + item.reviewer.id);
+                            $item.find("span[data-template='rating']").text(item.rating);
+                            $item.find("p[data-template='reviewTitle']").text(item.title);
+                            
+
+                            $("#resultList").append($item);
+                            console.log(item)
+                        });
+                    }
+                },
+                403: function(){
+                    $("#error-text").removeClass("d-none");
+                    $("#error-text").html("Error retrieving notifications");
+                }
+            }
+        });
+});
+</script>
+
+<template id="itemTemplate">
+    <li class="media">
+        <a href="#">
+            <img data-template="itemImg" class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="">
+        </a>
+        <div class="media-body">
+            <strong>Review of <a data-template="noodleTitle"></a> by <a data-template="reviewer" href="#"></a></strong><br />
+            <small><span data-template="rating"></span> stars</small>
+            <p data-template="reviewTitle"></a>
+        </div>
+    </li>
+</template>
+
+
+{% endif %}
+
 {% endblock %}
 {% block page %}
-<div class="vertical-center text-center">
+{% if not user.is_authenticated %}
+<div class="vertical-center">
     <center>
     <h1>Ramenia</h1>
-    <i>Instant ramen. For users, by users.</i> <br />
+    <i id="flavorText">Instant noodles, instantly.</i> <br />
     
     <a class="btn btn-primary mt-4" href="{% url 'login' %}">Login</a>
     <a class="btn btn-primary mt-4" href="{% url 'register' %}">Register</a>
     </center>
 </div>
+{% else %}
+<div class="container mt-4">
+<h1>Ramenia</h1>
+<i id="flavorText">Instant noodles, instantly.</i> <br />
+<h2 class="mt-4">My Feed</h2>
+<i id="error-text" class="d-none"></i>
+<ul id="resultList" class="list-unstyled">
+</ul>
+</div>
+{% endif %}
 {% endblock %}

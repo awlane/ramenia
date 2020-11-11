@@ -7,12 +7,9 @@ body {
 }
 
 .vertical-center{
-    margin:auto;
-    height: 200px;
-    width: 720px;
-    position:fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
+height:90vh; /*this makes the div 300px tall*/
+width:100%; /*this makes the div 500px wide*/
+display:flex; /*this applies the flexbox display property to the div so we can use the properties below*/
+align-items: center; /*this vertically aligns everything to the center*/
+justify-content: center; /*this horizontally aligns everything to the center*/
    }

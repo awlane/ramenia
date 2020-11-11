@@ -10,3 +10,6 @@
     - count: number of lists the user has made
 - user-followed: A user followed another user
 - user-unfollowed: A user unfollowed another user
+- good-report: A user submitted a valid report
+- bad-report: A user submitted an invalid report
+- bad-content: A user submitted content that was reported for valid reasons

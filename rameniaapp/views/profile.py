@@ -6,6 +6,7 @@ from rameniaapp.forms import EditProfileForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from rameniaapp.actionhookutils import dispatch_hook
+from django.contrib import messages
 
 def view_profile(request, user_id):
     profile = User.objects.get(pk=user_id).profile
@@ -28,6 +29,7 @@ def edit_profile(request):
                 file = list(request.FILES.keys())[0]
                 profile.profile_pic = request.FILES[file]
             profile.save()
+        messages.add_message(request, messages.SUCCESS, "Profile created successfully")
         return HttpResponseRedirect('/app/')
     else:
         initial = {'profile_name' : request.user.profile.name,\

@@ -40,7 +40,6 @@ def view_user_lists(request, user_id):
             new_list = List.objects.create(name=form.data['list_name'], user=user)
             new_list.save()
             dispatch_hook(user, "list-added", count=lists.count())
-
             return HttpResponseRedirect(reverse("user_lists", args=[user_id]))
 
     template = loader.get_template('user_lists.html')

@@ -13,3 +13,4 @@ from .following import *
 from .edit_ramen import *
 from .review import *
 from .moderation import *
+from .notifications import *

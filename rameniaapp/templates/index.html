@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+{% block head_aux %}
+<link rel="stylesheet" href="{% static "home.css" %}">
+{% endblock %}
 {% block page %}
-Welcome to ramenia!
+<div class="vertical-center text-center">
+    <center>
+    <h1>Ramenia</h1>
+    <i>Instant ramen. For users, by users.</i> <br />
+    
+    <a class="btn btn-primary mt-4" href="{% url 'login' %}">Login</a>
+    <a class="btn btn-primary mt-4" href="{% url 'register' %}">Register</a>
+    </center>
+</div>
 {% endblock %}

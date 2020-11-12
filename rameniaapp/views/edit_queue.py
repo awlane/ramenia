@@ -49,6 +49,7 @@ def apply_edit(request, edit_id):
         else:
             edit.editor.profile.increment_meta_val("Entries Made", 1)
             dispatch_hook(edit.editor, "noodle-added", count=edit.editor.profile.metadata["Entries Made"])
+        dispatch_hook(edit.editor, "good-content")
         return HttpResponseRedirect(request.path)
     else:
         return HttpResponseRedirect("/app/mod/edits")

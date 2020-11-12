@@ -16,24 +16,26 @@ def dispatch_hook(user, hook_name, **kwargs):
             user.profile.badges.remove(Badge.objects.get(pk=hook.params["remove-badge"]))
         if "group-add" in hook.params:
             group = Group.objects.get(name=hook.params["group-add"])
-            user.groups.add(group)
+            group.user_set.add(user)
         if "group-remove" in hook.params:
-            group = Group.objects.get(name=hook.params["group-remove"])
-            user.groups.remove(group)
+            #Superusers should not be able to lose permissions!!
+            if not user.is_superuser:
+                group = Group.objects.get(name=hook.params["group-remove"])
+                user.groups.remove(group)
         for key, value in kwargs.items():
             keyname = key + "-eq"
             if keyname in hook.params and hook.params[keyname] == value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lt"
-            if keyname in hook.params and hook.params[keyname] < value:
-                dispatch_hook(user, hook.params[keyname + "-hook"])
-            keyname = key + "-gt"
             if keyname in hook.params and hook.params[keyname] > value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
+            keyname = key + "-gt"
+            if keyname in hook.params and hook.params[keyname] < value:
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lte"
-            if keyname in hook.params and hook.params[keyname] <= value:
+            if keyname in hook.params and hook.params[keyname] >= value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-gte"
-            if keyname in hook.params and hook.params[keyname] >= value:
+            if keyname in hook.params and hook.params[keyname] <= value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
     

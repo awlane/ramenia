@@ -1743,6 +1743,49 @@
     }
 },
 {
+    "model": "rameniaapp.actionhook",
+    "pk": 4,
+    "fields": {
+        "hook_name": "reputation",
+        "params": {
+            "reputation-lt": 1000,
+            "reputation-gte": 1000,
+            "reputation-lt-hook": "mod-delete",
+            "reputation-gte-hook": "mod-add"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 5,
+    "fields": {
+        "hook_name": "mod-add",
+        "params": {
+            "group-add": "moderator"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 6,
+    "fields": {
+        "hook_name": "mod-delete",
+        "params": {
+            "group-remove": "moderator"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 7,
+    "fields": {
+        "hook_name": "good-content",
+        "params": {
+            "change-rep": 100
+        }
+    }
+},
+{
     "model": "admin.logentry",
     "pk": 1,
     "fields": {

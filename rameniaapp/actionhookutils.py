@@ -1,5 +1,6 @@
 from rameniaapp.models import ActionHook, Badge
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 def dispatch_hook(user, hook_name, **kwargs):
     hooks = ActionHook.objects.filter(hook_name=hook_name)
@@ -13,20 +14,28 @@ def dispatch_hook(user, hook_name, **kwargs):
             user.profile.badges.add(Badge.objects.get(pk=hook.params["add-badge"]))
         if "remove-badge" in hook.params:
             user.profile.badges.remove(Badge.objects.get(pk=hook.params["remove-badge"]))
+        if "group-add" in hook.params:
+            group = Group.objects.get(name=hook.params["group-add"])
+            group.user_set.add(user)
+        if "group-remove" in hook.params:
+            #Superusers should not be able to lose permissions!!
+            if not user.is_superuser:
+                group = Group.objects.get(name=hook.params["group-remove"])
+                user.groups.remove(group)
         for key, value in kwargs.items():
             keyname = key + "-eq"
             if keyname in hook.params and hook.params[keyname] == value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lt"
-            if keyname in hook.params and hook.params[keyname] < value:
-                dispatch_hook(user, hook.params[keyname + "-hook"])
-            keyname = key + "-gt"
             if keyname in hook.params and hook.params[keyname] > value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
+            keyname = key + "-gt"
+            if keyname in hook.params and hook.params[keyname] < value:
+                dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-lte"
-            if keyname in hook.params and hook.params[keyname] <= value:
+            if keyname in hook.params and hook.params[keyname] >= value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
             keyname = key + "-gte"
-            if keyname in hook.params and hook.params[keyname] >= value:
+            if keyname in hook.params and hook.params[keyname] <= value:
                 dispatch_hook(user, hook.params[keyname + "-hook"])
     

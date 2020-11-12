@@ -66,6 +66,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{lists_link}}">My Lists</a>
                 </li>
+                {% url 'notifications' as notifications_link%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{notifications_link}}">My Feed</a>
+                </li>
                 {% url 'add_noodle' as ramen_link%}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ramen_link}}">Add New Noodle</a>

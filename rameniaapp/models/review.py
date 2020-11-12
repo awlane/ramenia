@@ -15,6 +15,7 @@ class Review(models.Model):
     rating = models.IntegerField(choices=Ratings.choices)
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     noodle = models.ForeignKey("rameniaapp.Noodle", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
 class ReviewImage(models.Model):
     image = models.ImageField()

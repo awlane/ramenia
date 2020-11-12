@@ -29,7 +29,7 @@ def ramen_create_view(request):
                             file = list(request.FILES.keys())[0]
                             edit.image = request.FILES[file]
             edit.save()
-            messages.add_message(request, messages.SUCCESS, "Entry added successfully")
+            messages.add_message(request, messages.SUCCESS, "Entry submitted successfully- please wait for moderator approval")
             #apply_change(edit)
             # form.save()
             # redirect to a new URL:

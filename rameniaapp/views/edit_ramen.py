@@ -31,7 +31,7 @@ def ramen_edit_view(request, noodle_id):
                 file = list(request.FILES.keys())[0]
                 edit.image = request.FILES[file]
             edit.save()
-        messages.add_message(request, messages.SUCCESS, "Edit saved successfully")
+        messages.add_message(request, messages.SUCCESS, "Edit submitted successfully- please wait for moderator approval")
 
             #apply_change(edit)
         return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))

@@ -9,7 +9,7 @@ def add_noodle(edit):
                  "Manufacturer": edit.change["Manufacturer"], \
                  "Released": edit.change["Released"], "Line": edit.change["Line"] }
     editor = edit.editor
-    noodle = Noodle(name=name, metadata=metadata, editor=editor)
+    noodle = Noodle(name=name, metadata=metadata, editor=editor, created_timestamp=edit.timestamp)
     noodle.save()
     return noodle
 
@@ -30,6 +30,7 @@ def edit_noodle(edit):
         noodle.metadata["Line"] = edit.change["Line"]
     if edit.editor:
         noodle.editor = edit.editor
+    noodle.edited_timestamp = edit.timestamp
     noodle.save()
 
 
@@ -37,7 +38,7 @@ def add_image(edit, noodle):
     '''Add new image'''
     if edit.image:
         temp_image = edit.image
-        noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor)
+        noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor, timestamp=edit.timestamp)
         noodle_image.image = ImageFile(temp_image, temp_image.name)
         noodle_image.save()
         default_img = NoodleImage.objects.filter(noodle=edit.noodle, is_default=True)[0]

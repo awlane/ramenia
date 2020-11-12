@@ -1432,7 +1432,8 @@
             "Description": "One of the all time classics.",
             "Manufacturer": "Nissin"
         },
-        "timestamp": "2020-10-08",
+        "created_timestamp": "2020-10-08",
+        "edited_timestamp": "2020-10-08",
         "editor": [
             "cool_girl"
         ],
@@ -1455,7 +1456,8 @@
             "Description": "Non-edible model kit.",
             "Manufacturer": "Bandai"
         },
-        "timestamp": "2020-10-08",
+        "created_timestamp": "2020-10-08",
+        "edited_timestamp": "2020-10-08",
         "editor": [
             "cool_guy"
         ],

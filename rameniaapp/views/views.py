@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+import random
 
 from rameniaapp.decorators import user_is_moderator
 

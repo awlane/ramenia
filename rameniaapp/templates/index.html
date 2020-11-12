@@ -35,7 +35,8 @@ $(document).ready(function(){
                             $item.find("a[data-template='reviewer']").text(item.reviewer.profile.name);
                             $item.find("a[data-template='reviewer']").attr("href", "/app/user/" + item.reviewer.id);
                             $item.find("span[data-template='rating']").text(item.rating);
-                            $item.find("p[data-template='reviewTitle']").text(item.title);
+                            $item.find("span[data-template='reviewTitle']").text(item.title);
+                            $item.find("span[data-template='reviewCreated']").text(item.created);
                             
 
                             $("#resultList").append($item);
@@ -59,8 +60,9 @@ $(document).ready(function(){
         </a>
         <div class="media-body">
             <strong>Review of <a data-template="noodleTitle"></a> by <a data-template="reviewer" href="#"></a></strong><br />
-            <small><span data-template="rating"></span> stars</small>
-            <p data-template="reviewTitle"></a>
+            <small><span data-template="rating"></span> stars</small><br />
+            <span data-template="reviewTitle"></span><br />
+            <span data-template="reviewCreated"></span>
         </div>
     </li>
 </template>

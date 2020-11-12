@@ -5,6 +5,9 @@ from rameniaapp.forms import EditNoodleForm
 from rameniaapp.models import Noodle, NoodleImage, Edit, Tag
 from .edit_util import apply_change
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.contrib import messages
+
 
 @login_required(login_url="/app/login")
 def ramen_edit_view(request, noodle_id):
@@ -28,8 +31,10 @@ def ramen_edit_view(request, noodle_id):
                 file = list(request.FILES.keys())[0]
                 edit.image = request.FILES[file]
             edit.save()
+        messages.add_message(request, messages.SUCCESS, "Edit submitted successfully- please wait for moderator approval")
+
             #apply_change(edit)
-        return HttpResponseRedirect('/app/')
+        return HttpResponseRedirect(reverse('noodle', kwargs={"noodle_id" : noodle.id}))
     else:
         tags = ",".join(noodle.tags.values_list("name", flat=True))
         initial = {"name": noodle.name, "description": noodle.metadata["Description"], \

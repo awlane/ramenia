@@ -6,6 +6,7 @@ from rameniaapp.models import Review, ReviewImage, Noodle
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from rameniaapp.actionhookutils import dispatch_hook
+from django.contrib import messages
 
 def ramen_review_view(request,noodle_id):
     form = ReviewForm()
@@ -27,6 +28,8 @@ def ramen_review_view(request,noodle_id):
                 data.reviewer = request.user
                 data.noodle = noodle
                 data.save()
+                messages.add_message(request, messages.SUCCESS, "Review added successfully")
+
                 if request.FILES:
                     file = list(request.FILES.keys())[0]
                     image = request.FILES[file]

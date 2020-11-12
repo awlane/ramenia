@@ -5,6 +5,7 @@ from rameniaapp.forms import AddNoodleForm
 from rameniaapp.models import Noodle, NoodleImage, Edit, Tag
 from .edit_util import apply_change
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 @login_required(login_url="/app/login")
 def ramen_create_view(request):
@@ -28,6 +29,7 @@ def ramen_create_view(request):
                             file = list(request.FILES.keys())[0]
                             edit.image = request.FILES[file]
             edit.save()
+            messages.add_message(request, messages.SUCCESS, "Entry submitted successfully- please wait for moderator approval")
             #apply_change(edit)
             # form.save()
             # redirect to a new URL:

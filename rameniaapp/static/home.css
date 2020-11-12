@@ -1,0 +1,15 @@
+body {
+  background: url('/media/home-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.vertical-center{
+height:90vh; /*this makes the div 300px tall*/
+width:100%; /*this makes the div 500px wide*/
+display:flex; /*this applies the flexbox display property to the div so we can use the properties below*/
+align-items: center; /*this vertically aligns everything to the center*/
+justify-content: center; /*this horizontally aligns everything to the center*/
+   }

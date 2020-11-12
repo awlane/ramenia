@@ -968,362 +968,17 @@
     }
 },
 {
-    "model": "auth.permission",
+    "model": "auth.group",
     "fields": {
-        "name": "Can add profile",
-        "content_type": [
-            "rameniaapp",
-            "badge"
-        ],
-        "codename": "add_profile"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change profile",
-        "content_type": [
-            "rameniaapp",
-            "badge"
-        ],
-        "codename": "change_profile"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete profile",
-        "content_type": [
-            "rameniaapp",
-            "badge"
-        ],
-        "codename": "delete_profile"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view profile",
-        "content_type": [
-            "rameniaapp",
-            "badge"
-        ],
-        "codename": "view_profile"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add report",
-        "content_type": [
-            "rameniaapp",
-            "profile"
-        ],
-        "codename": "add_report"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change report",
-        "content_type": [
-            "rameniaapp",
-            "profile"
-        ],
-        "codename": "change_report"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete report",
-        "content_type": [
-            "rameniaapp",
-            "profile"
-        ],
-        "codename": "delete_report"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view report",
-        "content_type": [
-            "rameniaapp",
-            "profile"
-        ],
-        "codename": "view_report"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add review report",
-        "content_type": [
-            "rameniaapp",
-            "report"
-        ],
-        "codename": "add_reviewreport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change review report",
-        "content_type": [
-            "rameniaapp",
-            "report"
-        ],
-        "codename": "change_reviewreport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete review report",
-        "content_type": [
-            "rameniaapp",
-            "report"
-        ],
-        "codename": "delete_reviewreport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view review report",
-        "content_type": [
-            "rameniaapp",
-            "report"
-        ],
-        "codename": "view_reviewreport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add profile report",
-        "content_type": [
-            "rameniaapp",
-            "review"
-        ],
-        "codename": "add_profilereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change profile report",
-        "content_type": [
-            "rameniaapp",
-            "review"
-        ],
-        "codename": "change_profilereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete profile report",
-        "content_type": [
-            "rameniaapp",
-            "review"
-        ],
-        "codename": "delete_profilereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view profile report",
-        "content_type": [
-            "rameniaapp",
-            "review"
-        ],
-        "codename": "view_profilereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add noodle report",
-        "content_type": [
-            "rameniaapp",
-            "reviewreport"
-        ],
-        "codename": "add_noodlereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change noodle report",
-        "content_type": [
-            "rameniaapp",
-            "reviewreport"
-        ],
-        "codename": "change_noodlereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete noodle report",
-        "content_type": [
-            "rameniaapp",
-            "reviewreport"
-        ],
-        "codename": "delete_noodlereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view noodle report",
-        "content_type": [
-            "rameniaapp",
-            "reviewreport"
-        ],
-        "codename": "view_noodlereport"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add review",
-        "content_type": [
-            "rameniaapp",
-            "profilereport"
-        ],
-        "codename": "add_review"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change review",
-        "content_type": [
-            "rameniaapp",
-            "profilereport"
-        ],
-        "codename": "change_review"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete review",
-        "content_type": [
-            "rameniaapp",
-            "profilereport"
-        ],
-        "codename": "delete_review"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view review",
-        "content_type": [
-            "rameniaapp",
-            "profilereport"
-        ],
-        "codename": "view_review"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add review image",
-        "content_type": [
-            "rameniaapp",
-            "noodlereport"
-        ],
-        "codename": "add_reviewimage"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change review image",
-        "content_type": [
-            "rameniaapp",
-            "noodlereport"
-        ],
-        "codename": "change_reviewimage"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete review image",
-        "content_type": [
-            "rameniaapp",
-            "noodlereport"
-        ],
-        "codename": "delete_reviewimage"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view review image",
-        "content_type": [
-            "rameniaapp",
-            "noodlereport"
-        ],
-        "codename": "view_reviewimage"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can add tag",
-        "content_type": [
-            "rameniaapp",
-            "reviewimage"
-        ],
-        "codename": "add_tag"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can change tag",
-        "content_type": [
-            "rameniaapp",
-            "reviewimage"
-        ],
-        "codename": "change_tag"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can delete tag",
-        "content_type": [
-            "rameniaapp",
-            "reviewimage"
-        ],
-        "codename": "delete_tag"
-    }
-},
-{
-    "model": "auth.permission",
-    "fields": {
-        "name": "Can view tag",
-        "content_type": [
-            "rameniaapp",
-            "reviewimage"
-        ],
-        "codename": "view_tag"
+        "name": "moderator",
+        "permissions": []
     }
 },
 {
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$LQEV3TMvJINZ$QQ2z4+vOWoZ8var2ievooJXyfhpAukx6qePfEeyArWg=",
-        "last_login": "2020-11-05T20:52:45.702Z",
+        "last_login": "2020-11-12T06:13:01.004Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1331,8 +986,12 @@
         "email": "example@example.org",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2020-10-02T02:08:33.337Z",
-        "groups": [],
+        "date_joined": "2020-10-02T02:08:33Z",
+        "groups": [
+            [
+                "moderator"
+            ]
+        ],
         "user_permissions": []
     }
 },
@@ -1388,10 +1047,18 @@
 },
 {
     "model": "sessions.session",
-    "pk": "paxbqafymsn2n9h54t63vuojxjjkq2pl",
+    "pk": "syak5anua4wvjj814l0k1c085ufpcnxr",
     "fields": {
-        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1kamFR:xNx3x-i-JX4bbSRLT1RFMaK68pNeg57Z_DP7gHpGcBQ",
-        "expire_date": "2020-11-19T20:52:45.704Z"
+        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1kd5qv:f48LgVhMwmpMbWdYyiJJ_1A9d_2DnL5Xs_qUleNmaLI",
+        "expire_date": "2020-11-26T06:13:01.010Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "u84vuafihhktrm1o0yph8blj19ae9wp3",
+    "fields": {
+        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1kcipS:HW9LjNAViwAk_9Fm7ST4JG0qH9eJiuvJYTIHi8MAhlQ",
+        "expire_date": "2020-11-25T05:37:58.448Z"
     }
 },
 {
@@ -1432,7 +1099,8 @@
             "Description": "One of the all time classics.",
             "Manufacturer": "Nissin"
         },
-        "timestamp": "2020-10-08",
+        "created_timestamp": "2020-11-12",
+        "edited_timestamp": "2020-11-12",
         "editor": [
             "cool_girl"
         ],
@@ -1455,7 +1123,8 @@
             "Description": "Non-edible model kit.",
             "Manufacturer": "Bandai"
         },
-        "timestamp": "2020-10-08",
+        "created_timestamp": "2020-11-12",
+        "edited_timestamp": "2020-11-12",
         "editor": [
             "cool_guy"
         ],
@@ -1727,7 +1396,50 @@
     "fields": {
         "hook_name": "bad-content",
         "params": {
-            "change-rep": -200
+            "change-rep": -500
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 4,
+    "fields": {
+        "hook_name": "reputation",
+        "params": {
+            "reputation-lt": 1000,
+            "reputation-gte": 1000,
+            "reputation-lt-hook": "mod-delete",
+            "reputation-gte-hook": "mod-add"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 5,
+    "fields": {
+        "hook_name": "mod-add",
+        "params": {
+            "group-add": "moderator"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 6,
+    "fields": {
+        "hook_name": "mod-delete",
+        "params": {
+            "group-remove": "moderator"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 7,
+    "fields": {
+        "hook_name": "good-content",
+        "params": {
+            "change-rep": 100
         }
     }
 },
@@ -1813,7 +1525,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "reviewimage"
+            "tag"
         ],
         "object_id": "1",
         "object_repr": "Tag object (1)",
@@ -1831,7 +1543,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "reviewimage"
+            "tag"
         ],
         "object_id": "2",
         "object_repr": "Tag object (2)",
@@ -1849,7 +1561,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "reviewimage"
+            "tag"
         ],
         "object_id": "3",
         "object_repr": "Tag object (3)",
@@ -1867,7 +1579,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "1",
         "object_repr": "Noodle object (1)",
@@ -1921,7 +1633,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "noodle"
+            "badge"
         ],
         "object_id": "1",
         "object_repr": "Badge object (1)",
@@ -1939,7 +1651,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "noodle"
+            "badge"
         ],
         "object_id": "2",
         "object_repr": "Badge object (2)",
@@ -1957,7 +1669,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "2",
         "object_repr": "Noodle object (2)",
@@ -1975,7 +1687,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "2",
         "object_repr": "Noodle object (2)",
@@ -2029,7 +1741,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "1",
         "object_repr": "Noodle object (1)",
@@ -2047,7 +1759,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "badge"
+            "profile"
         ],
         "object_id": "1",
         "object_repr": "Profile object (1)",
@@ -2065,7 +1777,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "badge"
+            "profile"
         ],
         "object_id": "2",
         "object_repr": "Profile object (2)",
@@ -2083,7 +1795,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "badge"
+            "profile"
         ],
         "object_id": "3",
         "object_repr": "Profile object (3)",
@@ -2101,7 +1813,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "profilereport"
+            "review"
         ],
         "object_id": "1",
         "object_repr": "Review object (1)",
@@ -2119,7 +1831,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "profilereport"
+            "review"
         ],
         "object_id": "2",
         "object_repr": "Review object (2)",
@@ -2137,7 +1849,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "badge"
+            "profile"
         ],
         "object_id": "2",
         "object_repr": "Profile object (2)",
@@ -2155,7 +1867,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "reviewreport"
+            "noodlereport"
         ],
         "object_id": "1",
         "object_repr": "NoodleReport object (1)",
@@ -2173,7 +1885,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "review"
+            "profilereport"
         ],
         "object_id": "2",
         "object_repr": "ProfileReport object (2)",
@@ -2191,7 +1903,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "report"
+            "reviewreport"
         ],
         "object_id": "3",
         "object_repr": "ReviewReport object (3)",
@@ -2209,7 +1921,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "profile"
+            "report"
         ],
         "object_id": "1",
         "object_repr": "Report object (1)",
@@ -2227,7 +1939,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "1",
         "object_repr": "Noodle object (1)",
@@ -2245,7 +1957,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "2",
         "object_repr": "Noodle object (2)",
@@ -2263,7 +1975,7 @@
         ],
         "content_type": [
             "rameniaapp",
-            "tag"
+            "noodle"
         ],
         "object_id": "1",
         "object_repr": "Noodle object (1)",
@@ -2293,7 +2005,43 @@
     "model": "admin.logentry",
     "pk": 32,
     "fields": {
-        "action_time": "2020-11-05T20:53:03.197Z",
+        "action_time": "2020-11-08T07:26:53.163Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "object_id": "1",
+        "object_repr": "moderator",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+        "action_time": "2020-11-08T07:27:06.694Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "1",
+        "object_repr": "admin",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+        "action_time": "2020-11-11T05:40:57.294Z",
         "user": [
             "admin"
         ],
@@ -2309,9 +2057,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 33,
+    "pk": 35,
     "fields": {
-        "action_time": "2020-11-05T20:53:13.636Z",
+        "action_time": "2020-11-11T05:41:19.852Z",
         "user": [
             "admin"
         ],
@@ -2327,9 +2075,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 34,
+    "pk": 36,
     "fields": {
-        "action_time": "2020-11-05T20:53:29.804Z",
+        "action_time": "2020-11-11T05:41:43.603Z",
         "user": [
             "admin"
         ],
@@ -2341,6 +2089,42 @@
         "object_repr": "ActionHook object (3)",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+        "action_time": "2020-11-11T05:45:18.682Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "4",
+        "object_repr": "ActionHook object (4)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+        "action_time": "2020-11-11T05:50:22.796Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "4",
+        "object_repr": "ActionHook object (4)",
+        "action_flag": 3,
+        "change_message": ""
     }
 }
 ]

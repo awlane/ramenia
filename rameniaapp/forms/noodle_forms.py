@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import TextInput, Textarea
+from django.forms.widgets import TextInput, Textarea, FileInput
 from rameniaapp.models import Edit
 from rameniaapp.models import Tag
 
@@ -24,7 +24,7 @@ class NoodleForm(forms.Form):
     tags = TagsField(required=False, widget=TextInput(attrs={'class':'form-control'}))
 
 class AddNoodleForm(NoodleForm):
-    image = forms.ImageField(required = False)
+    image = forms.ImageField(required = False, widget=FileInput(attrs={'class':'form-control-file'}))
 
 class EditNoodleForm(NoodleForm):
-    image = forms.ImageField(required = False)
+    image = forms.ImageField(required = False, widget=FileInput(attrs={'class':'form-control-file'}))

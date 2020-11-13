@@ -3,6 +3,7 @@ from rameniaapp.forms import ChangePasswordForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
+@login_required(login_url="/app/login")
 def change_password(request):
     if request.method == "POST":
         form = ChangePasswordForm(request.user, request.POST)

@@ -14,3 +14,4 @@ from .edit_ramen import *
 from .review import *
 from .moderation import *
 from .notifications import *
+from .password_change import *

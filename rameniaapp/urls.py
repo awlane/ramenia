@@ -43,6 +43,7 @@ urlpatterns = [
     path('mod/reports/profile/<int:item_id>', views.ProfileReportList.as_view(), name="reports_by_profile"),
     path('search', views.view_search, name="search"),
     path('notifications', views.view_notifications, name="notifications"),
+    path('settings', views.change_password, name="change_password"),
 
     # REST API views
 

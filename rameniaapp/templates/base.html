@@ -81,6 +81,10 @@
                         <a class="nav-link" href="{{mod_link}}">Moderation</a>
                     </li>
                 {% endif %}
+                {% url 'change_password' as change_password_link%}
+                <li class="nav-item">
+                    <a class="nav-link" href={{change_password_link}}>Settings</a>
+                </li> 
                 {% url 'logout' as logout_link%}
                 <li class="nav-item">
                     <a class="nav-link" href={{logout_link}}>Logout</a>

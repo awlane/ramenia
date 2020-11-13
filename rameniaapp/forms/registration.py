@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms.widgets import FileInput
 
 class RegistrationForm(UserCreationForm):
     profile_name = forms.CharField(label="Profile Name (this is not used to login)", max_length=80)
-    profile_pic = forms.ImageField(label="Profile Picture", required=False)
+    profile_pic = forms.ImageField(label="Profile Picture", required=False, widget=FileInput(attrs={'class':'form-control-file'}))
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)

@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 {% block page %}
 <center>
-<div class="container">
+<div class="container mt-2">
     <div class="row justify-content-center">
         <div class="col-lg-auto">
             <img src="{{ MEDIA_URL }}{{ profile.profile_pic.name }}" height="150px">
@@ -43,6 +43,22 @@ $(document).ready(function(){
             <h2>{{profile.name}}</h2>
             {% if user.is_authenticated and user.id == profile.user.id %}
             <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+            <br />
+            {% endif %}
+            <a class="btn btn-primary mt-1" href="{% url 'user_lists' profile.user.id %}">View Lists</a>
+            <a class="btn btn-primary mt-1" href="{% url 'following' profile.user.id %}">Following/Followers</a>
+            <br />
+            {% url 'profile_report' profile.id as report_link%}
+            <a class="btn btn-danger mt-1" href={{report_link}} role="button">Report</a>
+            {%if request.user.is_authenticated%}
+                {% if following %}
+                <button id="follow-profile" class = "btn btn-primary mt-1" data-method="DELETE">Unfollow</button>
+                {% else %}
+                <button id="follow-profile" class = "btn btn-primary mt-1" data-method="POST">Follow</button>
+                {% endif %}
+            {% else %}
+                {% url 'login' as login_link%}
+                <a class="btn btn-primary mt-1" href="{{login_link}}?next={{request.path}}" role="button">Login to Follow</a>
             {% endif %}
         </div>
     </div>
@@ -81,16 +97,6 @@ $(document).ready(function(){
                     </tr>
                 </tbody>
             </table>
-            {%if request.user.is_authenticated%}
-                {% if following %}
-                <button id="follow-profile" class = "btn btn-primary" data-method="DELETE">Unfollow</button>
-                {% else %}
-                <button id="follow-profile" class = "btn btn-primary" data-method="POST">Follow</button>
-                {% endif %}
-            {% else %}
-                {% url 'login' as login_link%}
-                <a class="btn btn-primary" href="{{login_link}}?next={{request.path}}" role="button">Login to Follow</a>
-            {% endif %}
         </div>
         <div class="col-md-auto">
             <h4>Badges</h4>
@@ -98,8 +104,6 @@ $(document).ready(function(){
                 <img src="{{ MEDIA_URL }}{{ badge.image.name }}" height="50px" title="{{ badge.name }}">
             {% endfor %}
             <hr />
-            <h4><a href="{% url 'user_lists' profile.user.id %}">View Lists</a></h4>
-            <h4><a href="{% url 'following' profile.user.id %}">Following/Followers</a></h4>
         </div>
     </div>
 </div>
@@ -109,7 +113,5 @@ $(document).ready(function(){
     <p> Nothing to see here! </p>
 </div>
 <hr>
-{% url 'profile_report' profile.id as report_link%}
-<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
 </center>
 {% endblock %}

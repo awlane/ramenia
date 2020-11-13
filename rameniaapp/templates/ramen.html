@@ -179,11 +179,6 @@ $(document).ready(function(){
 <div class="container">
 <h1>{{noodle.name}}</h1>
 
-<h3>
-    {% url 'edit_ramen' noodle.id as edit_link %}
-    <a href="{{edit_link}}">Edit Noodle</a>
-</h3>
-
 <div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
         {%for image_obj in noodle.noodleimage_set.all%}
@@ -239,8 +234,13 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+
 {% url 'noodle_report' noodle.id as report_link%}
-<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
+<a class="btn btn-danger mt-2" href={{report_link}} role="button">Report</a>
+
+{% url 'edit_ramen' noodle.id as edit_link %}
+<a class="btn btn-primary mt-2" href="{{edit_link}}">Edit Noodle</a>
+
 <hr />
 {% endif %}
 

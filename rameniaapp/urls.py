@@ -59,7 +59,13 @@ urlpatterns = [
     path('api/search', views.search_rest, name="search_rest"),
 
     # returns notification results
-    path('api/notifications/<int:page>', views.notifications_rest, name="notifications_rest")
+    path('api/notifications/<int:page>', views.notifications_rest, name="notifications_rest"),
+
+    # returns a review
+    path('api/review/<int:review>', views.review_rest, name="review_rest"),
+
+    # returns reviews for a noodle
+    path('api/reviews/<int:noodle>', views.reviews_rest, name="reviews_rest")
 ]
 
 

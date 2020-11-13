@@ -23,6 +23,8 @@
 
 <input type="submit" class="btn btn-outline-light" value="Update Profile">
 </form>
+{% url 'change_password' as change_password_link%}
+<a href={{change_password_link}}>Change Passowrd</a>
 </center>
 <hr>
 {% endblock %}

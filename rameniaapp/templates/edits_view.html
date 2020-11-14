@@ -2,6 +2,8 @@
 {% block page %}
 {% load lookup %}
 {% load tag_handler %}
+{% url "moderator" as mod_link %}
+<a href={{mod_link}}>&lt;Return to moderator home</a>
 <center>
 <h1>Pending Edits and Uploads</h1>
 <ul class="list-group">

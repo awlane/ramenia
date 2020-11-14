@@ -5,3 +5,4 @@ from .search import *
 from .noodle_forms import *
 from .review import *
 from .login import *
+from .password_change import *

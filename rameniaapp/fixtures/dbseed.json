@@ -978,7 +978,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$LQEV3TMvJINZ$QQ2z4+vOWoZ8var2ievooJXyfhpAukx6qePfEeyArWg=",
-        "last_login": "2020-11-12T06:13:01.004Z",
+        "last_login": "2020-11-14T19:51:48.522Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1016,7 +1016,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$53OPOGxTIMbX$bZfKu6RECzAHZT6dib8cHp0TFVlkdHyD5X3ZQwlqNrE=",
-        "last_login": "2020-11-11T02:03:43.602Z",
+        "last_login": "2020-11-14T20:08:09.153Z",
         "is_superuser": false,
         "username": "cool_girl",
         "first_name": "",
@@ -1025,8 +1025,37 @@
         "is_staff": false,
         "is_active": true,
         "date_joined": "2020-10-02T02:18:09Z",
+        "groups": [
+            [
+                "moderator"
+            ]
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$216000$QwyeESNFwjqO$DfAIcDFAhMbm3i+2Hf7HgBUZdL5Xids2duLg2vjy/A8=",
+        "last_login": "2020-11-14T20:09:29.059Z",
+        "is_superuser": false,
+        "username": "ramenlover33",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-11-14T19:54:29.252Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "2p3a8jepezl3fq52acn11ig1r05uouvo",
+    "fields": {
+        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1ke1aO:PTi7O-bMyC73SK2fGdcl-Z5ORrQvwNZHQihOBifmJ-0",
+        "expire_date": "2020-11-28T19:51:48.529Z"
     }
 },
 {
@@ -1043,6 +1072,14 @@
     "fields": {
         "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1kRnry:7QWS8mNwutgA_ytttz4XQl60_4i5PXVhrZbdyB6093o",
         "expire_date": "2020-10-26T02:47:26.717Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "rinqrpl0714zs1oefg51ojw8lpz2xwl5",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyGA7NJ69O43EFgWqRpISnsy_rtt0oNe5jDvzbyFD-tS_Np59lMSF2HF6beLgZ5cd5Aeod6bpFaXeYpyV-RBu7y1xK_r4f4dlNDLttbIowVtkEIenHWR1RaDIxNz0qCQNYAC4ECZIGew0Y7nDGwUOsQkPl_ZRDey:1ke1rV:ydRdigO-DogBYi3lb42t9HgisziYF6Y9rUc8nsJ__E8",
+        "expire_date": "2020-11-28T20:09:29.066Z"
     }
 },
 {
@@ -1085,6 +1122,24 @@
         "name": "Ink-Stained",
         "description": "Make over 100 edits.",
         "image": "75540-200.png"
+    }
+},
+{
+    "model": "rameniaapp.badge",
+    "pk": 3,
+    "fields": {
+        "name": "First noodle entry",
+        "description": "FIrst noodle entry approved",
+        "image": "iconfinder_noodle-bowl-chopsticks-food-asian-ramen-spaghetti_4306505.png"
+    }
+},
+{
+    "model": "rameniaapp.badge",
+    "pk": 4,
+    "fields": {
+        "name": "First review",
+        "description": "User posted their first review",
+        "image": "iconfinder_starred_3830988.png"
     }
 },
 {
@@ -1134,6 +1189,31 @@
     }
 },
 {
+    "model": "rameniaapp.noodle",
+    "pk": 3,
+    "fields": {
+        "name": "Nongshim Kimchi Ramyun",
+        "metadata": {
+            "Line": "Cup noodle",
+            "Flavor": "Kimchi",
+            "Released": "Unknown",
+            "Description": "A korean style cup ramen with bits of kimchi. Spicy!",
+            "Manufacturer": "Nongshim"
+        },
+        "created_timestamp": "2020-11-14",
+        "edited_timestamp": "2020-11-14",
+        "editor": [
+            "ramenlover33"
+        ],
+        "tags": [
+            1,
+            4,
+            5,
+            6
+        ]
+    }
+},
+{
     "model": "rameniaapp.noodleimage",
     "pk": 1,
     "fields": {
@@ -1176,6 +1256,20 @@
     }
 },
 {
+    "model": "rameniaapp.noodleimage",
+    "pk": 4,
+    "fields": {
+        "image": "kimchiramen_MrTp6g8.jpg",
+        "main": false,
+        "noodle": 3,
+        "timestamp": "2020-11-14",
+        "is_default": false,
+        "uploader": [
+            "ramenlover33"
+        ]
+    }
+},
+{
     "model": "rameniaapp.profile",
     "pk": 1,
     "fields": {
@@ -1183,7 +1277,7 @@
         "metadata": {
             "Rated": 1,
             "Tried": 10,
-            "Reviewed": 1,
+            "Reviewed": 2,
             "Reputation": 9001,
             "Description": "I'm a ramen stan",
             "Entries Made": 1
@@ -1242,6 +1336,35 @@
         ],
         "badges": [],
         "following": []
+    }
+},
+{
+    "model": "rameniaapp.profile",
+    "pk": 4,
+    "fields": {
+        "name": "Ramen Lover 33",
+        "metadata": {
+            "Rated": 0,
+            "Tried": 0,
+            "Reviewed": 2,
+            "Reputation": 100,
+            "Description": "",
+            "Entries Made": 1,
+            "Noodle Edits": 0
+        },
+        "preferences": null,
+        "profile_pic": "external-content.duckduckgo.com.jpg",
+        "user": [
+            "ramenlover33"
+        ],
+        "badges": [
+            3,
+            4
+        ],
+        "following": [
+            1,
+            2
+        ]
     }
 },
 {
@@ -1333,6 +1456,60 @@
     }
 },
 {
+    "model": "rameniaapp.review",
+    "pk": 3,
+    "fields": {
+        "title": "A frequent go-to",
+        "body": "I don't usually eat cup noodles but these are an exception. I buy them in big packs at costco and they're perfect for a light lunch. The kimchi flavor really comes through.",
+        "rating": 4,
+        "reviewer": [
+            "ramenlover33"
+        ],
+        "noodle": 3,
+        "created": "2020-11-14T20:00:59.640Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 4,
+    "fields": {
+        "title": "One of the originals but not that great",
+        "body": "I used to eat these frequently but I have found other ramen to be a lot less bland. I still pick up a cup occasionally at the grocery store though.",
+        "rating": 2,
+        "reviewer": [
+            "ramenlover33"
+        ],
+        "noodle": 1,
+        "created": "2020-11-14T20:02:58.729Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 5,
+    "fields": {
+        "title": "Not a fan of kimchi but these are decent",
+        "body": "I got these when they were out of all the other flavors. Usually don't like kimchi but these are acceptable which is saying something.",
+        "rating": 3,
+        "reviewer": [
+            "cool_girl"
+        ],
+        "noodle": 3,
+        "created": "2020-11-14T20:09:14.838Z"
+    }
+},
+{
+    "model": "rameniaapp.reviewimage",
+    "pk": 1,
+    "fields": {
+        "image": "chickencup.jpg",
+        "review": 4,
+        "timestamp": "2020-11-14",
+        "uploader": [
+            "ramenlover33"
+        ]
+    }
+},
+{
     "model": "rameniaapp.tag",
     "pk": 1,
     "fields": {
@@ -1354,6 +1531,30 @@
     "fields": {
         "name": "Japanese",
         "description": "Instant noodles with a country of origin in Japan"
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Vegetarian",
+        "description": ""
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Korean",
+        "description": ""
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Kimchi",
+        "description": ""
     }
 },
 {
@@ -1440,6 +1641,48 @@
         "hook_name": "good-content",
         "params": {
             "change-rep": 100
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 8,
+    "fields": {
+        "hook_name": "noodle-added",
+        "params": {
+            "count-eq": 1,
+            "count-eq-hook": "first-noodle-badge"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 9,
+    "fields": {
+        "hook_name": "first-noodle-badge",
+        "params": {
+            "add-badge": 3
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 10,
+    "fields": {
+        "hook_name": "review-added",
+        "params": {
+            "count-eq": 1,
+            "count-eq-hook": "first-review-badge"
+        }
+    }
+},
+{
+    "model": "rameniaapp.actionhook",
+    "pk": 11,
+    "fields": {
+        "hook_name": "first-review-badge",
+        "params": {
+            "add-badge": 4
         }
     }
 },
@@ -2125,6 +2368,150 @@
         "object_repr": "ActionHook object (4)",
         "action_flag": 3,
         "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+        "action_time": "2020-11-14T19:52:18.650Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "badge"
+        ],
+        "object_id": "3",
+        "object_repr": "Badge object (3)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+        "action_time": "2020-11-14T19:53:15.605Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "8",
+        "object_repr": "ActionHook object (8)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+        "action_time": "2020-11-14T19:53:36.805Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "9",
+        "object_repr": "ActionHook object (9)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+        "action_time": "2020-11-14T19:53:59.894Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "cool_girl",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+        "action_time": "2020-11-14T20:05:57.388Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "badge"
+        ],
+        "object_id": "4",
+        "object_repr": "Badge object (4)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+        "action_time": "2020-11-14T20:06:47.857Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "10",
+        "object_repr": "ActionHook object (10)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+        "action_time": "2020-11-14T20:07:04.420Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "actionhook"
+        ],
+        "object_id": "11",
+        "object_repr": "ActionHook object (11)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+        "action_time": "2020-11-14T20:07:21.174Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "rameniaapp",
+            "profile"
+        ],
+        "object_id": "4",
+        "object_repr": "Profile object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Badges\"]}}]"
     }
 }
 ]

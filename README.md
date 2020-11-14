@@ -54,3 +54,4 @@ All uploaded media will be put in the django_images folder.
 ## License Notes
 Uses the Darkly Bootswatch theme under an MIT license.
 Uses icons from game-icons.net for default noodle and profile image under CC.
+Uses some icons from https://www.iconfinder.com/iconsets/basic-web-ui-elements under CC-3.0

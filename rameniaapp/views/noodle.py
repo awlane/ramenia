@@ -10,6 +10,10 @@ def view_noodle(request, noodle_id):
     noodle = Noodle.objects.get(pk=noodle_id)
    # reviews = Review.objects.filter(pk=noodle_id)
     avg_rating = noodle.review_set.all().aggregate(Avg('rating'))["rating__avg"]
+    if not avg_rating:
+        avg_rating = 0.0 
+    if avg_rating > 0:
+        avg_rating = round(avg_rating, 1)
     template = loader.get_template('ramen.html')
     context = { "noodle" : noodle, "MEDIA_URL" : settings.MEDIA_URL,
                 "avg_rating" : avg_rating, 'form': ReviewForm() }

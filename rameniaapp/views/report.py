@@ -10,6 +10,7 @@ from rameniaapp.decorators import user_is_moderator
 from rameniaapp.actionhookutils import dispatch_hook
 from rameniaapp.utils import UserIsModeratorMixin
 from django.forms.widgets import Select
+from django.contrib import messages
 
 #TODO: Needs permissions added once that is set up
 
@@ -133,10 +134,18 @@ class ProfileReportList(ReportList):
 
 @login_required(login_url="/app/login")
 @user_is_moderator
-def ban_user(request, user_id):
+def ban_user(request, report_type, user_id):
     if request.method == "POST":
         user = User.objects.get(pk=user_id).delete()
-        return HttpResponseRedirect("/app/mod")
+        path = None
+        if report_type == "ND":
+            path = "reports/noodle"
+        elif report_type == "RV":
+            path = "reports/review"
+        elif report_type == "PF":
+            path = "reports/profile"
+        messages.add_message(request, messages.WARNING, "User banned")
+        return HttpResponseRedirect("/app/mod/{}".format(path))
     else:
         return HttpResponseRedirect("/app/mod")
 
@@ -147,6 +156,7 @@ def delete_content(request, report_id):
         report = Report.objects.get(pk=report_id)
         reporter = report.reporter
         creator = None
+        path = get_return_path(report)
         if report.type == "RV":
             report = ReviewReport.objects.get(pk=report_id)
             creator = report.review.reviewer
@@ -166,7 +176,8 @@ def delete_content(request, report_id):
         dispatch_hook(reporter, "good-report")
         if creator:
             dispatch_hook(creator, "bad-content")
-        return HttpResponseRedirect("/app/mod")
+        messages.add_message(request, messages.WARNING, "Content deleted")
+        return HttpResponseRedirect("/app/mod/reports/{}".format(path))
     else:
         return HttpResponseRedirect("/app/mod")
 
@@ -179,6 +190,7 @@ def update_report_status(request, report_id, status):
             report.status = status
             report.save()
             creator = None
+            path = get_return_path(report)
             if report.type == "RV":
                 report = ReviewReport.objects.get(pk=report_id)
                 creator = report.review.reviewer
@@ -189,11 +201,16 @@ def update_report_status(request, report_id, status):
                 report = ProfileReport.objects.get(pk=report_id)
                 creator = report.profile.user
             if status == "ED":
-                dispatch_hook(report.reporter, "good-report")
-                dispatch_hook(creator, "bad-content")
+                if report.reporter:
+                    dispatch_hook(report.reporter, "good-report")
+                if creator:
+                    dispatch_hook(creator, "bad-content")
+                messages.add_message(request, messages.SUCCESS, "Report marked as resolved")
             if status == "SP":
-                dispatch_hook(report.reporter, "bad-report")
-        return HttpResponseRedirect("/app/mod")
+                if report.reporter:
+                    dispatch_hook(report.reporter, "bad-report")
+                messages.add_message(request, messages.WARNING, "Report marked as spam")
+        return HttpResponseRedirect("/app/mod/reports/{}".format(path))
     else:
         return HttpResponseRedirect("/app/mod")
 
@@ -201,8 +218,21 @@ def update_report_status(request, report_id, status):
 @user_is_moderator
 def ignore_report(request, report_id):
     if request.method == "POST":
-        dispatch_hook(report.reporter, "bad-report")
-        report = Report.objects.get(pk=report_id).delete()
-        return HttpResponseRedirect(request.path)
+        report = Report.objects.get(pk=report_id)
+        path = get_return_path(report)
+        if report.reporter:
+            dispatch_hook(report.reporter, "bad-report")
+        report.delete()
+        messages.add_message(request, messages.WARNING, "Report ignored")
+        return HttpResponseRedirect("/app/mod/reports/{}".format(path))
     else:
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect("/app/mod")
+    
+
+def get_return_path(report):
+    if report.type == "RV":
+        return "review"
+    elif report.type == "ND":
+        return "noodle"
+    elif report.type == "PF":
+        return "profile"

@@ -26,6 +26,8 @@
                 <h4 class="alert-heading">Success!</h4>
             {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                 <h4 class="alert-heading">Error!</h4>
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                <h4 class="alert-heading">Notice</h4>
             {% endif %}
             <p class="mb-0">{{ message }}</p>
         </div>

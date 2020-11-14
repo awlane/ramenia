@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block page %}
 {% load get_creator %}
+
+{% url "moderator" as mod_link %}
+<a href={{mod_link}}>&lt;Return to moderator home</a>
 <center>
 <h1>Reported {{ item_type }}</h1>
 <ul class="list-group">
@@ -59,7 +62,7 @@
 
             {% if report|get_creator %}
                 <div class="col-xs-1">
-                    {% url 'ban_user' report|get_creator as ban_link %}
+                    {% url 'ban_user' report.type report|get_creator   as ban_link %}
                     <form name="ban_creator" method="post" action="{{ ban_link }}">
                         {% csrf_token %}
                         <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">

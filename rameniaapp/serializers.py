@@ -12,10 +12,15 @@ class NoodleImageSerializer(serializers.ModelSerializer):
         model = NoodleImage
         fields = ['image', 'main']
 
+class ReviewImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NoodleImage
+        fields = ['image']
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['name']
+        fields = ['name', 'profile_pic']
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=True)
@@ -35,10 +40,11 @@ class NoodleSerializer(serializers.HyperlinkedModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     noodle = NoodleSerializer(required=True)
     reviewer = UserSerializer(required=True)
+    images = ReviewImageSerializer(source='reviewimage_set', many=True, required=False)
 
     class Meta:
         model = Review
-        fields = ['title', 'reviewer', 'noodle', 'rating', 'body', 'created']
+        fields = ['id', 'title', 'reviewer', 'noodle', 'rating', 'body', 'created', 'images']
 
 class ListSerializer(serializers.ModelSerializer):
     class Meta:

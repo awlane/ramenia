@@ -30,15 +30,154 @@ $(document).ready(function(){
 </script>
 {% endif %}
 
+<script>
+function allReviews() {
+    $.ajax({
+        type: 'GET',
+        url: "/app/api/reviews/{{ noodle.id }}",
+        statusCode: {
+            200: function(res){
+                console.log("got results");
+                if (res.length == 0) {
+                    $("#error-text").removeClass("d-none");
+                    $("#error-text").html("There are no reviews");
+                } else {
+                    $("#error-text").addClass("d-none");
+                    $("#showAllReviews").addClass("d-none");
+                    $("#reviewList").html("");
+                    
+                    var itemTemplate = $("#reviewTemplate").html();
+                    res.forEach(function(item){
+                        var $item = $(itemTemplate);
+                        $item.find("img[data-template='reviewerImg']").attr("src",item.reviewer.profile.profile_pic);
+                        $item.find("li[data-template='reviewItem']").attr("href", "/app/user/" + item.reviewer.id);
+                        $item.find("a[data-template='reviewerName']").text(item.reviewer.profile.name);
+                        $item.find("a[data-template='reviewerName']").attr("href", "/app/user/" + item.reviewer.id);
+                        $item.find("a[data-template='reviewTitle']").text(item.title);
+                        $item.find("a[data-template='reviewTitle']").attr("href", "/app/noodle/{{noodle.id}}?focusReview=" + item.id);
+                        $item.find("span[data-template='rating']").text(item.rating);
+                        $item.find("p[data-template='reviewBody']").text(item.body);
+                        $item.find("span[data-template='reviewTime']").text(item.created);
+
+                        if (item.images.length != 0) {
+                            $item.find("div[data-template='reviewImages']").removeClass("d-none");
+                        }
+                        item.images.forEach(function (item){
+                            $item.find("div[data-template='reviewImages']").append(
+                                "<a href=\"" + item.image + "\"><img src=\"" + item.image +"\" height=\"150\"></a>" 
+                            );
+                        });
+                        
+
+                        $("#reviewList").append($item);
+                        console.log(item)
+                    });
+                }
+            },
+            403: function(){
+                $("#error-text").removeClass("d-none");
+                $("#error-text").html("Error retrieving notifications");
+            }
+        }
+    });
+}
+
+function focusReview(review_id) {
+    $.ajax({
+        type: 'GET',
+        url: "/app/api/review/" + review_id,
+        statusCode: {
+            200: function(res){
+                console.log("got results");
+                if (!res) {
+                    $("#error-text").removeClass("d-none");
+                    $("#error-text").html("Not a valid review");
+                } else {
+                    $("#error-text").addClass("d-none");
+                    $("#reviewList").html("");
+                    
+                    var itemTemplate = $("#reviewTemplate").html();
+                        var $item = $(itemTemplate);
+                        $item.find("img[data-template='reviewerImg']").attr("src",res.reviewer.profile.profile_pic);
+                        $item.find("li[data-template='reviewItem']").attr("href", "/app/user/" + res.reviewer.id);
+                        $item.find("a[data-template='reviewerName']").text(res.reviewer.profile.name);
+                        $item.find("a[data-template='reviewerName']").attr("href", "/app/user/" + res.reviewer.id);
+                        $item.find("a[data-template='reviewTitle']").text(res.title);
+                        $item.find("a[data-template='reviewTitle']").attr("href", "/app/noodle/{{noodle.id}}?focusReview=" + res.id);
+                        $item.find("span[data-template='rating']").text(res.rating);
+                        $item.find("p[data-template='reviewBody']").text(res.body);
+                        $item.find("span[data-template='reviewTime']").text(res.created);
+
+                        if (res.images.length != 0) {
+                            $item.find("div[data-template='reviewImages']").removeClass("d-none");
+                        }
+                        res.images.forEach(function (item){
+                            $item.find("div[data-template='reviewImages']").append(
+                                "<a href=\"" + item.image + "\"><img src=\"" + item.image +"\" height=\"150\"></a>" 
+                            );
+                        });
+                        
+
+                        $("#reviewList").append($item);
+                        console.log(res)
+                        $("#showAllReviews").removeClass("d-none");
+
+                        document.querySelector('#reviewList').scrollIntoView({});
+                }
+            },
+            403: function(){
+                $("#error-text").removeClass("d-none");
+                $("#error-text").html("Error retrieving notifications");
+            }
+        }
+    });
+}
+
+$(document).ready(function(){
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+    
+    var urlVars = getUrlVars();
+    if (urlVars.focusReview) {
+        focusReview(urlVars.focusReview)
+    } else if (urlVars.scrollToReviews) {
+        document.querySelector('#reviewList').scrollIntoView({});
+        allReviews();
+    } else {
+        allReviews();
+    }
+});
+</script>
+
+<template id="reviewTemplate">
+    <li class="media mt-2">
+        <a data-template="reviewItem" href="#">
+            <img data-template="reviewerImg" class="img-fluid img-thumbnail mr-3" style="height: 6em;" src="">
+        </a>
+        <div class="media-body">
+            <strong><a data-template="reviewerName"></a> says <a data-template="reviewTitle"></a></strong><br />
+            <small>Rated <span data-template="rating"></span> stars</small>
+            <p data-template="reviewBody"></p>
+            <div data-template="reviewImages" class="d-none"></div>
+            <small>Posted: <span data-template="reviewTime"></span></small>
+        </div>
+    </li>
+</template>
+
 {% endblock %}
 {% block page %}
 <div class="container">
 <h1>{{noodle.name}}</h1>
-
-<h3>
-    {% url 'edit_ramen' noodle.id as edit_link %}
-    <a href="{{edit_link}}">Edit Noodle</a>
-</h3>
 
 <div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
@@ -95,27 +234,22 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
+
 {% url 'noodle_report' noodle.id as report_link%}
-<a class="btn btn-danger" href={{report_link}} role="button">Report</a>
+<a class="btn btn-danger mt-2" href={{report_link}} role="button">Report</a>
+
+{% url 'edit_ramen' noodle.id as edit_link %}
+<a class="btn btn-primary mt-2" href="{{edit_link}}">Edit Noodle</a>
+
 <hr />
 {% endif %}
 
 <h2>Reviews</h2>
+<small id="error-text" class="d-none">Error!</small>
+<a id="showAllReviews" href="{% url 'noodle' noodle.id %}?scrollToReviews=1" class="d-none">Show All Reviews</a>
+<ul id="reviewList" class="list-unstyled">
 
-{% for review in noodle.review_set.all %}
-    <h4> {{ review.title }} </h4>
-    <small>
-    <img src="{{ MEDIA_URL }}{{ review.reviewer.profile.profile_pic }}" height="50px">
-    {% url 'profile' review.reviewer.id as reviewer_link%}
-    <a style="color:gray" href="{{reviewer_link}}">{{review.reviewer.profile.name}} </a>
-    <p style="color:gray"> Rating: {{ review.rating }}/5 </p>
-    </small>
-    <p> {{ review.body }} </p>
-    {%for image_obj in review.reviewimage_set.all%}
-        <img src="{{ MEDIA_URL }}{{ image_obj.image.name }}" height="150px">
-    {% endfor %}
-    <hr>
-{% endfor %}
+</ul>
 
 <h4>Add Review</h4>
 

@@ -79,4 +79,17 @@ def notifications_rest(request, page):
 
     serializer = ReviewSerializer(reviews, many=True)
     return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def review_rest(request, review):
+    review = Review.objects.get(pk=review)
     
+    serializer = ReviewSerializer(review)
+    return JsonResponse(serializer.data, safe=False)
+
+@csrf_exempt
+def reviews_rest(request, noodle):
+    reviews = Review.objects.filter(noodle=noodle).order_by('-created')
+    
+    serializer = ReviewSerializer(reviews, many=True)
+    return JsonResponse(serializer.data, safe=False)

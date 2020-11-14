@@ -4,7 +4,7 @@ from rameniaapp.models import Review, ReviewImage
 from rameniaapp.models import Tag
 
 class ReviewForm(forms.ModelForm):
-    image = forms.ImageField(required = False)
+    image = forms.ImageField(required = False, widget=TextInput(attrs={'class':'form-control'}))
     class Meta:
         model = Review
         fields = ["title", "body", "rating"]

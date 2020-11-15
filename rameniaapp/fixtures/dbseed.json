@@ -978,7 +978,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$LQEV3TMvJINZ$QQ2z4+vOWoZ8var2ievooJXyfhpAukx6qePfEeyArWg=",
-        "last_login": "2020-11-14T19:51:48.522Z",
+        "last_login": "2020-11-15T02:32:41.572Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1072,6 +1072,14 @@
     "fields": {
         "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1kRnry:7QWS8mNwutgA_ytttz4XQl60_4i5PXVhrZbdyB6093o",
         "expire_date": "2020-10-26T02:47:26.717Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pp7d68sunmdj0u7yxjs747an7mkhbdx8",
+    "fields": {
+        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1ke7qL:XDG0oMQGv_xIv07RYx_wyVM1_o0VSUpDmQfn9FcH5Lk",
+        "expire_date": "2020-11-29T02:32:41.574Z"
     }
 },
 {
@@ -1404,11 +1412,55 @@
     }
 },
 {
+    "model": "rameniaapp.report",
+    "pk": 4,
+    "fields": {
+        "reporter": [
+            "cool_girl"
+        ],
+        "type": "ND",
+        "reason": "GS",
+        "status": "OP"
+    }
+},
+{
+    "model": "rameniaapp.report",
+    "pk": 5,
+    "fields": {
+        "reporter": [
+            "cool_guy"
+        ],
+        "type": "RV",
+        "reason": "IC",
+        "status": "OP"
+    }
+},
+{
+    "model": "rameniaapp.report",
+    "pk": 6,
+    "fields": {
+        "reporter": [
+            "cool_guy"
+        ],
+        "type": "PF",
+        "reason": "GS",
+        "status": "OP"
+    }
+},
+{
     "model": "rameniaapp.reviewreport",
     "pk": 3,
     "fields": {
         "report_ptr": 3,
         "review": 2
+    }
+},
+{
+    "model": "rameniaapp.reviewreport",
+    "pk": 5,
+    "fields": {
+        "report_ptr": 5,
+        "review": 1
     }
 },
 {
@@ -1420,11 +1472,27 @@
     }
 },
 {
+    "model": "rameniaapp.profilereport",
+    "pk": 6,
+    "fields": {
+        "report_ptr": 6,
+        "profile": 1
+    }
+},
+{
     "model": "rameniaapp.noodlereport",
     "pk": 1,
     "fields": {
         "report_ptr": 1,
         "noodle": 2
+    }
+},
+{
+    "model": "rameniaapp.noodlereport",
+    "pk": 4,
+    "fields": {
+        "report_ptr": 4,
+        "noodle": 1
     }
 },
 {
@@ -1555,6 +1623,31 @@
     "fields": {
         "name": "Kimchi",
         "description": ""
+    }
+},
+{
+    "model": "rameniaapp.edit",
+    "pk": 1,
+    "fields": {
+        "image": "0008968617072_vLOI1Tp.webp",
+        "change": {
+            "Line": "Indomie",
+            "Name": "Indomie Mi Goreng",
+            "Tags": [
+                "Indonesian",
+                "Stir Fry",
+                "Dry"
+            ],
+            "Flavor": "Stir Fry",
+            "Released": "1982",
+            "Description": "This noodle is based off the Indonesian dish mie goreng and is served dry.",
+            "Manufacturer": "Indofood"
+        },
+        "noodle": null,
+        "editor": [
+            "admin"
+        ],
+        "timestamp": "2020-11-15"
     }
 },
 {

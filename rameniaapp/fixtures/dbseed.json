@@ -1076,14 +1076,6 @@
 },
 {
     "model": "sessions.session",
-    "pk": "pp7d68sunmdj0u7yxjs747an7mkhbdx8",
-    "fields": {
-        "session_data": ".eJxVjEsOwiAUAO_C2hB4lM9z6d4zkMenUjWQlHZlvLuSdKHbmcm8mKd9K37vefVLYmcm2emXBYqPXIdId6q3xmOr27oEPhJ-2M6vLeXn5Wj_BoV6GdvsJKFR4EBbUJoQJpxBpQw4yWitIKONkkizoygwSZ3AuS8JAEIRe38ApuU2Tg:1ke7qL:XDG0oMQGv_xIv07RYx_wyVM1_o0VSUpDmQfn9FcH5Lk",
-        "expire_date": "2020-11-29T02:32:41.574Z"
-    }
-},
-{
-    "model": "sessions.session",
     "pk": "rinqrpl0714zs1oefg51ojw8lpz2xwl5",
     "fields": {
         "session_data": ".eJxVjMEOwiAQRP-FsyGA7NJ69O43EFgWqRpISnsy_rtt0oNe5jDvzbyFD-tS_Np59lMSF2HF6beLgZ5cd5Aeod6bpFaXeYpyV-RBu7y1xK_r4f4dlNDLttbIowVtkEIenHWR1RaDIxNz0qCQNYAC4ECZIGew0Y7nDGwUOsQkPl_ZRDey:1ke1rV:ydRdigO-DogBYi3lb42t9HgisziYF6Y9rUc8nsJ__E8",
@@ -1644,6 +1636,31 @@
             "Manufacturer": "Indofood"
         },
         "noodle": null,
+        "editor": [
+            "admin"
+        ],
+        "timestamp": "2020-11-15"
+    }
+},
+{
+    "model": "rameniaapp.edit",
+    "pk": 2,
+    "fields": {
+        "image": "",
+        "change": {
+            "Line": "Cup Noodle",
+            "Name": "Nissin Cup Noodle - Chicken",
+            "Tags": [
+                "Cup",
+                "Chicken",
+                "Japanese"
+            ],
+            "Flavor": "Chicken",
+            "Released": "1985",
+            "Description": "One of the all time classics.",
+            "Manufacturer": "Nissin"
+        },
+        "noodle": 1,
         "editor": [
             "admin"
         ],

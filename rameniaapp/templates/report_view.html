@@ -12,7 +12,7 @@
         <p> Report #{{ report.id }}:
         {% if report.type == "RV" %}
             {% url 'noodle' report.review.noodle.id as review_link %}
-            <a href={{review_link}}>{{ report.review.title }}</a>
+            <a href="{{review_link}}?focusReview={{report.review.id}}">{{ report.review.title }}</a>
         {% elif report.type == "ND" %}
             {% url 'noodle' report.noodle.id as noodle_link %}
             <a href={{noodle_link}}>{{ report.noodle.name }}</a>

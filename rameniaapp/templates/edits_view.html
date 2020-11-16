@@ -14,8 +14,8 @@
             {% url 'noodle' edit.noodle.id as noodle_link %}
             <a href={{noodle_link}}>{{ edit.noodle.name }}</a>
         {% else %}
-            {% if edit.change.Title %}
-                Add new "{{ edit.change.Title }}"
+            {% if edit.change.Name %}
+                Add new "{{ edit.change.Name }}"
             {% else %}
                 Add new untitled noodle
             {% endif %}

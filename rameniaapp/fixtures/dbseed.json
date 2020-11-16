@@ -1063,7 +1063,11 @@
         "is_staff": false,
         "is_active": true,
         "date_joined": "2020-11-15T23:58:26.471Z",
-        "groups": [],
+        "groups": [
+            [
+                "moderator"
+            ]
+        ],
         "user_permissions": []
     }
 },
@@ -1071,7 +1075,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$oGJrqrmRToga$719Pjxe0n9zwY/eNcXCuP6aqtClV95VZ3ahaKHq63Ho=",
-        "last_login": "2020-11-16T01:28:08.951Z",
+        "last_login": "2020-11-16T03:31:39.898Z",
         "is_superuser": false,
         "username": "Kaylee",
         "first_name": "",
@@ -1088,7 +1092,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$216000$VINzijvngkEA$ji9QLKDL4HnHjfKERE3X21QmJO3F44LVI6CCig1bbJ8=",
-        "last_login": "2020-11-16T01:19:11.320Z",
+        "last_login": "2020-11-16T04:05:34.822Z",
         "is_superuser": false,
         "username": "Daniel",
         "first_name": "",
@@ -1119,10 +1123,10 @@
 },
 {
     "model": "sessions.session",
-    "pk": "dakzhejz4hr2ve27y530ivcliep5zwpd",
+    "pk": "e4rplypk73w6q1v5gpae3wxba240xh5j",
     "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2hCKM1Bcuu8ZyDBMpWpoUtqV8e7apAvd_vfef6lI21ri1mSJU1YXher0uyXih9Qd5DvV26x5rusyJb0r-qBND3OW5_Vw_w4KtfKtQ_IAthc2iEmgw7N3lkVCJt8Du25EQBJGz96POTkOkqwNxmAGh6jeH-AeN7s:1keTPP:pMGdALON5H3iM4HRlTRfxzxjsP7rygwuOOYyU6aYX2k",
-        "expire_date": "2020-11-30T01:34:19.766Z"
+        "session_data": ".eJxVjMsOgjAUBf-la9NgKb2tS_d-A7mvWtRAQmFl_HchYaHbmTnnbXpcl9KvVed-EHMxYE6_jJCfOu5CHjjeJ8vTuMwD2T2xh632Nom-rkf7d1Cwlm1NBNwljV0XM7BLxKhn8S0gtRRcSJwENOTcIMJGnWfwPjasEEIj3ny-A3o4Sw:1keVlm:TyXZARhz9aXpLavK23IaSkqY276oB7vb2J2t2XC3buI",
+        "expire_date": "2020-11-30T04:05:34.825Z"
     }
 },
 {
@@ -1284,7 +1288,7 @@
     "model": "rameniaapp.noodle",
     "pk": 4,
     "fields": {
-        "name": "Maruchan Instant Lunch Udon Style Ramen Soup",
+        "name": "Maruchan Instant Lunch Udon Style Miso Ramen Soup",
         "metadata": {
             "Line": "Cup Noodle",
             "Flavor": "Miso",
@@ -1299,8 +1303,7 @@
         ],
         "tags": [
             1,
-            7,
-            8
+            7
         ]
     }
 },
@@ -1308,7 +1311,7 @@
     "model": "rameniaapp.noodle",
     "pk": 5,
     "fields": {
-        "name": "Bowl Noodles Ramen Noodles",
+        "name": "Bowl Noodles Hot & Spicy Chicken Flavor Ramen Nood",
         "metadata": {
             "Line": "Bowl Noodles",
             "Flavor": "Hot & Spicy",
@@ -1324,7 +1327,6 @@
         "tags": [
             7,
             9,
-            10,
             11
         ]
     }
@@ -1333,7 +1335,7 @@
     "model": "rameniaapp.noodle",
     "pk": 6,
     "fields": {
-        "name": "Maruchan Ramen Noodle Soup",
+        "name": "Maruchan Ramen Noodle Soup Chili Flavor",
         "metadata": {
             "Line": "Pack",
             "Flavor": "Chili",
@@ -1348,7 +1350,6 @@
         ],
         "tags": [
             7,
-            8,
             12
         ]
     }
@@ -1357,12 +1358,12 @@
     "model": "rameniaapp.noodle",
     "pk": 7,
     "fields": {
-        "name": "NongShim Shin Noodle Soup",
+        "name": "NongShim Shin Black Noodle Soup",
         "metadata": {
             "Line": "Pouch",
             "Flavor": "Black",
             "Released": "2013",
-            "Description": "Hot and spicy noodle soup with fresh vegetables and savory beef broth",
+            "Description": "Hot and spicy noodle soup with fresh vegetables and savory beef broth.",
             "Manufacturer": "Nongshim"
         },
         "created_timestamp": "2020-11-16",
@@ -1372,8 +1373,7 @@
         ],
         "tags": [
             7,
-            9,
-            13
+            9
         ]
     }
 },
@@ -1381,7 +1381,7 @@
     "model": "rameniaapp.noodle",
     "pk": 8,
     "fields": {
-        "name": "Nissin Top Ramen Bowl",
+        "name": "Nissin The Original Soy Sauce Flavor Ramen Noodle",
         "metadata": {
             "Line": "Bowl",
             "Flavor": "Soy Sauce",
@@ -1396,8 +1396,126 @@
         ],
         "tags": [
             4,
+            7
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodle",
+    "pk": 9,
+    "fields": {
+        "name": "Paldo Lobster Flavor King Cup Noodle",
+        "metadata": {
+            "Line": "Bowl Noodles",
+            "Flavor": "Lobster",
+            "Released": "2010",
+            "Description": "The Perfect Choice! Fantastic Flavor!",
+            "Manufacturer": "Paldo"
+        },
+        "created_timestamp": "2020-11-16",
+        "edited_timestamp": "2020-11-16",
+        "editor": [
+            "Ramen_Lover"
+        ],
+        "tags": [
             7,
-            10
+            9,
+            11
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodle",
+    "pk": 10,
+    "fields": {
+        "name": "Nissin Very Veggie Ramen Noodle Soup, Chicken",
+        "metadata": {
+            "Line": "Cup Noodles",
+            "Flavor": "Chicken",
+            "Released": "2017",
+            "Description": "Large pieces of broccoli, green beans, edamame, carrots and corn to create something very delicious, very satisfying and very, Very Veggie.",
+            "Manufacturer": "Nissin"
+        },
+        "created_timestamp": "2020-11-16",
+        "edited_timestamp": "2020-11-16",
+        "editor": [
+            "Ramen_Lover"
+        ],
+        "tags": [
+            1,
+            7,
+            14
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodle",
+    "pk": 11,
+    "fields": {
+        "name": "Nissin Top Ramen Beef Flavor Ramen Noodle Soup",
+        "metadata": {
+            "Line": "Pouch Noodles",
+            "Flavor": "Beef",
+            "Released": "2000",
+            "Description": "Delicious as is or tossed with your favorite ingredients, Top Ramen is always a simple pleasure.",
+            "Manufacturer": "Nissin"
+        },
+        "created_timestamp": "2020-11-16",
+        "edited_timestamp": "2020-11-16",
+        "editor": [
+            "Kaylee"
+        ],
+        "tags": [
+            7,
+            15
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodle",
+    "pk": 12,
+    "fields": {
+        "name": "MAMA Noodles Shrimp Tom Yum Instant",
+        "metadata": {
+            "Line": "Pouch Noodle",
+            "Flavor": "Shrimp",
+            "Released": "2012",
+            "Description": "Enjoy the irresistible hot, spicy and savory Shrimp Tom Yum flavor of MAMA noodles anytime of the day (or night!)",
+            "Manufacturer": "MAMA"
+        },
+        "created_timestamp": "2020-11-16",
+        "edited_timestamp": "2020-11-16",
+        "editor": [
+            "Kaylee"
+        ],
+        "tags": [
+            7,
+            15,
+            16
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodle",
+    "pk": 13,
+    "fields": {
+        "name": "Myojo Ippeichan Yakisoba Japanese Style Noodles",
+        "metadata": {
+            "Line": "Tub Noodle",
+            "Flavor": "Soy Sauce & Mustard Mayonnaise",
+            "Released": "2013",
+            "Description": "Contains dried vegetables, a spicy soy sauce and mustard mayonnaise.",
+            "Manufacturer": "Myojo"
+        },
+        "created_timestamp": "2020-11-16",
+        "edited_timestamp": "2020-11-16",
+        "editor": [
+            "Daniel"
+        ],
+        "tags": [
+            3,
+            7,
+            9
         ]
     }
 },
@@ -1528,6 +1646,76 @@
     }
 },
 {
+    "model": "rameniaapp.noodleimage",
+    "pk": 11,
+    "fields": {
+        "image": "Lobster_Flavor_5GhiQ6U.PNG",
+        "main": false,
+        "noodle": 9,
+        "timestamp": "2020-11-16",
+        "is_default": false,
+        "uploader": [
+            "Ramen_Lover"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodleimage",
+    "pk": 12,
+    "fields": {
+        "image": "Veggie_Chicken_Flavor_kMp6g9h.PNG",
+        "main": false,
+        "noodle": 10,
+        "timestamp": "2020-11-16",
+        "is_default": false,
+        "uploader": [
+            "Ramen_Lover"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodleimage",
+    "pk": 13,
+    "fields": {
+        "image": "Beef_Flavor_UshIted.PNG",
+        "main": false,
+        "noodle": 11,
+        "timestamp": "2020-11-16",
+        "is_default": false,
+        "uploader": [
+            "Kaylee"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodleimage",
+    "pk": 14,
+    "fields": {
+        "image": "Shrimp_Flavor_1OMg8aZ.PNG",
+        "main": false,
+        "noodle": 12,
+        "timestamp": "2020-11-16",
+        "is_default": false,
+        "uploader": [
+            "Kaylee"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.noodleimage",
+    "pk": 15,
+    "fields": {
+        "image": "Japanese_Style_Flavor_W4c2cOq.PNG",
+        "main": false,
+        "noodle": 13,
+        "timestamp": "2020-11-16",
+        "is_default": false,
+        "uploader": [
+            "Daniel"
+        ]
+    }
+},
+{
     "model": "rameniaapp.profile",
     "pk": 1,
     "fields": {
@@ -1633,11 +1821,11 @@
         "metadata": {
             "Rated": 0,
             "Tried": 0,
-            "Reviewed": 2,
-            "Reputation": 700,
+            "Reviewed": 4,
+            "Reputation": 1700,
             "Description": "",
-            "Entries Made": 5,
-            "Noodle Edits": 2
+            "Entries Made": 7,
+            "Noodle Edits": 10
         },
         "preferences": null,
         "profile_pic": "2488831_0.jpg",
@@ -1658,10 +1846,10 @@
         "metadata": {
             "Rated": 0,
             "Tried": 0,
-            "Reviewed": 3,
-            "Reputation": 0,
+            "Reviewed": 5,
+            "Reputation": 200,
             "Description": "",
-            "Entries Made": 0,
+            "Entries Made": 2,
             "Noodle Edits": 0
         },
         "preferences": null,
@@ -1669,7 +1857,9 @@
         "user": [
             "Kaylee"
         ],
-        "badges": [],
+        "badges": [
+            3
+        ],
         "following": []
     }
 },
@@ -1681,10 +1871,10 @@
         "metadata": {
             "Rated": 0,
             "Tried": 0,
-            "Reviewed": 2,
-            "Reputation": 0,
+            "Reviewed": 5,
+            "Reputation": 100,
             "Description": "",
-            "Entries Made": 0,
+            "Entries Made": 1,
             "Noodle Edits": 0
         },
         "preferences": null,
@@ -1692,7 +1882,9 @@
         "user": [
             "Daniel"
         ],
-        "badges": [],
+        "badges": [
+            3
+        ],
         "following": []
     }
 },
@@ -1965,6 +2157,104 @@
     }
 },
 {
+    "model": "rameniaapp.review",
+    "pk": 14,
+    "fields": {
+        "title": "Five Stars",
+        "body": "Love it",
+        "rating": 5,
+        "reviewer": [
+            "Ramen_Lover"
+        ],
+        "noodle": 9,
+        "created": "2020-11-16T03:21:10.608Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 15,
+    "fields": {
+        "title": "Quick, semi-healthy lunch",
+        "body": "These soups are great for an occasional quick lunch at work. I bring some cooked chicken on the side to add to them and increase the protein. I love the amount of veggies that are in them, but I worry about too much sodium if eaten frequently.",
+        "rating": 4,
+        "reviewer": [
+            "Ramen_Lover"
+        ],
+        "noodle": 10,
+        "created": "2020-11-16T03:31:15.460Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 16,
+    "fields": {
+        "title": "Best flavor pack of all the ramens.",
+        "body": "This is the only Ramen whose flavor pack I like and use. It's even better with a few drops of soy sauce 😋.",
+        "rating": 5,
+        "reviewer": [
+            "Kaylee"
+        ],
+        "noodle": 11,
+        "created": "2020-11-16T03:51:52.828Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 17,
+    "fields": {
+        "title": "5.0 out of 5 stars Great Tom Yum flavor, a hint of lime.",
+        "body": "Great instant noodle. Flavour is unique like a real Tom Yum soup. There's a hint of lime/citrus taste in its spiciness, which makes it very refreshing. Spiciness level is low, you'll enjoy it even if you are not accustomed to hot flavour.",
+        "rating": 5,
+        "reviewer": [
+            "Kaylee"
+        ],
+        "noodle": 12,
+        "created": "2020-11-16T04:05:12.745Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 18,
+    "fields": {
+        "title": "Delicious",
+        "body": "The more I explore the world of premium instant noodles, the more flavor I discover. This isn't the stuff I lived on in college. I thought this would come out like bland noodles with not enough sauce. But the noodles have a nice fried texture and, after a good thirty seconds of mixing, the sauce coats them nicely",
+        "rating": 5,
+        "reviewer": [
+            "Daniel"
+        ],
+        "noodle": 13,
+        "created": "2020-11-16T04:21:06.114Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 19,
+    "fields": {
+        "title": "Vegetable bits are yummy!",
+        "body": "Comes with a generous dose of dried vegetables which plump up nicely after the 3 minute soak. That's the highlight part for me. Also it's not too salty or MSG laden so that's nice too. The noodles are good but nothing amazing.",
+        "rating": 4,
+        "reviewer": [
+            "Daniel"
+        ],
+        "noodle": 10,
+        "created": "2020-11-16T04:26:55.661Z"
+    }
+},
+{
+    "model": "rameniaapp.review",
+    "pk": 20,
+    "fields": {
+        "title": "Great Ramen",
+        "body": "my Top Ramen Alternative, love the tangy adjustable heat (pepper packet). simple and easy!",
+        "rating": 5,
+        "reviewer": [
+            "Daniel"
+        ],
+        "noodle": 12,
+        "created": "2020-11-16T04:31:03.447Z"
+    }
+},
+{
     "model": "rameniaapp.reviewimage",
     "pk": 1,
     "fields": {
@@ -2021,6 +2311,42 @@
         "timestamp": "2020-11-16",
         "uploader": [
             "Kaylee"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.reviewimage",
+    "pk": 7,
+    "fields": {
+        "image": "Lobster_Review.PNG",
+        "review": 14,
+        "timestamp": "2020-11-16",
+        "uploader": [
+            "Ramen_Lover"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.reviewimage",
+    "pk": 8,
+    "fields": {
+        "image": "Japanese_Style_Review.PNG",
+        "review": 18,
+        "timestamp": "2020-11-16",
+        "uploader": [
+            "Daniel"
+        ]
+    }
+},
+{
+    "model": "rameniaapp.reviewimage",
+    "pk": 9,
+    "fields": {
+        "image": "Veggie_Chicken_Review.PNG",
+        "review": 19,
+        "timestamp": "2020-11-16",
+        "uploader": [
+            "Daniel"
         ]
     }
 },
@@ -2125,6 +2451,30 @@
     "pk": 13,
     "fields": {
         "name": "Nongshim",
+        "description": ""
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 14,
+    "fields": {
+        "name": "Veggies",
+        "description": ""
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 15,
+    "fields": {
+        "name": "Pouch",
+        "description": ""
+    }
+},
+{
+    "model": "rameniaapp.tag",
+    "pk": 16,
+    "fields": {
+        "name": "Shrimp",
         "description": ""
     }
 },

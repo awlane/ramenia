@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block page %}
+{% comment %} Just a page of links {% endcomment %}
 <h4> Edits </h4>
 {% url 'all_edits' as edits_page%}
 <p><a href={{edits_page}}>View All Edits</a></p>

@@ -35,7 +35,7 @@ def edit_noodle(edit):
 
 
 def add_image(edit, noodle):
-    '''Add new image'''
+    '''Create associated NoodleImage and delete any pre-existing defaults'''
     if edit.image:
         temp_image = edit.image
         noodle_image = NoodleImage(noodle=noodle, uploader=edit.editor, timestamp=edit.timestamp)
@@ -56,7 +56,6 @@ def remove_image(edit):
     '''Remove an image'''
     if "remove_image" in edit.change:
         images = edit.change["remove_image"]
-        print(images)
         # NOTE: At the moment, assuming an attempt to remove the main image
         # will require setting a new one. If this is unreasonable, please
         # create support issue to handle doing this automatically here.
@@ -65,7 +64,7 @@ def remove_image(edit):
             img.delete()
 
 def set_as_main(edit, image):
-    '''Set a main image'''
+    '''Set an image as the main'''
     if "set_main" in edit.change and edit.change["set_main"]:
         main_image = NoodleImage.objects.filter(noodle=edit.noodle, main=True)[0]
         if main_image:
@@ -75,6 +74,7 @@ def set_as_main(edit, image):
         image.save()
 
 def update_tags(edit, noodle):
+    '''Add or remove tags to noodle given list of new tags'''
     current_tags = set(noodle.tags.values_list("name", flat=True))
     new_tags = set(edit.change["Tags"])
     tag_dict = Tag.objects.in_bulk(field_name='name')
@@ -100,7 +100,7 @@ def save_tags(noodle, add_tags, remove_tags):
     noodle.save()
 
 def apply_change(edit):
-    '''Apply an edit in the expected format to a noodle'''
+    '''Apply an edit in the expected format to a noodle or create a new one'''
     noodle = None
     if edit.noodle:
         edit_noodle(edit)
@@ -113,4 +113,3 @@ def apply_change(edit):
         set_as_main(edit, image)
     remove_image(edit)
     edit.delete()
-

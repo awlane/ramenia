@@ -10,6 +10,7 @@
     {% for edit in edits %}
     <li class="list-group-item">
         <h3> Edit (ID: {{ edit.id }}):
+        {% comment %} Add noodle hyperlink and name if not a new noodle {% endcomment %}
         {% if edit.noodle %}
             {% url 'noodle' edit.noodle.id as noodle_link %}
             <a href={{noodle_link}}>{{ edit.noodle.name }}</a>
@@ -21,6 +22,7 @@
             {% endif %}
         {% endif %}
         </h3>
+        {% comment %} Renders a basic diff from the report and noodle {% endcomment %}
         <h4>Changes</h4>
         <table class="table table-bordered">
             <thead>
@@ -31,10 +33,11 @@
                 <th scope="col">Change</th>
             </thead>
             <tbody>
-            {% comment %} #TODO: This could use REST magic so we're not having to do this for all edits {% endcomment %}
             {% for key, value in edit.change.items %}
                 <tr>
+                    {% comment %} Go through noodle field and provide diffs {% endcomment %}
                     {% if edit.noodle %}
+                    {% comment %} Name is a special case {% endcomment %}
                         {% if key == "Name" %}
                             {% with title=edit.noodle.name %}
                             {% if not title == value %}
@@ -43,7 +46,9 @@
                                 <td> {{value}} </td>
                             {% endif %}
                             {% endwith %}
+                        {% comment %} Tags are also a special case {% endcomment %}
                         {% elif key == "Tags" %}
+                            {% comment %} Use a bit of template tag magic (see tag_handler.py) {% endcomment %}
                             {% with tags=edit.noodle.tags|tag_value_list %}
                             {% if not tags|list_equality:value %}
                                 <td> <b> {{key}} </b> </td>
@@ -52,6 +57,7 @@
                             {% endif %}
                             {% endwith %}
                         {% else %}
+                            {% comment %} Use a template tag to retrieve the relevant field {% endcomment %}
                             {% with noodle_value=edit.noodle.metadata|lookup:key %}
                             {% if not value == noodle_value %}
                                 <td> <b> {{key}} </b> </td>
@@ -61,12 +67,14 @@
                             {% endwith %}
                         {% endif %}
                     {% else %}
+                        {% comment %} If we don't need to diff, just display it all {% endcomment %}
                         <td> <b> {{key}} </b> </td>
                         <td> {{value}} </td>
                     {% endif %}
                     
                 </tr>
             {% endfor %}
+            {% comment %} Display edit image {% endcomment %}
             {% if edit.image %}
                 <tr>
                     <td><b>Image</b></td>
@@ -75,6 +83,7 @@
             {% endif%}
             </tbody>
         </table>
+        {% comment %} Approve and reject buttons have to be forms to post {% endcomment %}
         {% url 'approve_edit' edit.id as approve_link %}
         <form name="approve_edit" method="post" action="{{ approve_link }}">
             {% csrf_token %}

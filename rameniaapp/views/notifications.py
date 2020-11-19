@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/app/login")
 def view_notifications(request):
+    # this has no logic other than requiring login
     template = loader.get_template('notifications.html')
     context = { }
     return HttpResponse(template.render(context, request))

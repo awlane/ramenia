@@ -6,9 +6,12 @@ from rameniaapp.forms import EditProfileForm
 from django.views.decorators.csrf import csrf_exempt
 
 def view_following (request, user_id):
+    # get all users following user_id and all users that user_id is following
     user = User.objects.get(pk=user_id)
     following = user.profile.following.all()
     followers = user.profile.followers.all()
+
+    # generate response
     template = loader.get_template('following.html')
     context = { "following" : following , "followers" : followers, "profile" : user.profile, "MEDIA_URL" : settings.MEDIA_URL }
     return HttpResponse(template.render(context, request))

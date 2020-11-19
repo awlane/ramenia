@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/app/login")
 def change_password(request):
+    '''View to handle change password form'''
+    # This is very boilerplate as we use the stock logic,
+    # majority of heavy lifting is in the base form we
+    # inherited
     if request.method == "POST":
         form = ChangePasswordForm(request.user, request.POST)
         if form.is_valid():

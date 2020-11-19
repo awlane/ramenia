@@ -10,8 +10,10 @@ from django.contrib import messages
 from django.urls import reverse
 
 def view_profile(request, user_id):
+    '''View to render profile'''
     profile = User.objects.get(pk=user_id).profile
     template = loader.get_template('profile.html')
+    # Validate following status to ensure button is rendered correctly
     following = False
     if request.user.is_authenticated:
         following = request.user.profile in profile.followers.all()
@@ -20,12 +22,17 @@ def view_profile(request, user_id):
 
 @login_required(login_url="/app/login")
 def edit_profile(request):
+    '''View to handle edit profile form'''
     if request.method == "POST":
         form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
+            # While sending as text only means it's a small network overhead
+            # to resend unchanged data, we should likely optimize this to
+            # prevent unnecessary DB hits
             profile = request.user.profile
             profile.name = form.cleaned_data["profile_name"]
             profile.metadata["Description"] = form.cleaned_data["description"]
+            # Standard code to retrieve file and update profile pic if included
             if request.FILES:
                 file = list(request.FILES.keys())[0]
                 profile.profile_pic = request.FILES[file]
@@ -33,6 +40,7 @@ def edit_profile(request):
         messages.add_message(request, messages.SUCCESS, "Profile edited successfully")
         return HttpResponseRedirect(reverse('profile', kwargs={"user_id" : request.user.id}))
     else:
+        # Store the current values in the edit fields
         initial = {'profile_name' : request.user.profile.name,\
                     'description' : request.user.profile.metadata["Description"]}
         form = EditProfileForm(initial=initial)

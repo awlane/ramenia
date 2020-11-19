@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 
 class Review(models.Model):
-
+    # This is another format for restricting choices for specifically
+    # integers. See the documentation for any further queries.
     class Ratings(models.IntegerChoices):
         ONE_STAR = 1
         TWO_STAR = 2
@@ -17,6 +18,7 @@ class Review(models.Model):
     noodle = models.ForeignKey("rameniaapp.Noodle", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
+# Because of the one to many relationship of reviews/photos, create a separate model
 class ReviewImage(models.Model):
     image = models.ImageField()
     review = models.ForeignKey(Review, on_delete=models.CASCADE)

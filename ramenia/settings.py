@@ -97,6 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
+    # TODO: This is disabled for development but should be re-enabled if used in future
     # {
     #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     # },
@@ -128,6 +129,7 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/app/'
 LOGOUT_REDIRECT_URL = '/app/'
 
+# Bootstrap class override for messages
 # Based off code from https://docs.djangoproject.com/en/3.1/ref/contrib/messages/
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {

@@ -20,7 +20,7 @@ class EditsList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
     template_name = "edits_view.html"
     login_url="/app/login"
 
-    #Expects arguments passed in URL
+    #Parse arguments passed in URL
     def get_queryset(self):
         if "noodle_id" in self.kwargs:
             noodle = get_object_or_404(Noodle, pk=self.kwargs["noodle_id"])
@@ -44,9 +44,10 @@ def apply_edit(request, edit_id):
     '''Approve and apply specified edit to the relevant noodle or create a new one'''
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id)
+        # See logic in edit_util.oy
         apply_change(edit)
 
-        # call hook
+        # Action hook calls to update statistics
         if edit.noodle:
             edit.editor.profile.increment_meta_val("Noodle Edits", 1)
             dispatch_hook(edit.editor, "noodle-edited", count=edit.editor.profile.metadata["Noodle Edits"])

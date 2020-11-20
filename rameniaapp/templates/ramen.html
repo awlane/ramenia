@@ -2,6 +2,7 @@
 {% block head_aux %}
 
 {% if user.is_authenticated %}
+{% comment %} JS to handle adding noodle to list w/o reload {% endcomment %}
 <script>
 $(document).ready(function(){
     $.ajax({
@@ -179,6 +180,7 @@ $(document).ready(function(){
 <div class="container">
 <h1>{{noodle.name}}</h1>
 
+{% comment %} This provides an image carousel that keeps images from being too large for page {% endcomment %}
 <div id="carouselControls" class="carousel slide" data-ride="carousel" style="width: 100%; max-width: 30em; !important">
     <div class="carousel-inner">
         {%for image_obj in noodle.noodleimage_set.all%}

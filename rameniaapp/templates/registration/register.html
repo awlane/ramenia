@@ -2,6 +2,7 @@
 {% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
 {% block head_aux %}
 
+{% comment %} Handles password validation locally via JS {% endcomment %}
 <script>
 $(document).ready(function(){
     $("#id_password1").change(function(event){
@@ -33,6 +34,7 @@ $(document).ready(function(){
 {% block page %}
 <center>
 <h1> Register for account </h1>
+{% comment %} If bad form submitted, show errors {% endcomment %}
 {% if form.errors %}
     <h2 style="color:red;"> Error </h2>
     <p style="color:red;">{{ form.errors.username }}</p>

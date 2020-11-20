@@ -2,6 +2,7 @@
 {% comment %} Code based on template from https://docs.djangoproject.com/en/3.1/topics/auth/default/ {% endcomment %}
 {% block page %}
 <center>
+{% comment %} Handles errors cleanly and noticably {% endcomment %}
 <h1> Login </h1>
 {% if form.errors %}
     <h2 style="color:red;"> Error </h2>
@@ -22,11 +23,12 @@
 </table>
 
 <input type="submit" class="btn btn-outline-light" value="Login">
+{% comment %} Default login view takes a next value which is used as redirect {% endcomment %}
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 <hr>
 <p><a href="{% url 'register' %}">Register for account</a></p>
-{% comment %} #TODO: Implement password reset for users- backburner {% endcomment %}
+{% comment %} #TODO: Implement password reset for signed-out users- backburner {% endcomment %}
 <p><a href="{% url 'index' %}">Reset password</a></p>
 </center>
 {% endblock %}

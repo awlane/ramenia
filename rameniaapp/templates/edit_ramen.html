@@ -4,6 +4,7 @@
     <h1> Edit Noodle </h1>
 <br>
 <br>
+{% comment %} Handles errors cleanly and noticably {% endcomment %}
     {% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -59,7 +60,6 @@
 </table>
 <br>
 <input type="submit" class="btn btn-outline-light" value="Submit Edit">
-<input type="hidden" name="next" value="{{ next }}">
 </form>
 </center>
 {% endblock %}

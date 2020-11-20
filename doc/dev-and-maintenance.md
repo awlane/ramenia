@@ -106,4 +106,19 @@ powered through code in the `rest.py` file.
 
 #### Moderator tools
 
-TODO
+Moderator tools are accessible to users in the moderator group, which they are currently automatically added to if they stay above 1000 rep and removed from if they go below that (our example user cool_girl has a rep above that to prevent issues from demonstrating the moderator granting ActionHook). We will likely want more fine grained permissions in the future- the current non-moderator/moderator distinction is a bit too simplified for more than a proof of concept but this code can easily be expanded or modified as the case may be. Groups are added via the `admin` page from the website.
+
+##### Edits
+
+`Edits` (in Ramenia) are a generic model name used to refer to the creation or alteration of a noodle object, as these share a lot of the same code and it was felt to be more clean to handle them this way. 
+`Edit` objects are created through the forms on the Add and Edit Ramen pages, which populate the `change` field with a JSON description of the fields of the noodle. This was originally meant to allow for more flexibility as previously mentioned but time constraints, validation, and providing diff functionality made this difficult.
+Once an edit is created through this form, it must be approved by a moderator to be applied, which is done through the view at `app/mod/edits` by pressing the Approve button. The Reject button will delete the edit, as we assume a rejected edit is not worth keeping- this may make more sense in the future. 
+
+The current functionality for processing and applying edits is contained in `views/edit_utils.py` to make these functions more reusable and fixable. As currently implemented, this functionality is invoked from its `apply_edit()` function, which has none of the functional logic other than assuming edits have a `noodle` and `image` field. This function currently handles creating and editing ramen, adding images and removing defaults if an alternative is provided, and updating tags. We additionally have functionality for setting a main image (will be displayed first in carousel) and removing images, but these (while tested to be working during development) were not implemented into the GUI in time.
+
+#### Reports
+
+`Reports` are actually effectively split into model classes referencing Noodles, Reviews, and Profiles. This is due to Django not providing polymorphic interfaces, which complicated our schema. `Reports` just consist of a reasoning, status, reporter, and object (the type of which is respective to its class). These reports are viewed from separate views linked from the mod page for each type to simplify the queries, as we would need to cast every single report to be its correct type every time otherwise (this is an area which can be improved in the future). There are four implemented actions for reports at the moment: changing status, banning the responsible user, ignoring the report (deletes report), and deleting the offending content (which removes all related reports as well).
+Changing status as implemented is currently used to switch a report from its default "open" state to "resolved" (such as a noodle that was vandalized but was edited and fixed) or "spam" (a fake submission meant to annoy moderators or harass someone), which is simply done by changing the interior field through the provided buttons or `update_report_status` method.
+Banning the user deletes the user's account, profile, and reviews but not their noodles- this means that occasionally you have noodles without an editor or reports without a reporter, which needs to be handled in the code.
+Deleting content means simply deleting the reported object, except for profiles. As profiles are expected to be 1:1 to users, we instead change all user modifiable fields to something inoffensive if it makes sense versus banning a user.

@@ -5,6 +5,7 @@
 {% comment %} JS to handle adding noodle to list w/o reload {% endcomment %}
 <script>
 $(document).ready(function(){
+    // get the users list to add to the list dialog
     $.ajax({
         type: 'get',
         url: "{% url 'user_lists_rest' user.id %}",
@@ -17,6 +18,7 @@ $(document).ready(function(){
         }
     });
 
+    // bind the list entries to add the current noodl
     $(document).delegate('.listAddEntry','click',function(){
         $.ajax({
             type: 'put',
@@ -32,6 +34,8 @@ $(document).ready(function(){
 {% endif %}
 
 <script>
+
+// load all reviews for this noodle into the review section
 function allReviews() {
     $.ajax({
         type: 'GET',
@@ -45,11 +49,17 @@ function allReviews() {
                 } else {
                     $("#error-text").addClass("d-none");
                     $("#showAllReviews").addClass("d-none");
-                    $("#reviewList").html("");
+                    $("#reviewList").html(""); // clear reviews
                     
+                    // load the template (see below for the actual template)
                     var itemTemplate = $("#reviewTemplate").html();
+
+                    // for every review
                     res.forEach(function(item){
+                        // make new template instance
                         var $item = $(itemTemplate);
+
+                        // populate template params
                         $item.find("img[data-template='reviewerImg']").attr("src",item.reviewer.profile.profile_pic);
                         $item.find("li[data-template='reviewItem']").attr("href", "/app/user/" + item.reviewer.id);
                         $item.find("a[data-template='reviewerName']").text(item.reviewer.profile.name);
@@ -60,6 +70,7 @@ function allReviews() {
                         $item.find("p[data-template='reviewBody']").text(item.body);
                         $item.find("span[data-template='reviewTime']").text(item.created);
 
+                        // load images into the template if it has any
                         if (item.images.length != 0) {
                             $item.find("div[data-template='reviewImages']").removeClass("d-none");
                         }
@@ -83,6 +94,7 @@ function allReviews() {
     });
 }
 
+// load a single review into the review section
 function focusReview(review_id) {
     $.ajax({
         type: 'GET',
@@ -95,8 +107,9 @@ function focusReview(review_id) {
                     $("#error-text").html("Not a valid review");
                 } else {
                     $("#error-text").addClass("d-none");
-                    $("#reviewList").html("");
+                    $("#reviewList").html(""); // clear reviews
                     
+                    // works similar to the multiple review case but only adds one
                     var itemTemplate = $("#reviewTemplate").html();
                         var $item = $(itemTemplate);
                         $item.find("img[data-template='reviewerImg']").attr("src",res.reviewer.profile.profile_pic);

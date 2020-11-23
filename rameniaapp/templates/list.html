@@ -3,9 +3,12 @@
 
 <script>
 $(document).ready(function(){
+    // bind remove buttons
     $(".entry-remove").click(function(event){
         console.log("clicked");
         var $the_button = $(this);
+
+        // make DELETE request to API
         $.ajax({
             type: 'DELETE',
             url: "/app/api/list/{{ listinfo.id }}/" + $(this).data("noodle-id"),

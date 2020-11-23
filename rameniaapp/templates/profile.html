@@ -4,10 +4,14 @@
 {% comment %} JS handles following a user without reload {% endcomment %}
 <script>
 $(document).ready(function(){
+    // bind follow button
     $("#follow-profile").click(function(event){
         console.log("clicked");
         var $the_button = $(this);
+
+        // perform appropriate action
         $.ajax({
+            // use django templating to switch request type
             {% if following %}
             type: 'DELETE',
             {% else %}
@@ -16,12 +20,15 @@ $(document).ready(function(){
             url: "{% url 'follow_profile' profile.user.id %}", 
             statusCode: {
                 200: function(res){
+                    // use django templating to switch the content
                     {% if following %}
                     $the_button.html("Unfollowed");
                     {% else %}
                     $the_button.html("Following");
                     {% endif %}
                 },
+
+                // handle error case
                 403: function(){
                     $the_button.html("Error");
                 }

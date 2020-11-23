@@ -25,7 +25,7 @@
         <span class="badge badge-primary badge-pill">{{ report.get_reason_display }}</span>
         <span class="badge badge-primary badge-pill">{{ report.get_status_display }}</span>
         {% comment %} Buttons are stacked for some reason, seems fine {% endcomment %}
-        {% comment %} These are done as HTML forms bc there's no way to make links redirects in Django normally {% endcomment %}
+        {% comment %} These are done as HTML forms bc there's no way to make links POST requests in Django normally {% endcomment %}
         <div class="container-fluid">
             <div class="col-xs-1">
                 {% url 'update_report_status' report.id 'ED' as resolved_link %}

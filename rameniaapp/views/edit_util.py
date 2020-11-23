@@ -127,8 +127,8 @@ def apply_change(edit):
         noodle = add_noodle(edit)
     update_tags(edit, noodle)
     image = add_image(edit, noodle)
-    # These were not implemented due to time constraints and UI difficulties,
-    # but worked fine in testing
+    # These two methods were not implemented due to time constraints and UI 
+    # difficulties, but worked fine in testing
     if image:
         set_as_main(edit, image)
     remove_image(edit)

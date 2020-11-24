@@ -14,11 +14,13 @@ from rameniaapp.utils import UserIsModeratorMixin
 from django.contrib import messages
 
 class EditsList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
+    '''List of pending edits filtered by params'''
     model = Edit
     context_object_name = "edits"
     template_name = "edits_view.html"
     login_url="/app/login"
 
+    #Parse arguments passed in URL
     def get_queryset(self):
         if "noodle_id" in self.kwargs:
             noodle = get_object_or_404(Noodle, pk=self.kwargs["noodle_id"])
@@ -30,7 +32,7 @@ class EditsList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
             return Edit.objects.filter(editor=user)
         else:
             return Edit.objects.all()
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["MEDIA_URL"] = settings.MEDIA_URL
@@ -39,11 +41,13 @@ class EditsList(LoginRequiredMixin, UserIsModeratorMixin, ListView):
 @login_required(login_url="/app/login")
 @user_is_moderator
 def apply_edit(request, edit_id):
+    '''Approve and apply specified edit to the relevant noodle or create a new one'''
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id)
+        # See logic in edit_util.oy
         apply_change(edit)
 
-        # call hook
+        # Action hook calls to update statistics
         if edit.noodle:
             edit.editor.profile.increment_meta_val("Noodle Edits", 1)
             dispatch_hook(edit.editor, "noodle-edited", count=edit.editor.profile.metadata["Noodle Edits"])
@@ -60,6 +64,7 @@ def apply_edit(request, edit_id):
 @login_required(login_url="/app/login")
 @user_is_moderator
 def reject_edit(request, edit_id):
+    '''Reject specified edit (this deletes it)'''
     if request.method == "POST":
         edit = Edit.objects.get(pk=edit_id).delete()
         messages.add_message(request, messages.WARNING, "Noodle changes rejected")

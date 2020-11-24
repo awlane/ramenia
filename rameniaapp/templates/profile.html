@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block head_aux %}
 
+{% comment %} JS handles following a user without reload {% endcomment %}
 <script>
 $(document).ready(function(){
+    // bind follow button
     $("#follow-profile").click(function(event){
         console.log("clicked");
         var $the_button = $(this);
+
+        // perform appropriate action
         $.ajax({
+            // use django templating to switch request type
             {% if following %}
             type: 'DELETE',
             {% else %}
@@ -15,12 +20,15 @@ $(document).ready(function(){
             url: "{% url 'follow_profile' profile.user.id %}", 
             statusCode: {
                 200: function(res){
+                    // use django templating to switch the content
                     {% if following %}
                     $the_button.html("Unfollowed");
                     {% else %}
                     $the_button.html("Following");
                     {% endif %}
                 },
+
+                // handle error case
                 403: function(){
                     $the_button.html("Error");
                 }
@@ -41,9 +49,10 @@ $(document).ready(function(){
         </div>
         <div class="col-lg-auto">
             <h2>{{profile.name}}</h2>
+            {% comment %} Popular consensus was edit profile button should be on your profile and not navbar {% endcomment %}
             {% if user.is_authenticated and user.id == profile.user.id %}
-            <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Account Settings</a>
-            <br />
+                <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Account Settings</a>
+                <br />
             {% endif %}
             <a class="btn btn-primary mt-1" href="{% url 'user_lists' profile.user.id %}">View Lists</a>
             <a class="btn btn-primary mt-1" href="{% url 'following' profile.user.id %}">Following/Followers</a>
@@ -84,8 +93,8 @@ $(document).ready(function(){
                         </tr>
                     {% endif %}
                 {% endfor %}
-                {% comment %} These numbers will be tweaked once functionality is added {% endcomment %}
                     <tr>
+                        {% comment %} These numbers are arbitrary but match current test data {% endcomment %}
                         <td> Reputation </td>
                         {% if profile.metadata.Reputation >= 1000 %}
                             <td style="color:green;"> {{profile.metadata.Reputation}} </td>

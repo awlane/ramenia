@@ -6,6 +6,7 @@ from rameniaapp.models import Noodle
 from rameniaapp.forms import SearchForm
 
 def view_search(request):
+    # this view has no logic
     template = loader.get_template('search.html')
     context = {}
     return HttpResponse(template.render(context, request))

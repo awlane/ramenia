@@ -2,51 +2,64 @@
 {% block head_aux %}
 
 <script>
-$(document).ready(function(){
-        $.ajax({
-            type: 'GET',
-            url: "/app/api/notifications/1",
-            statusCode: {
-                200: function(res){
-                    console.log("got results");
-                    if (res.length == 0) {
-                        $("#error-text").removeClass("d-none");
-                        $("#error-text").html("You have no notifications");
-                    } else {
-                        $("#error-text").addClass("d-none");
-                        $("#resultList").html("");
-                        
-                        var itemTemplate = $("#itemTemplate").html();
-                        res.forEach(function(item){
-                            var main_img = item.noodle.images[0].image
-                            item.noodle.images.forEach(function(img){
-                                if (img.main) {
-                                    main_img = img.image;
-                                }
-                            });
-                            var $item = $(itemTemplate);
-                            $item.find("img[data-template='itemImg']").attr("src",main_img);
-                            $item.find("a[data-template='noodleTitle']").text(item.noodle.name);
-                            $item.find("a[data-template='noodleTitle']").attr("href", "/app/noodle/" + item.noodle.id);
-                            $item.find("a[data-template='reviewer']").text(item.reviewer.profile.name);
-                            $item.find("a[data-template='reviewer']").attr("href", "/app/user/" + item.reviewer.id);
-                            $item.find("span[data-template='rating']").text(item.rating);
-                            $item.find("a[data-template='reviewTitle']").text(item.title);
-                            $item.find("a[data-template='reviewTitle']").attr("href", "/app/noodle/" + item.noodle.id + "?focusReview=" + item.id);
-                            $item.find("span[data-template='reviewCreated']").text(item.created);
-                            
 
-                            $("#resultList").append($item);
-                            console.log(item)
-                        });
-                    }
-                },
-                403: function(){
+$(document).ready(function(){
+    // query the notifications API
+    $.ajax({
+        type: 'GET',
+        url: "/app/api/notifications/1",
+        statusCode: {
+            200: function(res){
+                console.log("got results");
+                // handle no results case
+                if (res.length == 0) {
+                    // set error text visibility and content
                     $("#error-text").removeClass("d-none");
-                    $("#error-text").html("Error retrieving notifications");
+                    $("#error-text").html("You have no notifications");
+                } else { // else add the items
+                    // set error to be hidden
+                    $("#error-text").addClass("d-none");
+                    $("#resultList").html("");
+                    
+                    // template for result item
+                    var itemTemplate = $("#itemTemplate").html();
+                    res.forEach(function(item){
+                        // find main image
+                        var main_img = item.noodle.images[0].image
+                        item.noodle.images.forEach(function(img){
+                            if (img.main) {
+                                main_img = img.image;
+                            }
+                        });
+                        
+                        // create new instance of the template
+                        var $item = $(itemTemplate);
+
+                        // populate template params
+                        $item.find("img[data-template='itemImg']").attr("src",main_img);
+                        $item.find("a[data-template='noodleTitle']").text(item.noodle.name);
+                        $item.find("a[data-template='noodleTitle']").attr("href", "/app/noodle/" + item.noodle.id);
+                        $item.find("a[data-template='reviewer']").text(item.reviewer.profile.name);
+                        $item.find("a[data-template='reviewer']").attr("href", "/app/user/" + item.reviewer.id);
+                        $item.find("span[data-template='rating']").text(item.rating);
+                        $item.find("a[data-template='reviewTitle']").text(item.title);
+                        $item.find("a[data-template='reviewTitle']").attr("href", "/app/noodle/" + item.noodle.id + "?focusReview=" + item.id);
+                        $item.find("span[data-template='reviewCreated']").text(item.created);
+                        
+                        // add item to results list
+                        $("#resultList").append($item);
+                        console.log(item)
+                    });
                 }
+            },
+
+            // handle error case
+            403: function(){
+                $("#error-text").removeClass("d-none");
+                $("#error-text").html("Error retrieving notifications");
             }
-        });
+        }
+    });
 });
 </script>
 

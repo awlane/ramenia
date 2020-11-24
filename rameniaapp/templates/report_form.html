@@ -7,6 +7,7 @@
     <h2 style="color:red;"> Error </h2>
 {% endif %}
 
+{% comment %} This creates a drop-down with report reason, does not need to be touched if those expand {% endcomment %}
 <form method="post" action="{% url url_path id %}">
 {% csrf_token %}
 <table>

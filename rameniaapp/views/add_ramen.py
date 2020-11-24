@@ -9,11 +9,12 @@ from django.contrib import messages
 
 @login_required(login_url="/app/login")
 def ramen_create_view(request):
+    '''View for handling add noodle form'''
     form = AddNoodleForm()
     # If this is a POST request then process the Form data
     if request.method == 'POST':
         user = request.user
-            # Create a form instance and populate it with data from the request of the user
+        # Create a form instance and populate it with data from the request of the user
         form = AddNoodleForm(request.POST or None, request.FILES)
         # Check if the form is valid:
         if form.is_valid():
@@ -25,13 +26,12 @@ def ramen_create_view(request):
                         "Released": form.cleaned_data["released"], "Line": form.cleaned_data["line"], \
                         "Tags": form.cleaned_data["tags"] }
             edit = Edit(editor = user, change = metadata)
+            # Standard code to get file from request and set as edit's image
             if request.FILES:
-                            file = list(request.FILES.keys())[0]
-                            edit.image = request.FILES[file]
+                file = list(request.FILES.keys())[0]
+                edit.image = request.FILES[file]
             edit.save()
             messages.add_message(request, messages.SUCCESS, "Entry submitted successfully- please wait for moderator approval")
-            #apply_change(edit)
-            # form.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/app/')
     else:

@@ -7,9 +7,12 @@ from .edit_util import apply_change
 from rameniaapp.forms import ReviewForm
 
 def view_noodle(request, noodle_id):
+    '''View to render noodle page'''
     noodle = Noodle.objects.get(pk=noodle_id)
-   # reviews = Review.objects.filter(pk=noodle_id)
+    # Update noodle review score on load- could be area to optimize
     avg_rating = noodle.review_set.all().aggregate(Avg('rating'))["rating__avg"]
+    # If no reviews are submitted, rating is returned as None (ie null)
+    # rather than 0. This prevents that and cleans up trailing decimals.
     if not avg_rating:
         avg_rating = 0.0 
     if avg_rating > 0:

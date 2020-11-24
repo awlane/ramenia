@@ -10,6 +10,7 @@
     {% for report in reports %}
     <li class="list-group-item">
         <p> Report #{{ report.id }}:
+        {% comment %} No good way of declaring variables out of scope in template, so we create whatever the correct title/hyperlink is {% endcomment %}
         {% if report.type == "RV" %}
             {% url 'noodle' report.review.noodle.id as review_link %}
             <a href="{{review_link}}?focusReview={{report.review.id}}">{{ report.review.title }}</a>
@@ -23,7 +24,8 @@
         </p>
         <span class="badge badge-primary badge-pill">{{ report.get_reason_display }}</span>
         <span class="badge badge-primary badge-pill">{{ report.get_status_display }}</span>
-        {% comment %} TODO: Why are you like this bootstrap {% endcomment %}
+        {% comment %} Buttons are stacked for some reason, seems fine {% endcomment %}
+        {% comment %} These are done as HTML forms bc there's no way to make links POST requests in Django normally {% endcomment %}
         <div class="container-fluid">
             <div class="col-xs-1">
                 {% url 'update_report_status' report.id 'ED' as resolved_link %}
@@ -32,7 +34,8 @@
                     <input class="btn btn-success" type="submit" value="Mark Resolved">
                 </form>
             </div>
-                        
+            
+            {% comment %} Add edit route so you can manually resolve noodle vandalism {% endcomment %}
             {% if report.type == "ND" %}
                 <div class="col-xs-1">
                     {% url 'edit_ramen' report.noodle.id as edit_link %}
@@ -65,6 +68,7 @@
                     {% url 'ban_user' report.type report|get_creator   as ban_link %}
                     <form name="ban_creator" method="post" action="{{ ban_link }}">
                         {% csrf_token %}
+                        {% comment %} The on-click makes a verification message to prevent misclicks {% endcomment %}
                         <input class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" value="Ban Responsible User">
                     </form>
                 </div>

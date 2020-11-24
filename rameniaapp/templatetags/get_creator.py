@@ -4,6 +4,7 @@ from rameniaapp.models import NoodleReport, ProfileReport, ReviewReport
 register = template.Library()
 @register.filter(name='get_creator')
 def get_creator(obj):
+    '''Get the creator of a report in template'''
     if type(obj) == NoodleReport:
         if obj.noodle.editor:
             return obj.noodle.editor.id
